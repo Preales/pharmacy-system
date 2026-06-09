@@ -74,7 +74,7 @@
       <td>{{ sale.saleDate | date:'short' }}</td>
       <td>{{ sale.customerName || '—' }}</td>
       <td style="text-align:center">{{ sale.lines?.length ?? 0 }}</td>
-      <td style="text-align:right;font-weight:600">{{ sale.totalAmount | currency }}</td>
+      <td style="text-align:right;font-weight:600">{{ sale.totalAmount | currency:'COP':'symbol':'1.0-0' }}</td>
       <td>
         <p-tag
           [value]="sale.status"
@@ -124,8 +124,8 @@
                 <tr>
                   <td>{{ line.productName }}</td>
                   <td style="text-align:right">{{ line.quantity }}</td>
-                  <td style="text-align:right">{{ line.unitPrice | currency }}</td>
-                  <td style="text-align:right;font-weight:600">{{ line.subtotal | currency }}</td>
+                  <td style="text-align:right">{{ line.unitPrice | currency:'COP':'symbol':'1.0-0' }}</td>
+                  <td style="text-align:right;font-weight:600">{{ line.subtotal | currency:'COP':'symbol':'1.0-0' }}</td>
                 </tr>
               }
             </tbody>

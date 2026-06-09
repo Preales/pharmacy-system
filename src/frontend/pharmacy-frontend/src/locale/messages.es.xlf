@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Spanish (es) XLIFF translation file for pharmacy-frontend.
+
+  HOW TO ADD TRANSLATIONS:
+  1. Mark template strings with the i18n attribute:
+       <h1 i18n="@@page.title">Dashboard</h1>
+     Or use $localize in TypeScript:
+       title = $localize`:@@page.title:Dashboard`;
+  2. Run: ng extract-i18n --output-path src/locale --format xlf
+     This regenerates messages.xlf with new <trans-unit> entries.
+  3. Copy new <trans-unit> entries from messages.xlf into this file (messages.es.xlf)
+     and translate the <target> values.
+  4. Build the Spanish locale: ng build --localize
+     Or add to angular.json configurations (see angular.json "es" configuration).
+
+  The locale infrastructure (UseRequestLocalization, angular.json i18n config) is
+  already wired. Only template tagging remains as ongoing work.
+-->
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" target-language="es" datatype="plaintext" original="ng2.template">
+    <body>
+      <!--
+        Add translated <trans-unit> entries here as templates are tagged with i18n.
+        Example:
+        <trans-unit id="page.title" datatype="html">
+          <source>Dashboard</source>
+          <target>Panel de control</target>
+        </trans-unit>
+      -->
+    </body>
+  </file>
+</xliff>

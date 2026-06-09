@@ -35,7 +35,7 @@
           <div class="product-name">{{ product.name }}</div>
           <div class="product-sku text-secondary">{{ product.sku }}</div>
           <div class="product-footer">
-            <span class="product-price">{{ product.unitPrice | currency }}</span>
+            <span class="product-price">{{ product.unitPrice | currency:'COP':'symbol':'1.0-0' }}</span>
             <span
               class="stock-badge"
               [class.low]="product.stockQuantity <= 5 && product.stockQuantity > 0"
@@ -79,7 +79,7 @@
         <div class="cart-item">
           <div class="cart-item-info">
             <div class="cart-item-name">{{ item.product.name }}</div>
-            <div class="cart-item-price">{{ item.unitPrice | currency }} each</div>
+            <div class="cart-item-price">{{ item.unitPrice | currency:'COP':'symbol':'1.0-0' }} each</div>
           </div>
           <div class="cart-item-controls">
             <p-button
@@ -98,7 +98,7 @@
               (onClick)="increaseQty(item.product.id)"
             />
           </div>
-          <div class="cart-item-subtotal">{{ item.subtotal | currency }}</div>
+          <div class="cart-item-subtotal">{{ item.subtotal | currency:'COP':'symbol':'1.0-0' }}</div>
           <p-button
             icon="pi pi-trash"
             [rounded]="true"
@@ -120,7 +120,7 @@
     <div class="cart-footer">
       <div class="cart-total">
         <span>Total</span>
-        <span class="total-amount">{{ cartService.total() | currency }}</span>
+        <span class="total-amount">{{ cartService.total() | currency:'COP':'symbol':'1.0-0' }}</span>
       </div>
       <p-button
         label="Complete Sale"

@@ -1,0 +1,51 @@
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { MenuModule } from 'primeng/menu';
+import { CardModule } from 'primeng/card';
+import { MenuItem } from 'primeng/api';
+
+@Component({
+  selector: 'app-reports-shell',
+  standalone: true,
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, MenuModule, CardModule],
+  template: `
+    <div class="flex h-full">
+      <!-- Sidebar nav -->
+      <aside class="w-56 min-h-screen bg-surface-50 border-r border-surface-200 p-3">
+        <p class="text-xs font-semibold text-surface-400 uppercase tracking-wider px-2 mb-2">Reports</p>
+        <nav class="flex flex-col gap-1">
+          <a
+            routerLink="dashboard"
+            routerLinkActive="bg-primary-50 text-primary font-semibold"
+            class="flex items-center gap-2 px-3 py-2 rounded-lg text-surface-700 hover:bg-surface-100 transition-colors"
+          >
+            <i class="pi pi-chart-line text-sm"></i>
+            <span class="text-sm">Dashboard</span>
+          </a>
+          <a
+            routerLink="sales"
+            routerLinkActive="bg-primary-50 text-primary font-semibold"
+            class="flex items-center gap-2 px-3 py-2 rounded-lg text-surface-700 hover:bg-surface-100 transition-colors"
+          >
+            <i class="pi pi-chart-bar text-sm"></i>
+            <span class="text-sm">Sales Report</span>
+          </a>
+          <a
+            routerLink="inventory"
+            routerLinkActive="bg-primary-50 text-primary font-semibold"
+            class="flex items-center gap-2 px-3 py-2 rounded-lg text-surface-700 hover:bg-surface-100 transition-colors"
+          >
+            <i class="pi pi-box text-sm"></i>
+            <span class="text-sm">Inventory Report</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Content area -->
+      <main class="flex-1 overflow-auto">
+        <router-outlet />
+      </main>
+    </div>
+  `,
+})
+export class ReportsShellComponent {}

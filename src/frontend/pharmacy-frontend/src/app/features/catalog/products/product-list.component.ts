@@ -90,8 +90,8 @@ interface SelectOption { label: string; value: string; }
           <td><code>{{ product.sku }}</code></td>
           <td>{{ product.name }}</td>
           <td>{{ product.categoryName }}</td>
-          <td>{{ product.unitPrice | currency }}</td>
-          <td>{{ product.costPrice | currency }}</td>
+          <td>{{ product.unitPrice | currency:'COP':'symbol':'1.0-0' }}</td>
+          <td>{{ product.costPrice | currency:'COP':'symbol':'1.0-0' }}</td>
           <td>{{ product.unit }}</td>
           <td>
             <span [class]="product.stockQuantity < 10 ? 'stock-low' : 'stock-ok'">

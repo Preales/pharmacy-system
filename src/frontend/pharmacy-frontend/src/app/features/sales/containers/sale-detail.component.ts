@@ -114,8 +114,8 @@ import { AppRoles } from '../../../core/constants/app.constants';
               <tr>
                 <td>{{ line.productName }}</td>
                 <td style="text-align:right">{{ line.quantity }}</td>
-                <td style="text-align:right">{{ line.unitPrice | currency }}</td>
-                <td style="text-align:right;font-weight:600">{{ line.subtotal | currency }}</td>
+                <td style="text-align:right">{{ line.unitPrice | currency:'COP':'symbol':'1.0-0' }}</td>
+                <td style="text-align:right;font-weight:600">{{ line.subtotal | currency:'COP':'symbol':'1.0-0' }}</td>
               </tr>
             </ng-template>
           </p-table>
@@ -124,7 +124,7 @@ import { AppRoles } from '../../../core/constants/app.constants';
 
           <div class="receipt-total">
             <span>TOTAL</span>
-            <span class="total-value">{{ salesService.currentSale()!.totalAmount | currency }}</span>
+            <span class="total-value">{{ salesService.currentSale()!.totalAmount | currency:'COP':'symbol':'1.0-0' }}</span>
           </div>
         </div>
       </div>

@@ -87,7 +87,7 @@ interface SelectOption { label: string; value: string; }
               [minFractionDigits]="2"
               [maxFractionDigits]="2"
               mode="currency"
-              currency="USD"
+              currency="COP"
               styleClass="w-full"
               [class.ng-invalid]="isInvalid('unitCost')"
             />
