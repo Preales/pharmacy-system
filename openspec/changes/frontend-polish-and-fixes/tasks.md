@@ -36,17 +36,17 @@ Chain strategy: stacked-to-main
 
 ## Phase 2: PR 2 — Code Quality + Structure (Issues 2, 4, 5, 8)
 
-- [ ] 2.1 Create `src/app/core/constants/app.constants.ts` with `AppRoles`, `AppStatus`, and `Pagination` const objects (`as const`). Done when: file exists with the exact shape from design.
-- [ ] 2.2 Update `src/app/app.routes.ts`: replace role string literals with `AppRoles.Admin`, `AppRoles.Pharmacist` (import from `app.constants.ts`). Done when: no bare role strings remain in routes.
-- [ ] 2.3 In `src/styles.scss`: add global utility classes `.form-body`, `.field`, `.page-header`, `.actions-bar`, `.status-badge`. Done when: classes are defined globally and not redeclared in any component stylesheet.
-- [ ] 2.4 Create `src/app/core/models/shared.models.ts` with `PagedResult<T>` interface (shape from design). Done when: file exists.
-- [ ] 2.5 Delete `src/app/features/catalog/models/paged-result.model.ts`. Done when: file is removed.
-- [ ] 2.6 Update imports in 5 files: `product.service.ts`, `inventory.service.ts`, `sales.service.ts`, `pos.component.ts`, `product-list.component.ts` (if used) — change `catalog/models/paged-result.model` → `core/models/shared.models`. Done when: `ng build` passes with no missing-import errors.
-- [ ] 2.7 Update `product.service.ts`: replace hardcoded `20` with `Pagination.DefaultPageSize`. Done when: no magic `20` for page size in that file.
-- [ ] 2.8 Extract inline template from `product-form.component.ts` → new file `product-form.component.html`; switch to `templateUrl`. Done when: `template:` property removed, `templateUrl` points to new file, build passes.
-- [ ] 2.9 Extract inline template from `pos.component.ts` → `pos.component.html`; switch to `templateUrl`. Done when: same as 2.8.
-- [ ] 2.10 Extract inline template from `sales-history.component.ts` → `sales-history.component.html`; switch to `templateUrl`. Done when: same as 2.8.
-- [ ] 2.11 Extract inline template from `stock-list.component.ts` → `stock-list.component.html`; switch to `templateUrl`. Done when: same as 2.8.
+- [x] 2.1 Create `src/app/core/constants/app.constants.ts` with `AppRoles`, `AppStatus`, and `Pagination` const objects (`as const`). Done when: file exists with the exact shape from design.
+- [x] 2.2 Update `src/app/app.routes.ts`: replace role string literals with `AppRoles.Admin`, `AppRoles.Pharmacist` (import from `app.constants.ts`). Done when: no bare role strings remain in routes.
+- [x] 2.3 In `src/styles.scss`: add global utility classes `.form-body`, `.field`, `.page-header`, `.actions-bar`, `.status-badge`. Done when: classes are defined globally and not redeclared in any component stylesheet.
+- [x] 2.4 Create `src/app/core/models/shared.models.ts` with `PagedResult<T>` interface (shape from design). Done when: file exists.
+- [x] 2.5 Delete `src/app/features/catalog/models/paged-result.model.ts`. Done when: file is removed.
+- [x] 2.6 Update imports in 5 files: `product.service.ts`, `inventory.service.ts`, `sales.service.ts`, `pos.component.ts`, `product-list.component.ts` (if used) — change `catalog/models/paged-result.model` → `core/models/shared.models`. Done when: `ng build` passes with no missing-import errors.
+- [x] 2.7 Update `product.service.ts`: replace hardcoded `20` with `Pagination.DefaultPageSize`. Done when: no magic `20` for page size in that file.
+- [x] 2.8 Extract inline template from `product-form.component.ts` → new file `product-form.component.html`; switch to `templateUrl`. Done when: `template:` property removed, `templateUrl` points to new file, build passes.
+- [x] 2.9 Extract inline template from `pos.component.ts` → `pos.component.html`; switch to `templateUrl`. Done when: same as 2.8.
+- [x] 2.10 Extract inline template from `sales-history.component.ts` → `sales-history.component.html`; switch to `templateUrl`. Done when: same as 2.8.
+- [x] 2.11 Extract inline template from `stock-list.component.ts` → `stock-list.component.html`; switch to `templateUrl`. Done when: same as 2.8.
 
 ---
 

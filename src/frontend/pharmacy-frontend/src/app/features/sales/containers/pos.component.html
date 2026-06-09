@@ -1,0 +1,144 @@
+<p-toast />
+
+<!-- Offline warning banner -->
+@if (!offlineService.isOnline()) {
+  <div class="offline-banner">
+    <i class="pi pi-exclamation-triangle"></i>
+    <span>Offline mode — sale will be queued and synced when connection restores.</span>
+  </div>
+}
+
+<div class="pos-layout">
+  <!-- Left: Product Search + Grid -->
+  <div class="product-panel">
+    <div class="search-bar">
+      <span class="p-input-icon-left w-full">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          placeholder="Search products by name or SKU..."
+          [(ngModel)]="searchTerm"
+          (input)="onSearch()"
+          class="w-full"
+        />
+      </span>
+    </div>
+
+    <div class="product-grid">
+      @for (product of filteredProducts(); track product.id) {
+        <div
+          class="product-card"
+          [class.out-of-stock]="product.stockQuantity <= 0"
+          (click)="addToCart(product)"
+        >
+          <div class="product-name">{{ product.name }}</div>
+          <div class="product-sku text-secondary">{{ product.sku }}</div>
+          <div class="product-footer">
+            <span class="product-price">{{ product.unitPrice | currency }}</span>
+            <span
+              class="stock-badge"
+              [class.low]="product.stockQuantity <= 5 && product.stockQuantity > 0"
+              [class.empty]="product.stockQuantity <= 0"
+            >
+              {{ product.stockQuantity <= 0 ? 'Out of stock' : 'Stock: ' + product.stockQuantity }}
+            </span>
+          </div>
+        </div>
+      }
+      @empty {
+        <div class="empty-products">
+          <i class="pi pi-search"></i>
+          <p>No products found</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Right: Cart -->
+  <div class="cart-panel">
+    <div class="cart-header">
+      <h3>Cart</h3>
+      <span class="item-count">{{ cartService.itemCount() }} items</span>
+    </div>
+
+    <div class="customer-field">
+      <label>Customer (optional)</label>
+      <input
+        pInputText
+        type="text"
+        placeholder="Customer name"
+        [(ngModel)]="customerName"
+        (ngModelChange)="cartService.setCustomerName($event)"
+        class="w-full"
+      />
+    </div>
+
+    <div class="cart-items">
+      @for (item of cartService.items(); track item.product.id) {
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <div class="cart-item-name">{{ item.product.name }}</div>
+            <div class="cart-item-price">{{ item.unitPrice | currency }} each</div>
+          </div>
+          <div class="cart-item-controls">
+            <p-button
+              icon="pi pi-minus"
+              [rounded]="true"
+              [text]="true"
+              size="small"
+              (onClick)="decreaseQty(item.product.id)"
+            />
+            <span class="qty-display">{{ item.quantity }}</span>
+            <p-button
+              icon="pi pi-plus"
+              [rounded]="true"
+              [text]="true"
+              size="small"
+              (onClick)="increaseQty(item.product.id)"
+            />
+          </div>
+          <div class="cart-item-subtotal">{{ item.subtotal | currency }}</div>
+          <p-button
+            icon="pi pi-trash"
+            [rounded]="true"
+            [text]="true"
+            severity="danger"
+            size="small"
+            (onClick)="cartService.removeItem(item.product.id)"
+          />
+        </div>
+      }
+      @empty {
+        <div class="empty-cart">
+          <i class="pi pi-shopping-cart"></i>
+          <p>Cart is empty — click a product to add it.</p>
+        </div>
+      }
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span class="total-amount">{{ cartService.total() | currency }}</span>
+      </div>
+      <p-button
+        label="Complete Sale"
+        icon="pi pi-check"
+        class="w-full"
+        [disabled]="cartService.items().length === 0 || submitting()"
+        [loading]="submitting()"
+        (onClick)="completeSale()"
+      />
+      <p-button
+        label="Clear Cart"
+        icon="pi pi-times"
+        severity="secondary"
+        [outlined]="true"
+        class="w-full mt-2"
+        [disabled]="cartService.items().length === 0"
+        (onClick)="clearCart()"
+      />
+    </div>
+  </div>
+</div>

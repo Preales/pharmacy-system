@@ -1,0 +1,173 @@
+<p-toast />
+
+<div class="page-header">
+  <h2>Sales History</h2>
+</div>
+
+<!-- Filters -->
+<div class="filters-bar">
+  <p-datepicker
+    [(ngModel)]="dateFrom"
+    placeholder="From date"
+    dateFormat="yy-mm-dd"
+    (onSelect)="loadSales()"
+  />
+  <p-datepicker
+    [(ngModel)]="dateTo"
+    placeholder="To date"
+    dateFormat="yy-mm-dd"
+    (onSelect)="loadSales()"
+  />
+  <p-select
+    [(ngModel)]="statusFilter"
+    [options]="statusOptions"
+    placeholder="All statuses"
+    (onChange)="loadSales()"
+  />
+  <p-button
+    label="Clear Filters"
+    severity="secondary"
+    [outlined]="true"
+    icon="pi pi-times"
+    (onClick)="clearFilters()"
+  />
+</div>
+
+<!-- Sales Table -->
+<p-table
+  [value]="salesService.sales().items"
+  [loading]="salesService.loading()"
+  [rows]="pageSize"
+  [totalRecords]="salesService.sales().totalCount"
+  [lazy]="true"
+  (onLazyLoad)="onLazyLoad($event)"
+  [paginator]="true"
+  dataKey="id"
+  [expandedRowKeys]="expandedRows"
+  styleClass="p-datatable-striped p-datatable-sm"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 3rem"></th>
+      <th>Sale #</th>
+      <th>Date</th>
+      <th>Customer</th>
+      <th style="text-align:center">Lines</th>
+      <th style="text-align:right">Total</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-sale let-expanded="expanded">
+    <tr>
+      <td>
+        <p-button
+          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+          [rounded]="true"
+          [text]="true"
+          size="small"
+          (onClick)="toggleRow(sale)"
+        />
+      </td>
+      <td><code>{{ sale.saleNumber }}</code></td>
+      <td>{{ sale.saleDate | date:'short' }}</td>
+      <td>{{ sale.customerName || '—' }}</td>
+      <td style="text-align:center">{{ sale.lines?.length ?? 0 }}</td>
+      <td style="text-align:right;font-weight:600">{{ sale.totalAmount | currency }}</td>
+      <td>
+        <p-tag
+          [value]="sale.status"
+          [severity]="getStatusSeverity(sale.status)"
+        />
+      </td>
+      <td>
+        <a [routerLink]="['/sales', sale.id]">
+          <p-button
+            icon="pi pi-eye"
+            [rounded]="true"
+            [text]="true"
+            severity="info"
+            pTooltip="View Detail"
+          />
+        </a>
+        @if (isAdmin() && sale.status === 'Completed') {
+          <p-button
+            icon="pi pi-ban"
+            [rounded]="true"
+            [text]="true"
+            severity="danger"
+            pTooltip="Void Sale"
+            (onClick)="openVoidDialog(sale)"
+          />
+        }
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="rowexpansion" let-sale>
+    <tr>
+      <td colspan="8">
+        <div class="expanded-lines">
+          <strong>Sale Lines:</strong>
+          <table class="lines-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th style="text-align:right">Qty</th>
+                <th style="text-align:right">Unit Price</th>
+                <th style="text-align:right">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (line of sale.lines; track line.id) {
+                <tr>
+                  <td>{{ line.productName }}</td>
+                  <td style="text-align:right">{{ line.quantity }}</td>
+                  <td style="text-align:right">{{ line.unitPrice | currency }}</td>
+                  <td style="text-align:right;font-weight:600">{{ line.subtotal | currency }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="empty">
+    <tr>
+      <td colspan="8" class="text-center p-4">No sales found for the selected filters.</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<!-- Void Dialog -->
+<p-dialog
+  header="Void Sale"
+  [(visible)]="voidDialogVisible"
+  [modal]="true"
+  [style]="{ width: '400px' }"
+>
+  <p>Are you sure you want to void sale <strong>{{ selectedSale?.saleNumber }}</strong>?</p>
+  <p class="text-secondary text-sm">Stock will be restored. This action cannot be undone.</p>
+  <div class="form-field">
+    <label>Reason *</label>
+    <input
+      pInputText
+      type="text"
+      [(ngModel)]="voidReason"
+      placeholder="Reason for voiding"
+      class="w-full"
+    />
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancel" severity="secondary" [outlined]="true" (onClick)="voidDialogVisible = false" />
+    <p-button
+      label="Void Sale"
+      severity="danger"
+      [disabled]="!voidReason.trim()"
+      (onClick)="confirmVoid()"
+    />
+  </ng-template>
+</p-dialog>
