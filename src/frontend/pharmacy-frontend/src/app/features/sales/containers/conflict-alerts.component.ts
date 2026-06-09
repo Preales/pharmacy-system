@@ -88,7 +88,7 @@ import { AppRoles } from '../../../core/constants/app.constants';
             }
             @if (alert.isResolved) {
               <span class="resolved-by text-secondary text-sm">
-                {{ alert.resolvedBy ?? 'Admin' }}
+                {{ alert.resolvedBy ?? AppRoles.Admin }}
               </span>
             }
           </td>
@@ -126,6 +126,7 @@ export class ConflictAlertsComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly messageService = inject(MessageService);
 
+  readonly AppRoles = AppRoles;
   pageSize = 20;
   currentPage = 1;
   showUnresolvedOnly = true;
