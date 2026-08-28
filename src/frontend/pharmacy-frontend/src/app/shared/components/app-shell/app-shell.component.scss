@@ -1,0 +1,18 @@
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.shell-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.shell-content {
+  flex: 1;
+  padding: 1.5rem;
+  background: var(--surface-ground);
+  overflow: auto;
+}

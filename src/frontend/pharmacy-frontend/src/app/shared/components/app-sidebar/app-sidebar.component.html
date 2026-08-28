@@ -1,0 +1,29 @@
+<nav class="app-sidebar">
+  <div class="sidebar-header">
+    <span class="pi pi-heart sidebar-icon"></span>
+    <span class="sidebar-title">Pharmacy</span>
+  </div>
+
+  <ul class="sidebar-nav">
+    @for (link of navLinks; track link.path) {
+      <li>
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="active"
+          class="nav-item"
+        >
+          <i class="pi {{ link.icon }}"></i>
+          <span>{{ link.label }}</span>
+        </a>
+      </li>
+    }
+  </ul>
+
+  <div class="sidebar-footer">
+    <small class="user-email">{{ currentUser()?.email }}</small>
+    <button class="nav-item logout-btn" (click)="logout()">
+      <i class="pi pi-sign-out"></i>
+      <span>Logout</span>
+    </button>
+  </div>
+</nav>

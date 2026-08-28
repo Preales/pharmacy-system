@@ -44,8 +44,8 @@ export class StockListComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly messageService = inject(MessageService);
 
-  /** Exposed constants for template binding */
-  readonly pageSizeOptions = Pagination.PageSizeOptions;
+  /** Exposed constants for template binding — cast to any[] to satisfy PrimeNG rowsPerPageOptions typing (NG4) */
+  readonly pageSizeOptions: any[] = Pagination.PageSizeOptions as unknown as any[];
 
   searchTerm = '';
   pageSize = 20;

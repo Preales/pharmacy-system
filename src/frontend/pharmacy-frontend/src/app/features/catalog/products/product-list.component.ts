@@ -52,8 +52,8 @@ export class ProductListComponent implements OnInit {
   private readonly confirmService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
 
-  /** Exposed constants for template binding */
-  readonly pageSizeOptions = Pagination.PageSizeOptions;
+  /** Exposed constants for template binding — cast to any[] to satisfy PrimeNG rowsPerPageOptions typing (NG4) */
+  readonly pageSizeOptions: any[] = Pagination.PageSizeOptions as unknown as any[];
   readonly currencyCode = AppCurrency.COP;
   readonly lowStockThreshold = LowStockThreshold;
 

@@ -52,21 +52,21 @@ Chain strategy: feature-branch-chain
 
 ## Phase 3: Shared Shell + Navigation (Wave 3)
 
-- [ ] 3.1 Create `src/app/shared/components/app-sidebar/app-sidebar.component.ts` — standalone, hardcoded `NAV_LINKS`, no `@Input`
-- [ ] 3.2 Create `app-sidebar.component.html` — `routerLink` absolute paths, `routerLinkActive="active"`, logout button
-- [ ] 3.3 Create `app-sidebar.component.scss` — single source of sidebar CSS (migrate from feature shells)
-- [ ] 3.4 Create `src/app/shared/components/app-shell/app-shell.component.ts` — standalone layout host
-- [ ] 3.5 Create `app-shell.component.html` — renders `<app-sidebar />` + `<router-outlet />`
-- [ ] 3.6 Create `app-shell.component.scss` — flex layout container styles
-- [ ] 3.7 Update `src/app/app.routes.ts` — nest all authenticated routes under `AppShellComponent`; add `canActivate: [authGuard]` at shell level; remove per-feature guard declarations
-- [ ] 3.8 Confirm `roleGuard` on `/reports` inherits `data: { roles: [...] }` correctly via child route
-- [ ] 3.9 Strip sidebar markup, CSS, and `AuthService` injection from `catalog-shell.component.ts`
-- [ ] 3.10 Strip sidebar markup, CSS, and `AuthService` injection from `inventory-shell.component.ts`
-- [ ] 3.11 Strip sidebar markup/CSS from `sales-shell.component.ts`; keep `SyncStatusBarComponent` in content area
-- [ ] 3.12 Strip sidebar markup, CSS, and `AuthService` injection from `reports-shell.component.ts`
-- [ ] 3.13 Remove superseded global sidebar CSS from `src/styles.scss`
-- [ ] 3.14 Smoke test: unauthenticated access to `/catalog` redirects to `/login`
-- [ ] 3.15 Smoke test: all 4 nav links visible and navigable from every authenticated page
+- [x] 3.1 Create `src/app/shared/components/app-sidebar/app-sidebar.component.ts` — standalone, hardcoded `NAV_LINKS`, no `@Input`
+- [x] 3.2 Create `app-sidebar.component.html` — `routerLink` absolute paths, `routerLinkActive="active"`, logout button
+- [x] 3.3 Create `app-sidebar.component.scss` — single source of sidebar CSS (migrate from feature shells)
+- [x] 3.4 Create `src/app/shared/components/app-shell/app-shell.component.ts` — standalone layout host
+- [x] 3.5 Create `app-shell.component.html` — renders `<app-sidebar />` + `<router-outlet />`
+- [x] 3.6 Create `app-shell.component.scss` — flex layout container styles
+- [x] 3.7 Update `src/app/app.routes.ts` — nest all authenticated routes under `AppShellComponent`; add `canActivate: [authGuard]` at shell level; remove per-feature guard declarations
+- [x] 3.8 Confirm `roleGuard` on `/reports` inherits `data: { roles: [...] }` correctly via child route
+- [x] 3.9 Strip sidebar markup, CSS, and `AuthService` injection from `catalog-shell.component.ts`
+- [x] 3.10 Strip sidebar markup, CSS, and `AuthService` injection from `inventory-shell.component.ts`
+- [x] 3.11 Strip sidebar markup/CSS from `sales-shell.component.ts`; keep `SyncStatusBarComponent` in content area
+- [x] 3.12 Strip sidebar markup, CSS, and `AuthService` injection from `reports-shell.component.ts`
+- [x] 3.13 Remove superseded global sidebar CSS from `src/styles.scss`
+- [x] 3.14 Smoke test: unauthenticated access to `/catalog` redirects to `/login`
+- [x] 3.15 Smoke test: all 4 nav links visible and navigable from every authenticated page
 
 ## Phase 4: i18n Tagging + Translations (Wave 4)
 

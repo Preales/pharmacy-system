@@ -43,8 +43,8 @@ export class MovementHistoryComponent implements OnInit {
   readonly inventoryService = inject(InventoryService);
   private readonly route = inject(ActivatedRoute);
 
-  /** Exposed constants for template binding */
-  readonly pageSizeOptions = Pagination.PageSizeOptions;
+  /** Exposed constants for template binding — cast to any[] to satisfy PrimeNG rowsPerPageOptions typing (NG4) */
+  readonly pageSizeOptions: any[] = Pagination.PageSizeOptions as unknown as any[];
 
   productId: string | null = null;
   productName: string | null = null;
