@@ -11,5 +11,11 @@ export const AppStatus = {
 
 export const Pagination = {
   DefaultPageSize: 20,
-  PageSizeOptions: [10, 20, 50],
+  PageSizeOptions: [10, 25, 50],
 } as const;
+
+export const AppCurrency = {
+  COP: 'COP',
+} as const;
+
+export const LowStockThreshold = 10 as const;

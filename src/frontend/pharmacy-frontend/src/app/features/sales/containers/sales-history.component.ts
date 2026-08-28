@@ -14,7 +14,7 @@ import { MessageService } from 'primeng/api';
 import { SalesService } from '../services/sales.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Sale, SaleStatus, SaleFilter, VoidSaleRequest } from '../models/sale.model';
-import { AppRoles } from '../../../core/constants/app.constants';
+import { AppRoles, AppCurrency } from '../../../core/constants/app.constants';
 
 @Component({
   selector: 'app-sales-history',
@@ -57,6 +57,9 @@ export class SalesHistoryComponent implements OnInit {
   readonly salesService = inject(SalesService);
   private readonly authService = inject(AuthService);
   private readonly messageService = inject(MessageService);
+
+  /** Exposed constants for template binding */
+  readonly currencyCode = AppCurrency.COP;
 
   pageSize = 20;
   currentPage = 1;

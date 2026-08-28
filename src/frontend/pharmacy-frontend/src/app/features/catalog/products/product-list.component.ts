@@ -15,6 +15,7 @@ import { ProductService } from '../services/product.service';
 import { CategoryService } from '../services/category.service';
 import { SupplierService } from '../services/supplier.service';
 import { ProductFormComponent } from './product-form.component';
+import { AppCurrency, LowStockThreshold, Pagination } from '../../../core/constants/app.constants';
 
 interface SelectOption { label: string; value: string; }
 
@@ -68,7 +69,7 @@ interface SelectOption { label: string; value: string; }
       (onPage)="onPage($event)"
       [showCurrentPageReport]="true"
       currentPageReportTemplate="{first}–{last} of {totalRecords}"
-      [rowsPerPageOptions]="[10, 20, 50]"
+      [rowsPerPageOptions]="pageSizeOptions"
       styleClass="p-datatable-striped"
     >
       <ng-template pTemplate="header">
@@ -90,11 +91,11 @@ interface SelectOption { label: string; value: string; }
           <td><code>{{ product.sku }}</code></td>
           <td>{{ product.name }}</td>
           <td>{{ product.categoryName }}</td>
-          <td>{{ product.unitPrice | currency:'COP':'symbol':'1.0-0' }}</td>
-          <td>{{ product.costPrice | currency:'COP':'symbol':'1.0-0' }}</td>
+          <td>{{ product.unitPrice | currency:currencyCode:'symbol':'1.0-0' }}</td>
+          <td>{{ product.costPrice | currency:currencyCode:'symbol':'1.0-0' }}</td>
           <td>{{ product.unit }}</td>
           <td>
-            <span [class]="product.stockQuantity < 10 ? 'stock-low' : 'stock-ok'">
+            <span [class]="product.stockQuantity < lowStockThreshold ? 'stock-low' : 'stock-ok'">
               {{ product.stockQuantity }}
             </span>
           </td>
@@ -134,6 +135,11 @@ export class ProductListComponent implements OnInit {
   private readonly supplierService = inject(SupplierService);
   private readonly confirmService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
+
+  /** Exposed constants for template binding */
+  readonly pageSizeOptions = Pagination.PageSizeOptions;
+  readonly currencyCode = AppCurrency.COP;
+  readonly lowStockThreshold = LowStockThreshold;
 
   formVisible = false;
   searchTerm = '';
