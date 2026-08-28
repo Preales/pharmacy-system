@@ -1,0 +1,73 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Tech stack: .NET 10 backend + Angular 19 frontend. Multi-tenant pharmacy
+    management system (modular monolith, Clean Architecture, DDD, CQRS via
+    MediatR, EF Core 10, SQL Server). Frontend uses Angular 19 standalone
+    components, signals, PrimeNG Material theme, Dexie.js for offline IndexedDB.
+    Deployment: Docker Compose (SQL Server + API + nginx-served frontend).
+  Architecture: modular-monolith with Clean Architecture (4 projects: Domain /
+    Application / Infrastructure / API). Bounded contexts: Identity/Auth,
+    Catalog, Inventory, Sales (+ Reports, Cross-cutting). Multi-tenancy via
+    EF Core global query filters + X-Tenant-Id header. CQRS via MediatR.
+    Manual DTO mapping (extension methods — no AutoMapper/Mapster).
+    Result pattern (custom Result<T>). Offline: Dexie.js queue + auto-sync.
+  Testing: none (manual verification only). No automated test runner configured.
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    - Follow existing code patterns
+    - No AutoMapper or Mapster — use manual extension method mapping only
+    - Single source of truth for stock is InventoryItem.CurrentStock
+    - EF owned entities must be excluded from global query filter (IsOwned() guard)
+    tdd: false
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: "dotnet build src/backend/PharmacySystem.sln"
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas
+
+testing:
+  strict_tdd: false
+  runner: none
+  reason: "Manual verification only. No automated test runner configured. Unit/integration tests are deferred to v2."
+
+  layers:
+    unit:
+      available: false
+      tool: "xUnit (planned for v2)"
+    integration:
+      available: false
+      tool: "WebApplicationFactory + Testcontainers (planned for v2)"
+    e2e:
+      available: false
+      tool: "Playwright (planned for v2)"
+
+  coverage:
+    available: false
+    command: "--"
+
+  quality:
+    linter:
+      available: false
+      command: "--"
+    type_checker:
+      available: false
+      command: "dotnet build (implicit)"
+    formatter:
+      available: false
+      command: "--"

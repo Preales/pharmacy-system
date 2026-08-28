@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+
+  <!-- Common -->
+  <data name="ValidationFailed"><value>One or more validation errors occurred.</value></data>
+  <data name="FieldRequired"><value>'{0}' is required.</value></data>
+  <data name="FieldMaxLength"><value>'{0}' must not exceed {1} characters.</value></data>
+  <data name="FieldMinLength"><value>'{0}' must be at least {1} characters.</value></data>
+  <data name="FieldInvalidFormat"><value>'{0}' has an invalid format.</value></data>
+  <data name="FieldMustBePositive"><value>'{0}' must be greater than zero.</value></data>
+  <data name="FieldMustBeNonNegative"><value>'{0}' must be zero or greater.</value></data>
+  <data name="FieldInvalidEmail"><value>'{0}' must be a valid email address.</value></data>
+
+  <!-- Auth -->
+  <data name="Auth.EmailRequired"><value>Email is required.</value></data>
+  <data name="Auth.PasswordRequired"><value>Password is required.</value></data>
+  <data name="Auth.PasswordMinLength"><value>Password must be at least 8 characters.</value></data>
+  <data name="Auth.FirstNameRequired"><value>First name is required.</value></data>
+  <data name="Auth.LastNameRequired"><value>Last name is required.</value></data>
+  <data name="Auth.TenantNameRequired"><value>Tenant name is required.</value></data>
+  <data name="Auth.TenantSlugRequired"><value>Tenant slug is required.</value></data>
+  <data name="Auth.RefreshTokenRequired"><value>Refresh token is required.</value></data>
+
+  <!-- Catalog -->
+  <data name="Catalog.ProductNameRequired"><value>Product name is required.</value></data>
+  <data name="Catalog.SkuRequired"><value>SKU is required.</value></data>
+  <data name="Catalog.SkuMaxLength"><value>SKU must not exceed 50 characters.</value></data>
+  <data name="Catalog.PriceMustBePositive"><value>Price must be greater than zero.</value></data>
+  <data name="Catalog.CategoryIdRequired"><value>Category is required.</value></data>
+  <data name="Catalog.CategoryNameRequired"><value>Category name is required.</value></data>
+  <data name="Catalog.SupplierNameRequired"><value>Supplier name is required.</value></data>
+
+  <!-- Inventory -->
+  <data name="Inventory.ProductIdRequired"><value>Product is required.</value></data>
+  <data name="Inventory.QuantityMustBePositive"><value>Ingress quantity must be positive.</value></data>
+  <data name="Inventory.AdjustmentQuantityNonZero"><value>Adjustment quantity cannot be zero.</value></data>
+  <data name="Inventory.ReasonRequired"><value>Reason is required for adjustments.</value></data>
+
+  <!-- Sales -->
+  <data name="Sales.LinesRequired"><value>A sale must have at least one line item.</value></data>
+  <data name="Sales.LineProductRequired"><value>Product is required for each sale line.</value></data>
+  <data name="Sales.LineQuantityMustBePositive"><value>Quantity must be greater than zero.</value></data>
+  <data name="Sales.VoidReasonRequired"><value>A void reason is required.</value></data>
+  <data name="Sales.VoidReasonMaxLength"><value>Void reason must not exceed 500 characters.</value></data>
+</root>

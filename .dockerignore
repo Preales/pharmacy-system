@@ -1,0 +1,21 @@
+# Node
+**/node_modules
+**/dist
+**/.angular
+**/.cache
+**/npm-debug.log*
+
+# .NET
+**/bin
+**/obj
+**/.vs
+
+# Git
+.git
+.gitignore
+
+# Misc
+**/*.md
+**/Dockerfile*
+docker-compose*.yml
+.dockerignore

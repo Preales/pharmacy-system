@@ -1,15 +1,17 @@
 using System.Globalization;
 using System.Threading.RateLimiting;
+
 using Asp.Versioning;
+
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.OpenApi;
+
 using PharmacySystem.Api.Middleware;
 using PharmacySystem.Application;
 using PharmacySystem.Infrastructure;
-using PharmacySystem.Infrastructure.Persistence;
 using PharmacySystem.Infrastructure.Persistence.Seed;
-using Serilog;
 
+using Serilog;
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -97,7 +99,7 @@ try
     var supportedCultures = new[] { "en", "es" };
     builder.Services.Configure<RequestLocalizationOptions>(opts =>
     {
-        opts.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en");
+        opts.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("es");
         opts.SupportedCultures = supportedCultures.Select(c => new CultureInfo(c)).ToList();
         opts.SupportedUICultures = supportedCultures.Select(c => new CultureInfo(c)).ToList();
         opts.RequestCultureProviders =

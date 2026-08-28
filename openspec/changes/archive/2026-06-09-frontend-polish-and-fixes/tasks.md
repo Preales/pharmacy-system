@@ -52,7 +52,7 @@ Chain strategy: stacked-to-main
 
 ## Phase 3: PR 3 — Data / Cleanup / Dependencies (Issues 6, 7, 9)
 
-- [ ] 3.1 Delete `src/locale/messages.es.json` and `src/locale/messages.en.json`. Verify `src/locale/messages.es.xlf` is NOT deleted (`angular.json` references it). Done when: `.json` files absent, `.xlf` file present, `ng build` passes.
-- [ ] 3.2 Update currency pipes in `pos.component.html` (3 occurrences), `sales-history.component.html` (3 occurrences), and `sale-detail.component.ts`: change `| currency` → `| currency:'COP'`. Done when: no USD symbol appears in POS or sales history views.
-- [ ] 3.3 Update `product-form.component.html` and `ingress-form.component.ts`: set `currency="COP"` on `p-inputNumber` controls (2 in product form, 1 in ingress form). Done when: price inputs format in COP.
-- [ ] 3.4 In `package.json`: add `"overrides": { "glob": "^10.4.5" }` at root level. Run `npm install`. Done when: `npm audit` reports no `glob@7.x` vulnerability and `ng build` succeeds.
+- [x] 3.1 Delete `src/locale/messages.es.json` and `src/locale/messages.en.json`. Verify `src/locale/messages.es.xlf` is NOT deleted (`angular.json` references it). Done when: `.json` files absent, `.xlf` file present, `ng build` passes.
+- [x] 3.2 Update currency pipes in `pos.component.html` (4 occurrences), `sales-history.component.html` (3 occurrences), `sale-detail.component.ts` (3 occurrences), and `product-list.component.ts` (2 occurrences): change `| currency` → `| currency:'COP':'symbol':'1.0-0'`. Done when: no USD symbol appears in POS or sales history views.
+- [x] 3.3 Update `product-form.component.html` and `ingress-form.component.ts`: set `currency="COP"` on `p-inputNumber` controls (2 in product form, 1 in ingress form). Done when: price inputs format in COP.
+- [x] 3.4 In `package.json`: add `"overrides": { "glob": "^10.4.5" }` at root level. Run `npm install`. Done when: `npm audit` reports no `glob@7.x` vulnerability and `ng build` succeeds.

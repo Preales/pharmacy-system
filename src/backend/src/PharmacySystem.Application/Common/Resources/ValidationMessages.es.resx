@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+
+  <!-- Common -->
+  <data name="ValidationFailed"><value>Se produjeron uno o más errores de validación.</value></data>
+  <data name="FieldRequired"><value>'{0}' es obligatorio.</value></data>
+  <data name="FieldMaxLength"><value>'{0}' no puede superar {1} caracteres.</value></data>
+  <data name="FieldMinLength"><value>'{0}' debe tener al menos {1} caracteres.</value></data>
+  <data name="FieldInvalidFormat"><value>'{0}' tiene un formato inválido.</value></data>
+  <data name="FieldMustBePositive"><value>'{0}' debe ser mayor que cero.</value></data>
+  <data name="FieldMustBeNonNegative"><value>'{0}' debe ser cero o mayor.</value></data>
+  <data name="FieldInvalidEmail"><value>'{0}' debe ser una dirección de correo válida.</value></data>
+
+  <!-- Auth -->
+  <data name="Auth.EmailRequired"><value>El correo electrónico es obligatorio.</value></data>
+  <data name="Auth.PasswordRequired"><value>La contraseña es obligatoria.</value></data>
+  <data name="Auth.PasswordMinLength"><value>La contraseña debe tener al menos 8 caracteres.</value></data>
+  <data name="Auth.FirstNameRequired"><value>El nombre es obligatorio.</value></data>
+  <data name="Auth.LastNameRequired"><value>El apellido es obligatorio.</value></data>
+  <data name="Auth.TenantNameRequired"><value>El nombre del tenant es obligatorio.</value></data>
+  <data name="Auth.TenantSlugRequired"><value>El slug del tenant es obligatorio.</value></data>
+  <data name="Auth.RefreshTokenRequired"><value>El refresh token es obligatorio.</value></data>
+
+  <!-- Catalog -->
+  <data name="Catalog.ProductNameRequired"><value>El nombre del producto es obligatorio.</value></data>
+  <data name="Catalog.SkuRequired"><value>El SKU es obligatorio.</value></data>
+  <data name="Catalog.SkuMaxLength"><value>El SKU no puede superar 50 caracteres.</value></data>
+  <data name="Catalog.PriceMustBePositive"><value>El precio debe ser mayor que cero.</value></data>
+  <data name="Catalog.CategoryIdRequired"><value>La categoría es obligatoria.</value></data>
+  <data name="Catalog.CategoryNameRequired"><value>El nombre de la categoría es obligatorio.</value></data>
+  <data name="Catalog.SupplierNameRequired"><value>El nombre del proveedor es obligatorio.</value></data>
+
+  <!-- Inventory -->
+  <data name="Inventory.ProductIdRequired"><value>El producto es obligatorio.</value></data>
+  <data name="Inventory.QuantityMustBePositive"><value>La cantidad de ingreso debe ser positiva.</value></data>
+  <data name="Inventory.AdjustmentQuantityNonZero"><value>La cantidad de ajuste no puede ser cero.</value></data>
+  <data name="Inventory.ReasonRequired"><value>El motivo es obligatorio para los ajustes.</value></data>
+
+  <!-- Sales -->
+  <data name="Sales.LinesRequired"><value>La venta debe tener al menos una línea.</value></data>
+  <data name="Sales.LineProductRequired"><value>El producto es obligatorio en cada línea.</value></data>
+  <data name="Sales.LineQuantityMustBePositive"><value>La cantidad debe ser mayor que cero.</value></data>
+  <data name="Sales.VoidReasonRequired"><value>El motivo de anulación es obligatorio.</value></data>
+  <data name="Sales.VoidReasonMaxLength"><value>El motivo no puede superar 500 caracteres.</value></data>
+</root>

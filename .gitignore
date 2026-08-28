@@ -1,0 +1,34 @@
+# Editor & AI agent tooling (local only)
+.config/
+.atl/
+.kiro/
+.copilot/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+TestResults/
+
+# Frontend build
+dist/
+.angular/
+
+# Environment / secrets
+*.env
+appsettings.*.json
+!appsettings.json
+!appsettings.Development.json
+
+# Docker (local overrides)
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
