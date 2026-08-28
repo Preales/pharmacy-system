@@ -18,6 +18,7 @@ import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import { InventoryService } from '../services/inventory.service';
 import { ProductService } from '../../catalog/services/product.service';
+import { AppCurrency } from '../../../core/constants/app.constants';
 import { SupplierService } from '../../catalog/services/supplier.service';
 import { Product } from '../../catalog/models/product.model';
 import { Supplier } from '../../catalog/models/supplier.model';
@@ -47,6 +48,7 @@ interface SelectOption { label: string; value: string; }
   `,
 })
 export class IngressFormComponent implements OnInit, OnChanges {
+  readonly currencyCode = AppCurrency.COP;
   @Input() visible = false;
   @Input() preselectedProductId: string | null = null;
   @Output() visibleChange = new EventEmitter<boolean>();

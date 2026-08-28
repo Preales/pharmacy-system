@@ -18,6 +18,7 @@ import { SelectModule } from 'primeng/select';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TextareaModule } from 'primeng/textarea';
 import { Product, CreateProductRequest, UpdateProductRequest, ProductUnit } from '../models/product.model';
+import { AppCurrency } from '../../../core/constants/app.constants';
 import { Category } from '../models/category.model';
 import { Supplier } from '../models/supplier.model';
 import { ProductService } from '../services/product.service';
@@ -57,6 +58,7 @@ const UNIT_OPTIONS: SelectOption[] = [
   `,
 })
 export class ProductFormComponent implements OnInit, OnChanges {
+  readonly currencyCode = AppCurrency.COP;
   @Input() visible = false;
   @Input() editTarget: Product | null = null;
   @Output() visibleChange = new EventEmitter<boolean>();

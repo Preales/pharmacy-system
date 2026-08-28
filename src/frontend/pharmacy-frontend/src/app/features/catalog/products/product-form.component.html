@@ -29,12 +29,12 @@
     <div class="form-row">
       <div class="field">
         <label for="pUnitPrice" i18n="@@productForm.unitPriceLabel">Unit Price *</label>
-        <p-inputNumber inputId="pUnitPrice" formControlName="unitPrice" [minFractionDigits]="2" [maxFractionDigits]="2" mode="currency" currency="COP" styleClass="w-full" />
+        <p-inputNumber inputId="pUnitPrice" formControlName="unitPrice" [minFractionDigits]="2" [maxFractionDigits]="2" mode="currency" [currency]="currencyCode" styleClass="w-full" />
         @if (isInvalid('unitPrice')) { <small i18n="@@productForm.unitPriceRequired" class="p-error">Unit price is required.</small> }
       </div>
       <div class="field">
         <label for="pCostPrice" i18n="@@productForm.costPriceLabel">Cost Price *</label>
-        <p-inputNumber inputId="pCostPrice" formControlName="costPrice" [minFractionDigits]="2" [maxFractionDigits]="2" mode="currency" currency="COP" styleClass="w-full" />
+        <p-inputNumber inputId="pCostPrice" formControlName="costPrice" [minFractionDigits]="2" [maxFractionDigits]="2" mode="currency" [currency]="currencyCode" styleClass="w-full" />
         @if (isInvalid('costPrice')) { <small i18n="@@productForm.costPriceRequired" class="p-error">Cost price is required.</small> }
       </div>
     </div>

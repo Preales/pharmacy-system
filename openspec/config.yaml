@@ -13,7 +13,8 @@ context: |
     EF Core global query filters + X-Tenant-Id header. CQRS via MediatR.
     Manual DTO mapping (extension methods — no AutoMapper/Mapster).
     Result pattern (custom Result<T>). Offline: Dexie.js queue + auto-sync.
-  Testing: none (manual verification only). No automated test runner configured.
+  Testing: Angular 19 frontend uses Karma 6 + Jasmine 5 (ng test, coverage via
+    karma-coverage). Backend: no automated tests — xUnit/Testcontainers planned v2.
 
 rules:
   proposal:
@@ -43,13 +44,15 @@ rules:
 
 testing:
   strict_tdd: false
-  runner: none
-  reason: "Manual verification only. No automated test runner configured. Unit/integration tests are deferred to v2."
+  runner: karma
+  reason: "Frontend: Karma 6 + Jasmine 5 via Angular CLI (ng test). Backend: no automated tests — manual verification only. xUnit/Testcontainers planned for v2."
 
   layers:
     unit:
-      available: false
-      tool: "xUnit (planned for v2)"
+      available: true
+      tool: "Karma + Jasmine (Angular frontend only)"
+      command: "ng test"
+      workdir: "src/frontend/pharmacy-frontend"
     integration:
       available: false
       tool: "WebApplicationFactory + Testcontainers (planned for v2)"
@@ -58,16 +61,19 @@ testing:
       tool: "Playwright (planned for v2)"
 
   coverage:
-    available: false
-    command: "--"
+    available: true
+    command: "ng test --code-coverage"
+    workdir: "src/frontend/pharmacy-frontend"
+    note: "karma-coverage installed; backend coverage not configured"
 
   quality:
     linter:
       available: false
       command: "--"
+      note: "No ESLint or Angular lint config detected"
     type_checker:
-      available: false
-      command: "dotnet build (implicit)"
+      available: true
+      command: "ng build (frontend) / dotnet build src/backend/PharmacySystem.sln (backend)"
     formatter:
       available: false
       command: "--"
