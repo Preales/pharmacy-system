@@ -9,6 +9,7 @@ import { SelectModule } from 'primeng/select';
 import { CalendarModule } from 'primeng/calendar';
 import { InventoryService } from '../services/inventory.service';
 import { MovementType } from '../models/inventory-item.model';
+import { Pagination } from '../../../core/constants/app.constants';
 
 interface SelectOption { label: string; value: string | null; }
 
@@ -63,7 +64,7 @@ interface SelectOption { label: string; value: string | null; }
       (onPage)="onPage($event)"
       [showCurrentPageReport]="true"
       currentPageReportTemplate="{first}–{last} of {totalRecords}"
-      [rowsPerPageOptions]="[10, 20, 50]"
+      [rowsPerPageOptions]="pageSizeOptions"
       styleClass="p-datatable-striped p-datatable-sm"
     >
       <ng-template pTemplate="header">
@@ -121,6 +122,9 @@ interface SelectOption { label: string; value: string | null; }
 export class MovementHistoryComponent implements OnInit {
   readonly inventoryService = inject(InventoryService);
   private readonly route = inject(ActivatedRoute);
+
+  /** Exposed constants for template binding */
+  readonly pageSizeOptions = Pagination.PageSizeOptions;
 
   productId: string | null = null;
   productName: string | null = null;
