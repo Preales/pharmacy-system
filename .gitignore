@@ -3,6 +3,7 @@
 .atl/
 .kiro/
 .copilot/
+.opencode/
 
 # Node
 node_modules/
