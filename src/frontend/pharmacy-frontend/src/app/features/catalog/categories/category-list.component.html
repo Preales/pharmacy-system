@@ -2,8 +2,8 @@
 <p-confirmDialog />
 
 <div class="page-header">
-  <h2>Categories</h2>
-  <p-button label="New Category" icon="pi pi-plus" (onClick)="openCreate()" />
+  <h2 i18n="@@categories.pageTitle">Categories</h2>
+  <p-button label="New Category" i18n-label="@@categories.newBtn" icon="pi pi-plus" (onClick)="openCreate()" />
 </div>
 
 <div class="search-bar">
@@ -13,6 +13,7 @@
       pInputText
       [(ngModel)]="searchTerm"
       placeholder="Search categories..."
+      i18n-placeholder="@@categories.searchPlaceholder"
       class="w-full"
     />
   </span>
@@ -25,15 +26,16 @@
   [rows]="10"
   [showCurrentPageReport]="true"
   currentPageReportTemplate="{first}–{last} of {totalRecords}"
+  i18n-currentPageReportTemplate="@@table.pageReport"
   [rowsPerPageOptions]="[10, 25, 50]"
   styleClass="p-datatable-striped"
 >
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
-      <th>Description</th>
-      <th pSortableColumn="isActive">Status <p-sortIcon field="isActive" /></th>
-      <th style="width: 120px">Actions</th>
+      <th pSortableColumn="name" i18n="@@categories.col.name">Name <p-sortIcon field="name" /></th>
+      <th i18n="@@categories.col.description">Description</th>
+      <th pSortableColumn="isActive" i18n="@@categories.col.status">Status <p-sortIcon field="isActive" /></th>
+      <th i18n="@@categories.col.actions" style="width: 120px">Actions</th>
     </tr>
   </ng-template>
 
@@ -55,7 +57,7 @@
   </ng-template>
 
   <ng-template pTemplate="empty">
-    <tr><td colspan="4" class="text-center p-4">No categories found.</td></tr>
+    <tr><td colspan="4" i18n="@@categories.empty" class="text-center p-4">No categories found.</td></tr>
   </ng-template>
 </p-table>
 

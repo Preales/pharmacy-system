@@ -2,10 +2,10 @@
 
 <div class="page-header">
   <div>
-    <h2>Low Stock Alerts</h2>
-    <small class="text-secondary">{{ inventoryService.lowStockItems().length }} product(s) require attention</small>
+    <h2 i18n="@@lowStock.pageTitle">Low Stock Alerts</h2>
+    <small i18n="@@lowStock.subtitle" class="text-secondary">{{ inventoryService.lowStockItems().length }} product(s) require attention</small>
   </div>
-  <p-button label="Refresh" icon="pi pi-refresh" severity="secondary" [text]="true" (onClick)="refresh()" />
+  <p-button label="Refresh" i18n-label="@@lowStock.refreshBtn" icon="pi pi-refresh" severity="secondary" [text]="true" (onClick)="refresh()" />
 </div>
 
 <p-table
@@ -15,15 +15,15 @@
 >
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="productName">Product <p-sortIcon field="productName" /></th>
-      <th>SKU</th>
-      <th>Category</th>
-      <th style="text-align:right" pSortableColumn="currentStock">
+      <th pSortableColumn="productName" i18n="@@lowStock.col.product">Product <p-sortIcon field="productName" /></th>
+      <th i18n="@@lowStock.col.sku">SKU</th>
+      <th i18n="@@lowStock.col.category">Category</th>
+      <th i18n="@@lowStock.col.currentStock" style="text-align:right" pSortableColumn="currentStock">
         Current Stock <p-sortIcon field="currentStock" />
       </th>
-      <th style="text-align:right">Threshold</th>
-      <th>Status</th>
-      <th>Actions</th>
+      <th i18n="@@lowStock.col.threshold" style="text-align:right">Threshold</th>
+      <th i18n="@@lowStock.col.status">Status</th>
+      <th i18n="@@lowStock.col.actions">Actions</th>
     </tr>
   </ng-template>
 
@@ -49,6 +49,7 @@
           [text]="true"
           severity="success"
           pTooltip="Record Ingress"
+          i18n-pTooltip="@@invDashboard.recordIngressTooltip"
           (onClick)="openIngress(item)"
         />
         <p-button
@@ -57,6 +58,7 @@
           [text]="true"
           severity="info"
           pTooltip="View Movements"
+          i18n-pTooltip="@@stockList.viewMovementsTooltip"
           (onClick)="viewMovements(item)"
         />
       </td>
@@ -67,7 +69,7 @@
     <tr>
       <td colspan="7" class="text-center p-4">
         <i class="pi pi-check-circle text-green-500" style="font-size: 1.5rem"></i>
-        <p>All products are adequately stocked.</p>
+        <p i18n="@@lowStock.allStockedMsg">All products are adequately stocked.</p>
       </td>
     </tr>
   </ng-template>

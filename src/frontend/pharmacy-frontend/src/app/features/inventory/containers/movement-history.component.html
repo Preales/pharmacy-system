@@ -1,9 +1,9 @@
 <div class="page-header">
   <div>
-    <h2>Movement History</h2>
+    <h2 i18n="@@movements.pageTitle">Movement History</h2>
     <small *ngIf="productName" class="text-secondary">{{ productName }}</small>
   </div>
-  <p-button label="Back to Stock" icon="pi pi-arrow-left" severity="secondary" [text]="true" routerLink="../stock" />
+  <p-button label="Back to Stock" i18n-label="@@movements.backToStockBtn" icon="pi pi-arrow-left" severity="secondary" [text]="true" routerLink="../stock" />
 </div>
 
 <div class="filter-bar" *ngIf="productId">
@@ -13,6 +13,7 @@
     optionLabel="label"
     optionValue="value"
     placeholder="All Types"
+    i18n-placeholder="@@movements.allTypesPlaceholder"
     [showClear]="true"
     (ngModelChange)="applyFilter()"
     styleClass="filter-select"
@@ -21,7 +22,7 @@
 
 <div *ngIf="!productId" class="empty-state">
   <i class="pi pi-info-circle text-blue-400" style="font-size: 2rem"></i>
-  <p>Select a product from the <a routerLink="../stock">Stock List</a> to view its movement history.</p>
+  <p i18n="@@movements.selectProductMsg">Select a product from the <a routerLink="../stock">Stock List</a> to view its movement history.</p>
 </div>
 
 <p-table
@@ -35,17 +36,18 @@
   (onPage)="onPage($event)"
   [showCurrentPageReport]="true"
   currentPageReportTemplate="{first}–{last} of {totalRecords}"
+  i18n-currentPageReportTemplate="@@table.pageReport"
   [rowsPerPageOptions]="pageSizeOptions"
   styleClass="p-datatable-striped p-datatable-sm"
 >
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="timestamp">Date <p-sortIcon field="timestamp" /></th>
-      <th>Type</th>
-      <th style="text-align:right">Quantity</th>
-      <th>Batch / Supplier</th>
-      <th>Reason</th>
-      <th>User</th>
+      <th pSortableColumn="timestamp" i18n="@@movements.col.date">Date <p-sortIcon field="timestamp" /></th>
+      <th i18n="@@movements.col.type">Type</th>
+      <th i18n="@@movements.col.quantity" style="text-align:right">Quantity</th>
+      <th i18n="@@movements.col.batchSupplier">Batch / Supplier</th>
+      <th i18n="@@movements.col.reason">Reason</th>
+      <th i18n="@@movements.col.user">User</th>
     </tr>
   </ng-template>
 
@@ -73,7 +75,7 @@
 
   <ng-template pTemplate="empty">
     <tr>
-      <td colspan="6" class="text-center p-4">No movements found for this product.</td>
+      <td colspan="6" i18n="@@movements.empty" class="text-center p-4">No movements found for this product.</td>
     </tr>
   </ng-template>
 </p-table>

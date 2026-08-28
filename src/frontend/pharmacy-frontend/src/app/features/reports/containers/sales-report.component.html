@@ -1,16 +1,16 @@
 <div class="p-4 flex flex-col gap-4">
   <!-- Date range filter -->
-  <p-card header="Sales Report">
+  <p-card header="Sales Report" i18n-header="@@salesReport.cardHeader">
     <div class="flex gap-3 align-items-end flex-wrap">
       <div class="flex flex-col gap-1">
-        <label class="text-sm text-surface-600">From</label>
+        <label i18n="@@salesReport.fromLabel" class="text-sm text-surface-600">From</label>
         <p-datepicker [(ngModel)]="dateFrom" dateFormat="yy-mm-dd" [showIcon]="true" />
       </div>
       <div class="flex flex-col gap-1">
-        <label class="text-sm text-surface-600">To</label>
+        <label i18n="@@salesReport.toLabel" class="text-sm text-surface-600">To</label>
         <p-datepicker [(ngModel)]="dateTo" dateFormat="yy-mm-dd" [showIcon]="true" />
       </div>
-      <p-button label="Load Report" icon="pi pi-chart-bar" (onClick)="load()" />
+      <p-button label="Load Report" i18n-label="@@salesReport.loadBtn" icon="pi pi-chart-bar" (onClick)="load()" />
     </div>
   </p-card>
 
@@ -23,39 +23,39 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <p-card>
         <div class="text-center">
-          <p class="text-surface-500 text-sm m-0">Total Sales</p>
+          <p i18n="@@salesReport.totalSales" class="text-surface-500 text-sm m-0">Total Sales</p>
           <p class="text-3xl font-bold text-primary m-0">{{ report()!.totalSales }}</p>
         </div>
       </p-card>
       <p-card>
         <div class="text-center">
-          <p class="text-surface-500 text-sm m-0">Total Revenue</p>
+          <p i18n="@@salesReport.totalRevenue" class="text-surface-500 text-sm m-0">Total Revenue</p>
           <p class="text-3xl font-bold text-green-500 m-0">{{ report()!.totalRevenue | number:'1.2-2' }}</p>
         </div>
       </p-card>
       <p-card>
         <div class="text-center">
-          <p class="text-surface-500 text-sm m-0">Average Ticket</p>
+          <p i18n="@@salesReport.avgTicket" class="text-surface-500 text-sm m-0">Average Ticket</p>
           <p class="text-3xl font-bold text-blue-500 m-0">{{ report()!.averageTicket | number:'1.2-2' }}</p>
         </div>
       </p-card>
     </div>
 
     <!-- Daily sales chart -->
-    <p-card header="Daily Sales">
+    <p-card header="Daily Sales" i18n-header="@@salesReport.dailySalesHeader">
       @if (chartData()) {
         <p-chart type="bar" [data]="chartData()!" [options]="chartOptions" height="300px" />
       }
     </p-card>
 
     <!-- Top products -->
-    <p-card header="Top Products">
+    <p-card header="Top Products" i18n-header="@@salesReport.topProductsHeader">
       <p-table [value]="report()!.topProducts" styleClass="p-datatable-sm">
         <ng-template pTemplate="header">
           <tr>
-            <th>Product</th>
-            <th class="text-right">Qty Sold</th>
-            <th class="text-right">Revenue</th>
+            <th i18n="@@repDashboard.col.product">Product</th>
+            <th i18n="@@repDashboard.col.qtySold" class="text-right">Qty Sold</th>
+            <th i18n="@@repDashboard.col.revenue" class="text-right">Revenue</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-p>
@@ -66,7 +66,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
-          <tr><td colspan="3" class="text-center text-surface-400 p-4">No data</td></tr>
+          <tr><td colspan="3" i18n="@@salesReport.noData" class="text-center text-surface-400 p-4">No data</td></tr>
         </ng-template>
       </p-table>
     </p-card>

@@ -7,18 +7,18 @@
       [class.text-green-500]="offlineService.isOnline()"
       [class.text-orange-500]="!offlineService.isOnline()"
     ></i>
-    <span class="status-label">
-      {{ offlineService.isOnline() ? 'Online' : 'Offline' }}
-    </span>
+    <span i18n="@@sync.statusOnline" class="status-label" *ngIf="offlineService.isOnline()">Online</span>
+    <span i18n="@@sync.statusOffline" class="status-label" *ngIf="!offlineService.isOnline()">Offline</span>
   </div>
 
   @if (offlineService.pendingCount() > 0) {
     <div class="pending-badge">
       <i class="pi pi-clock text-orange-500"></i>
-      <span>{{ offlineService.pendingCount() }} pending</span>
+      <span i18n="@@sync.pendingCount">{{ offlineService.pendingCount() }} pending</span>
     </div>
     <p-button
       label="Sync Now"
+      i18n-label="@@sync.syncNowBtn"
       icon="pi pi-refresh"
       size="small"
       severity="warn"

@@ -1,11 +1,11 @@
 <p-toast />
 
 <div class="page-header">
-  <h2>Stock Conflict Alerts</h2>
+  <h2 i18n="@@conflictAlerts.pageTitle">Stock Conflict Alerts</h2>
   <div class="header-controls">
     <label class="toggle-label">
       <p-toggleswitch [(ngModel)]="showUnresolvedOnly" (onChange)="loadAlerts()" />
-      <span>Unresolved only</span>
+      <span i18n="@@conflictAlerts.unresolvedOnlyLabel">Unresolved only</span>
     </label>
   </div>
 </div>
@@ -22,13 +22,13 @@
 >
   <ng-template pTemplate="header">
     <tr>
-      <th>Product</th>
-      <th>Sale #</th>
-      <th style="text-align:right">Expected Stock</th>
-      <th style="text-align:right">Actual Stock</th>
-      <th>Detected At</th>
-      <th>Status</th>
-      <th>Actions</th>
+      <th i18n="@@conflictAlerts.col.product">Product</th>
+      <th i18n="@@conflictAlerts.col.saleNumber">Sale #</th>
+      <th i18n="@@conflictAlerts.col.expectedStock" style="text-align:right">Expected Stock</th>
+      <th i18n="@@conflictAlerts.col.actualStock" style="text-align:right">Actual Stock</th>
+      <th i18n="@@conflictAlerts.col.detectedAt">Detected At</th>
+      <th i18n="@@conflictAlerts.col.status">Status</th>
+      <th i18n="@@conflictAlerts.col.actions">Actions</th>
     </tr>
   </ng-template>
 
@@ -52,6 +52,7 @@
           <p-button
             icon="pi pi-check"
             label="Resolve"
+            i18n-label="@@conflictAlerts.resolveBtn"
             size="small"
             severity="success"
             [outlined]="true"
@@ -71,7 +72,7 @@
     <tr>
       <td colspan="7" class="text-center p-4">
         <i class="pi pi-check-circle text-green-500"></i>
-        No conflict alerts found.
+        <span i18n="@@conflictAlerts.empty">No conflict alerts found.</span>
       </td>
     </tr>
   </ng-template>

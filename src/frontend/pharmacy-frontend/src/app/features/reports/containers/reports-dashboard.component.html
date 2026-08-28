@@ -8,13 +8,13 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <p-card>
         <div class="text-center">
-          <p class="text-surface-500 text-sm m-0">Sales Today</p>
+          <p i18n="@@repDashboard.salesToday" class="text-surface-500 text-sm m-0">Sales Today</p>
           <p class="text-3xl font-bold text-primary m-0">{{ dashboard()!.totalSalesToday }}</p>
         </div>
       </p-card>
       <p-card>
         <div class="text-center">
-          <p class="text-surface-500 text-sm m-0">Revenue Today</p>
+          <p i18n="@@repDashboard.revenueToday" class="text-surface-500 text-sm m-0">Revenue Today</p>
           <p class="text-3xl font-bold text-green-500 m-0">
             {{ dashboard()!.totalRevenueToday | number:'1.2-2' }}
           </p>
@@ -22,13 +22,13 @@
       </p-card>
       <p-card>
         <div class="text-center">
-          <p class="text-surface-500 text-sm m-0">Sales This Month</p>
+          <p i18n="@@repDashboard.salesThisMonth" class="text-surface-500 text-sm m-0">Sales This Month</p>
           <p class="text-3xl font-bold text-primary m-0">{{ dashboard()!.totalSalesThisMonth }}</p>
         </div>
       </p-card>
       <p-card>
         <div class="text-center">
-          <p class="text-surface-500 text-sm m-0">Avg Ticket (Month)</p>
+          <p i18n="@@repDashboard.avgTicket" class="text-surface-500 text-sm m-0">Avg Ticket (Month)</p>
           <p class="text-3xl font-bold text-blue-500 m-0">
             {{ dashboard()!.averageTicket | number:'1.2-2' }}
           </p>
@@ -41,31 +41,31 @@
       <p-card>
         <div class="flex justify-between items-center">
           <div>
-            <p class="text-surface-500 text-sm m-0">Low Stock Products</p>
+            <p i18n="@@repDashboard.lowStockProducts" class="text-surface-500 text-sm m-0">Low Stock Products</p>
             <p class="text-2xl font-bold text-orange-500 m-0">{{ dashboard()!.lowStockProductsCount }}</p>
           </div>
-          <a routerLink="/inventory/low-stock" class="text-primary text-sm">View →</a>
+          <a routerLink="/inventory/low-stock" i18n="@@repDashboard.viewLink" class="text-primary text-sm">View →</a>
         </div>
       </p-card>
       <p-card>
         <div class="flex justify-between items-center">
           <div>
-            <p class="text-surface-500 text-sm m-0">Pending Conflict Alerts</p>
+            <p i18n="@@repDashboard.pendingConflicts" class="text-surface-500 text-sm m-0">Pending Conflict Alerts</p>
             <p class="text-2xl font-bold text-red-500 m-0">{{ dashboard()!.pendingConflictAlertsCount }}</p>
           </div>
-          <a routerLink="/sales/conflict-alerts" class="text-primary text-sm">View →</a>
+          <a routerLink="/sales/conflict-alerts" i18n="@@repDashboard.viewLink" class="text-primary text-sm">View →</a>
         </div>
       </p-card>
     </div>
 
     <!-- Top 5 products table -->
-    <p-card header="Top 5 Products This Month">
+    <p-card header="Top 5 Products This Month" i18n-header="@@repDashboard.top5Header">
       <p-table [value]="dashboard()!.topProductsThisMonth" [rows]="5" styleClass="p-datatable-sm">
         <ng-template pTemplate="header">
           <tr>
-            <th>Product</th>
-            <th class="text-right">Qty Sold</th>
-            <th class="text-right">Revenue</th>
+            <th i18n="@@repDashboard.col.product">Product</th>
+            <th i18n="@@repDashboard.col.qtySold" class="text-right">Qty Sold</th>
+            <th i18n="@@repDashboard.col.revenue" class="text-right">Revenue</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-p>
@@ -76,11 +76,11 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
-          <tr><td colspan="3" class="text-center text-surface-400 p-4">No sales this month</td></tr>
+          <tr><td colspan="3" i18n="@@repDashboard.noSalesThisMonth" class="text-center text-surface-400 p-4">No sales this month</td></tr>
         </ng-template>
       </p-table>
     </p-card>
   </div>
 } @else {
-  <div class="p-8 text-center text-surface-400">No data available</div>
+  <div i18n="@@reports.noData" class="p-8 text-center text-surface-400">No data available</div>
 }

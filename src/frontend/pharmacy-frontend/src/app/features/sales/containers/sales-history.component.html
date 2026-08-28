@@ -1,7 +1,7 @@
 <p-toast />
 
 <div class="page-header">
-  <h2>Sales History</h2>
+  <h2 i18n="@@salesHistory.pageTitle">Sales History</h2>
 </div>
 
 <!-- Filters -->
@@ -9,12 +9,14 @@
   <p-datepicker
     [(ngModel)]="dateFrom"
     placeholder="From date"
+    i18n-placeholder="@@salesHistory.fromDatePlaceholder"
     dateFormat="yy-mm-dd"
     (onSelect)="loadSales()"
   />
   <p-datepicker
     [(ngModel)]="dateTo"
     placeholder="To date"
+    i18n-placeholder="@@salesHistory.toDatePlaceholder"
     dateFormat="yy-mm-dd"
     (onSelect)="loadSales()"
   />
@@ -22,10 +24,12 @@
     [(ngModel)]="statusFilter"
     [options]="statusOptions"
     placeholder="All statuses"
+    i18n-placeholder="@@salesHistory.allStatusesPlaceholder"
     (onChange)="loadSales()"
   />
   <p-button
     label="Clear Filters"
+    i18n-label="@@salesHistory.clearFiltersBtn"
     severity="secondary"
     [outlined]="true"
     icon="pi pi-times"
@@ -49,13 +53,13 @@
   <ng-template pTemplate="header">
     <tr>
       <th style="width: 3rem"></th>
-      <th>Sale #</th>
-      <th>Date</th>
-      <th>Customer</th>
-      <th style="text-align:center">Lines</th>
-      <th style="text-align:right">Total</th>
-      <th>Status</th>
-      <th>Actions</th>
+      <th i18n="@@salesHistory.col.saleNumber">Sale #</th>
+      <th i18n="@@salesHistory.col.date">Date</th>
+      <th i18n="@@salesHistory.col.customer">Customer</th>
+      <th i18n="@@salesHistory.col.lines" style="text-align:center">Lines</th>
+      <th i18n="@@salesHistory.col.total" style="text-align:right">Total</th>
+      <th i18n="@@salesHistory.col.status">Status</th>
+      <th i18n="@@salesHistory.col.actions">Actions</th>
     </tr>
   </ng-template>
 
@@ -89,6 +93,7 @@
             [text]="true"
             severity="info"
             pTooltip="View Detail"
+            i18n-pTooltip="@@salesHistory.viewDetailTooltip"
           />
         </a>
         @if (isAdmin() && sale.status === 'Completed') {
@@ -98,6 +103,7 @@
             [text]="true"
             severity="danger"
             pTooltip="Void Sale"
+            i18n-pTooltip="@@salesHistory.voidTooltip"
             (onClick)="openVoidDialog(sale)"
           />
         }
@@ -109,14 +115,14 @@
     <tr>
       <td colspan="8">
         <div class="expanded-lines">
-          <strong>Sale Lines:</strong>
+          <strong i18n="@@salesHistory.saleLines">Sale Lines:</strong>
           <table class="lines-table">
             <thead>
               <tr>
-                <th>Product</th>
-                <th style="text-align:right">Qty</th>
-                <th style="text-align:right">Unit Price</th>
-                <th style="text-align:right">Subtotal</th>
+                <th i18n="@@salesHistory.linesCol.product">Product</th>
+                <th i18n="@@salesHistory.linesCol.qty" style="text-align:right">Qty</th>
+                <th i18n="@@salesHistory.linesCol.unitPrice" style="text-align:right">Unit Price</th>
+                <th i18n="@@salesHistory.linesCol.subtotal" style="text-align:right">Subtotal</th>
               </tr>
             </thead>
             <tbody>
@@ -137,7 +143,7 @@
 
   <ng-template pTemplate="empty">
     <tr>
-      <td colspan="8" class="text-center p-4">No sales found for the selected filters.</td>
+      <td colspan="8" i18n="@@salesHistory.empty" class="text-center p-4">No sales found for the selected filters.</td>
     </tr>
   </ng-template>
 </p-table>
@@ -145,26 +151,29 @@
 <!-- Void Dialog -->
 <p-dialog
   header="Void Sale"
+  i18n-header="@@saleDetail.voidDialogTitle"
   [(visible)]="voidDialogVisible"
   [modal]="true"
   [style]="{ width: '400px' }"
 >
-  <p>Are you sure you want to void sale <strong>{{ selectedSale?.saleNumber }}</strong>?</p>
-  <p class="text-secondary text-sm">Stock will be restored. This action cannot be undone.</p>
+  <p i18n="@@salesHistory.voidConfirmMsg">Are you sure you want to void sale <strong>{{ selectedSale?.saleNumber }}</strong>?</p>
+  <p i18n="@@saleDetail.voidWarning" class="text-secondary text-sm">Stock will be restored. This action cannot be undone.</p>
   <div class="form-field">
-    <label>Reason *</label>
+    <label i18n="@@saleDetail.voidReasonLabel">Reason *</label>
     <input
       pInputText
       type="text"
       [(ngModel)]="voidReason"
       placeholder="Reason for voiding"
+      i18n-placeholder="@@saleDetail.voidReasonPlaceholder"
       class="w-full"
     />
   </div>
   <ng-template pTemplate="footer">
-    <p-button label="Cancel" severity="secondary" [outlined]="true" (onClick)="voidDialogVisible = false" />
+    <p-button label="Cancel" i18n-label="@@form.cancelBtn" severity="secondary" [outlined]="true" (onClick)="voidDialogVisible = false" />
     <p-button
       label="Void Sale"
+      i18n-label="@@saleDetail.voidBtn"
       severity="danger"
       [disabled]="!voidReason.trim()"
       (onClick)="confirmVoid()"

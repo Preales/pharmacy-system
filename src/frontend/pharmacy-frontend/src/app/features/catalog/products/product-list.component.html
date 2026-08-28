@@ -2,23 +2,24 @@
 <p-confirmDialog />
 
 <div class="page-header">
-  <h2>Products</h2>
-  <p-button label="New Product" icon="pi pi-plus" (onClick)="openCreate()" />
+  <h2 i18n="@@products.pageTitle">Products</h2>
+  <p-button label="New Product" i18n-label="@@products.newBtn" icon="pi pi-plus" (onClick)="openCreate()" />
 </div>
 
 <div class="filter-bar">
-  <input pInputText [(ngModel)]="searchTerm" placeholder="Search by name, SKU..." (ngModelChange)="onSearchChange()" class="filter-input" />
+  <input pInputText [(ngModel)]="searchTerm" placeholder="Search by name, SKU..." i18n-placeholder="@@products.searchPlaceholder" (ngModelChange)="onSearchChange()" class="filter-input" />
   <p-select
     [(ngModel)]="selectedCategory"
     [options]="categoryOptions()"
     optionLabel="label"
     optionValue="value"
     placeholder="All Categories"
+    i18n-placeholder="@@products.allCategoriesPlaceholder"
     [showClear]="true"
     (ngModelChange)="applyFilter()"
     styleClass="filter-select"
   />
-  <p-button icon="pi pi-refresh" severity="secondary" [text]="true" (onClick)="resetFilters()" pTooltip="Clear filters" />
+  <p-button icon="pi pi-refresh" severity="secondary" [text]="true" (onClick)="resetFilters()" pTooltip="Clear filters" i18n-pTooltip="@@products.clearFiltersTooltip" />
 </div>
 
 <p-table
@@ -31,20 +32,21 @@
   (onPage)="onPage($event)"
   [showCurrentPageReport]="true"
   currentPageReportTemplate="{first}–{last} of {totalRecords}"
+  i18n-currentPageReportTemplate="@@table.pageReport"
   [rowsPerPageOptions]="pageSizeOptions"
   styleClass="p-datatable-striped"
 >
   <ng-template pTemplate="header">
     <tr>
-      <th>SKU</th>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Unit Price</th>
-      <th>Cost Price</th>
-      <th>Unit</th>
-      <th>Stock</th>
-      <th pSortableColumn="isActive">Status <p-sortIcon field="isActive" /></th>
-      <th style="width: 120px">Actions</th>
+      <th i18n="@@products.col.sku">SKU</th>
+      <th i18n="@@products.col.name">Name</th>
+      <th i18n="@@products.col.category">Category</th>
+      <th i18n="@@products.col.unitPrice">Unit Price</th>
+      <th i18n="@@products.col.costPrice">Cost Price</th>
+      <th i18n="@@products.col.unit">Unit</th>
+      <th i18n="@@products.col.stock">Stock</th>
+      <th pSortableColumn="isActive" i18n="@@products.col.status">Status <p-sortIcon field="isActive" /></th>
+      <th i18n="@@products.col.actions" style="width: 120px">Actions</th>
     </tr>
   </ng-template>
 
@@ -72,7 +74,7 @@
   </ng-template>
 
   <ng-template pTemplate="empty">
-    <tr><td colspan="9" class="text-center p-4">No products found.</td></tr>
+    <tr><td colspan="9" i18n="@@products.empty" class="text-center p-4">No products found.</td></tr>
   </ng-template>
 </p-table>
 

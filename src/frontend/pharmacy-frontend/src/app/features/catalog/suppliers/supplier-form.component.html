@@ -1,5 +1,6 @@
 <p-dialog
   [header]="editTarget ? 'Edit Supplier' : 'New Supplier'"
+  i18n-header="@@supplierForm.editTitle"
   [(visible)]="visible"
   [modal]="true"
   [style]="{ width: '480px' }"
@@ -8,39 +9,40 @@
 >
   <form [formGroup]="form" (ngSubmit)="submit()" class="form-body">
     <div class="field">
-      <label for="supName">Name *</label>
-      <input id="supName" pInputText formControlName="name" placeholder="Supplier name" class="w-full" [class.ng-invalid]="isInvalid('name')" />
-      @if (isInvalid('name')) { <small class="p-error">Name is required.</small> }
+      <label for="supName" i18n="@@supplierForm.nameLabel">Name *</label>
+      <input id="supName" pInputText formControlName="name" placeholder="Supplier name" i18n-placeholder="@@supplierForm.namePlaceholder" class="w-full" [class.ng-invalid]="isInvalid('name')" />
+      @if (isInvalid('name')) { <small i18n="@@supplierForm.nameRequired" class="p-error">Name is required.</small> }
     </div>
 
     <div class="field">
-      <label for="supContact">Contact Name</label>
-      <input id="supContact" pInputText formControlName="contactName" placeholder="Contact person" class="w-full" />
+      <label for="supContact" i18n="@@supplierForm.contactLabel">Contact Name</label>
+      <input id="supContact" pInputText formControlName="contactName" placeholder="Contact person" i18n-placeholder="@@supplierForm.contactPlaceholder" class="w-full" />
     </div>
 
     <div class="field">
-      <label for="supEmail">Contact Email</label>
-      <input id="supEmail" type="email" pInputText formControlName="contactEmail" placeholder="email@supplier.com" class="w-full" [class.ng-invalid]="isInvalid('contactEmail')" />
-      @if (isInvalid('contactEmail')) { <small class="p-error">Enter a valid email.</small> }
+      <label for="supEmail" i18n="@@supplierForm.emailLabel">Contact Email</label>
+      <input id="supEmail" type="email" pInputText formControlName="contactEmail" placeholder="email@supplier.com" i18n-placeholder="@@supplierForm.emailPlaceholder" class="w-full" [class.ng-invalid]="isInvalid('contactEmail')" />
+      @if (isInvalid('contactEmail')) { <small i18n="@@supplierForm.emailInvalid" class="p-error">Enter a valid email.</small> }
     </div>
 
     <div class="field">
-      <label for="supPhone">Phone</label>
-      <input id="supPhone" pInputText formControlName="phone" placeholder="+1 555 0100" class="w-full" />
+      <label for="supPhone" i18n="@@supplierForm.phoneLabel">Phone</label>
+      <input id="supPhone" pInputText formControlName="phone" placeholder="+1 555 0100" i18n-placeholder="@@supplierForm.phonePlaceholder" class="w-full" />
     </div>
 
     @if (editTarget) {
       <div class="field-checkbox">
         <p-checkbox formControlName="isActive" [binary]="true" inputId="supActive" />
-        <label for="supActive">Active</label>
+        <label for="supActive" i18n="@@supplierForm.activeLabel">Active</label>
       </div>
     }
   </form>
 
   <ng-template pTemplate="footer">
-    <p-button label="Cancel" severity="secondary" (onClick)="onCancel()" />
+    <p-button label="Cancel" i18n-label="@@form.cancelBtn" severity="secondary" (onClick)="onCancel()" />
     <p-button
       [label]="editTarget ? 'Update' : 'Create'"
+      i18n-label="@@form.saveBtn"
       icon="pi pi-check"
       [loading]="saving()"
       [disabled]="form.invalid || saving()"

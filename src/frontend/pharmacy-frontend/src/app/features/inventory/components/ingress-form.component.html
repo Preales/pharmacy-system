@@ -1,5 +1,6 @@
 <p-dialog
   header="Record Stock Ingress"
+  i18n-header="@@ingressForm.title"
   [(visible)]="visible"
   [modal]="true"
   [style]="{ width: '520px' }"
@@ -9,7 +10,7 @@
   <form [formGroup]="form" (ngSubmit)="submit()" class="form-body">
 
     <div class="field">
-      <label for="iProduct">Product *</label>
+      <label for="iProduct" i18n="@@ingressForm.productLabel">Product *</label>
       <p-select
         inputId="iProduct"
         formControlName="productId"
@@ -17,18 +18,20 @@
         optionLabel="label"
         optionValue="value"
         placeholder="Select product"
+        i18n-placeholder="@@ingressForm.productPlaceholder"
         styleClass="w-full"
         [filter]="true"
         filterPlaceholder="Search products..."
+        i18n-filterPlaceholder="@@ingressForm.productSearchPlaceholder"
         [class.ng-invalid]="isInvalid('productId')"
         appendTo="body"
       />
-      @if (isInvalid('productId')) { <small class="p-error">Product is required.</small> }
+      @if (isInvalid('productId')) { <small i18n="@@ingressForm.productRequired" class="p-error">Product is required.</small> }
     </div>
 
     <div class="form-row">
       <div class="field">
-        <label for="iQty">Quantity *</label>
+        <label for="iQty" i18n="@@ingressForm.quantityLabel">Quantity *</label>
         <p-inputNumber
           inputId="iQty"
           formControlName="quantity"
@@ -36,10 +39,10 @@
           styleClass="w-full"
           [class.ng-invalid]="isInvalid('quantity')"
         />
-        @if (isInvalid('quantity')) { <small class="p-error">Quantity must be at least 1.</small> }
+        @if (isInvalid('quantity')) { <small i18n="@@ingressForm.quantityMin" class="p-error">Quantity must be at least 1.</small> }
       </div>
       <div class="field">
-        <label for="iCost">Unit Cost *</label>
+        <label for="iCost" i18n="@@ingressForm.unitCostLabel">Unit Cost *</label>
         <p-inputNumber
           inputId="iCost"
           formControlName="unitCost"
@@ -50,12 +53,12 @@
           styleClass="w-full"
           [class.ng-invalid]="isInvalid('unitCost')"
         />
-        @if (isInvalid('unitCost')) { <small class="p-error">Unit cost is required.</small> }
+        @if (isInvalid('unitCost')) { <small i18n="@@ingressForm.unitCostRequired" class="p-error">Unit cost is required.</small> }
       </div>
     </div>
 
     <div class="field">
-      <label for="iSupplier">Supplier</label>
+      <label for="iSupplier" i18n="@@ingressForm.supplierLabel">Supplier</label>
       <p-select
         inputId="iSupplier"
         formControlName="supplierId"
@@ -63,6 +66,7 @@
         optionLabel="label"
         optionValue="value"
         placeholder="None (optional)"
+        i18n-placeholder="@@ingressForm.supplierNonePlaceholder"
         styleClass="w-full"
         [showClear]="true"
         [filter]="true"
@@ -71,20 +75,21 @@
     </div>
 
     <div class="field">
-      <label for="iBatch">Batch Number</label>
-      <input id="iBatch" pInputText formControlName="batchNumber" placeholder="e.g. LOT-2026-001" class="w-full" />
+      <label for="iBatch" i18n="@@ingressForm.batchLabel">Batch Number</label>
+      <input id="iBatch" pInputText formControlName="batchNumber" placeholder="e.g. LOT-2026-001" i18n-placeholder="@@ingressForm.batchPlaceholder" class="w-full" />
     </div>
 
     <div class="field">
-      <label for="iNotes">Notes</label>
-      <textarea id="iNotes" pTextarea formControlName="reason" rows="2" class="w-full" placeholder="Optional notes"></textarea>
+      <label for="iNotes" i18n="@@ingressForm.notesLabel">Notes</label>
+      <textarea id="iNotes" pTextarea formControlName="reason" rows="2" class="w-full" placeholder="Optional notes" i18n-placeholder="@@ingressForm.notesPlaceholder"></textarea>
     </div>
   </form>
 
   <ng-template pTemplate="footer">
-    <p-button label="Cancel" severity="secondary" (onClick)="onCancel()" />
+    <p-button label="Cancel" i18n-label="@@form.cancelBtn" severity="secondary" (onClick)="onCancel()" />
     <p-button
       label="Record Ingress"
+      i18n-label="@@ingressForm.submitBtn"
       icon="pi pi-check"
       [loading]="saving()"
       [disabled]="form.invalid || saving()"

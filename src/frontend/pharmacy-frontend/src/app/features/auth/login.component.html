@@ -1,6 +1,6 @@
 <div class="login-wrapper">
-  <p-card header="Pharmacy System" class="login-card">
-    <p class="login-subtitle">Sign in to your account</p>
+  <p-card header="Pharmacy System" i18n-header="@@login.appTitle" class="login-card">
+    <p i18n="@@login.subtitle" class="login-subtitle">Sign in to your account</p>
 
     @if (errorMessage()) {
       <p-message severity="error" [text]="errorMessage()!" styleClass="w-full mb-3" />
@@ -10,24 +10,26 @@
     @if (state() === 'idle' || state() === 'resolvingTenant') {
       <form [formGroup]="emailForm" (ngSubmit)="resolveEmail()" class="login-form">
         <div class="field">
-          <label for="email">Email</label>
+          <label for="email" i18n="@@login.emailLabel">Email</label>
           <input
             id="email"
             type="email"
             pInputText
             formControlName="email"
             placeholder="admin@pharmacy.com"
+            i18n-placeholder="@@login.emailPlaceholder"
             class="w-full"
             [class.ng-invalid]="isEmailInvalid()"
           />
           @if (isEmailInvalid()) {
-            <small class="p-error">Valid email is required.</small>
+            <small i18n="@@login.emailRequired" class="p-error">Valid email is required.</small>
           }
         </div>
 
         <p-button
           type="submit"
           label="Continue"
+          i18n-label="@@login.continueBtn"
           icon="pi pi-arrow-right"
           [loading]="state() === 'resolvingTenant'"
           [disabled]="emailForm.invalid || state() === 'resolvingTenant'"
@@ -39,7 +41,7 @@
     <!-- Step 2a: Tenant picker (2+ tenants) -->
     @if (state() === 'tenantPicker') {
       <div class="login-form">
-        <p class="picker-label">Select your organization:</p>
+        <p i18n="@@login.selectOrg" class="picker-label">Select your organization:</p>
         <div class="tenant-list">
           @for (tenant of tenants(); track tenant.id) {
             <div class="tenant-option" (click)="selectTenant(tenant)">
@@ -60,6 +62,7 @@
         <p-button
           type="button"
           label="Continue"
+          i18n-label="@@login.continueBtn"
           icon="pi pi-arrow-right"
           [disabled]="!selectedTenantId"
           (onClick)="confirmTenant()"
@@ -69,6 +72,7 @@
         <p-button
           type="button"
           label="Back"
+          i18n-label="@@login.backBtn"
           icon="pi pi-arrow-left"
           severity="secondary"
           [text]="true"
@@ -84,15 +88,16 @@
         <div class="resolved-email">
           <span class="pi pi-user" style="margin-right: 0.5rem;"></span>
           {{ emailForm.value.email }}
-          <button type="button" class="change-email-btn" (click)="goBack()">Change</button>
+          <button type="button" i18n="@@login.changeEmail" class="change-email-btn" (click)="goBack()">Change</button>
         </div>
 
         <div class="field">
-          <label for="password">Password</label>
+          <label for="password" i18n="@@login.passwordLabel">Password</label>
           <p-password
             inputId="password"
             formControlName="password"
             placeholder="Password"
+            i18n-placeholder="@@login.passwordPlaceholder"
             [feedback]="false"
             [toggleMask]="true"
             styleClass="w-full"
@@ -100,13 +105,14 @@
             [class.ng-invalid]="isPasswordInvalid()"
           />
           @if (isPasswordInvalid()) {
-            <small class="p-error">Password is required.</small>
+            <small i18n="@@login.passwordRequired" class="p-error">Password is required.</small>
           }
         </div>
 
         <p-button
           type="submit"
           label="Sign In"
+          i18n-label="@@login.signInBtn"
           icon="pi pi-sign-in"
           [loading]="state() === 'submitting'"
           [disabled]="passwordForm.invalid || state() === 'submitting'"
@@ -116,6 +122,7 @@
         <p-button
           type="button"
           label="Back"
+          i18n-label="@@login.backBtn"
           icon="pi pi-arrow-left"
           severity="secondary"
           [text]="true"

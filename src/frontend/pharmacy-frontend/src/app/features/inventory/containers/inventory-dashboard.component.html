@@ -6,7 +6,7 @@
     <div class="summary-content">
       <i class="pi pi-box summary-icon text-blue-500"></i>
       <div>
-        <div class="summary-label">Total Products</div>
+        <div i18n="@@invDashboard.totalProducts" class="summary-label">Total Products</div>
         <div class="summary-value">{{ inventoryService.items().totalCount }}</div>
       </div>
     </div>
@@ -16,7 +16,7 @@
     <div class="summary-content">
       <i class="pi pi-exclamation-triangle summary-icon text-orange-500"></i>
       <div>
-        <div class="summary-label">Low Stock Alerts</div>
+        <div i18n="@@invDashboard.lowStockAlerts" class="summary-label">Low Stock Alerts</div>
         <div class="summary-value text-orange-500">{{ inventoryService.lowStockCount() }}</div>
       </div>
     </div>
@@ -26,7 +26,7 @@
     <div class="summary-content">
       <i class="pi pi-history summary-icon text-green-500"></i>
       <div>
-        <div class="summary-label">Today's Movements</div>
+        <div i18n="@@invDashboard.todayMovements" class="summary-label">Today's Movements</div>
         <div class="summary-value">{{ todayMovements }}</div>
       </div>
     </div>
@@ -37,17 +37,20 @@
 <div class="actions-bar">
   <p-button
     label="Record Ingress"
+    i18n-label="@@invDashboard.recordIngressBtn"
     icon="pi pi-arrow-down"
     (onClick)="ingressVisible = true"
   />
   <p-button
     label="Record Adjustment"
+    i18n-label="@@invDashboard.recordAdjustmentBtn"
     icon="pi pi-pencil"
     severity="secondary"
     (onClick)="adjustmentVisible = true"
   />
   <p-button
     label="View All Stock"
+    i18n-label="@@invDashboard.viewAllStockBtn"
     icon="pi pi-list"
     severity="info"
     [text]="true"
@@ -57,8 +60,8 @@
 
 <!-- Low stock alerts table -->
 <div class="section-header">
-  <h3>Low Stock Alerts</h3>
-  <small class="text-secondary">Products at or below their threshold</small>
+  <h3 i18n="@@invDashboard.lowStockSection">Low Stock Alerts</h3>
+  <small i18n="@@invDashboard.lowStockSubtitle" class="text-secondary">Products at or below their threshold</small>
 </div>
 
 <p-table
@@ -68,13 +71,13 @@
 >
   <ng-template pTemplate="header">
     <tr>
-      <th>Product</th>
-      <th>SKU</th>
-      <th>Category</th>
-      <th style="text-align:right">Current Stock</th>
-      <th style="text-align:right">Threshold</th>
-      <th>Status</th>
-      <th>Actions</th>
+      <th i18n="@@invDashboard.col.product">Product</th>
+      <th i18n="@@invDashboard.col.sku">SKU</th>
+      <th i18n="@@invDashboard.col.category">Category</th>
+      <th i18n="@@invDashboard.col.currentStock" style="text-align:right">Current Stock</th>
+      <th i18n="@@invDashboard.col.threshold" style="text-align:right">Threshold</th>
+      <th i18n="@@invDashboard.col.status">Status</th>
+      <th i18n="@@invDashboard.col.actions">Actions</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-item>
@@ -99,6 +102,7 @@
           [text]="true"
           severity="success"
           pTooltip="Record Ingress"
+          i18n-pTooltip="@@invDashboard.recordIngressTooltip"
           (onClick)="openIngressFor(item.productId)"
         />
       </td>
@@ -106,7 +110,7 @@
   </ng-template>
   <ng-template pTemplate="empty">
     <tr>
-      <td colspan="7" class="text-center p-4">
+      <td colspan="7" i18n="@@invDashboard.allStockedMsg" class="text-center p-4">
         <i class="pi pi-check-circle text-green-500"></i>
         No low-stock items — all products are adequately stocked.
       </td>

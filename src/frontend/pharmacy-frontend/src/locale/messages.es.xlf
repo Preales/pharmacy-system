@@ -1,33 +1,1222 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!--
-  Spanish (es) XLIFF translation file for pharmacy-frontend.
-
-  HOW TO ADD TRANSLATIONS:
-  1. Mark template strings with the i18n attribute:
-       <h1 i18n="@@page.title">Dashboard</h1>
-     Or use $localize in TypeScript:
-       title = $localize`:@@page.title:Dashboard`;
-  2. Run: ng extract-i18n --output-path src/locale --format xlf
-     This regenerates messages.xlf with new <trans-unit> entries.
-  3. Copy new <trans-unit> entries from messages.xlf into this file (messages.es.xlf)
-     and translate the <target> values.
-  4. Build the Spanish locale: ng build --localize
-     Or add to angular.json configurations (see angular.json "es" configuration).
-
-  The locale infrastructure (UseRequestLocalization, angular.json i18n config) is
-  already wired. Only template tagging remains as ongoing work.
--->
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" target-language="es" datatype="plaintext" original="ng2.template">
     <body>
-      <!--
-        Add translated <trans-unit> entries here as templates are tagged with i18n.
-        Example:
-        <trans-unit id="page.title" datatype="html">
-          <source>Dashboard</source>
-          <target>Panel de control</target>
-        </trans-unit>
-      -->
+      <!-- Auth / Login -->
+      <trans-unit id="login.appTitle" datatype="html">
+        <source>Pharmacy System</source>
+        <target>Sistema de Farmacia</target>
+      </trans-unit>
+      <trans-unit id="login.subtitle" datatype="html">
+        <source>Sign in to your account</source>
+        <target>Inicie sesión en su cuenta</target>
+      </trans-unit>
+      <trans-unit id="login.emailLabel" datatype="html">
+        <source>Email</source>
+        <target>Correo electrónico</target>
+      </trans-unit>
+      <trans-unit id="login.emailPlaceholder" datatype="html">
+        <source>admin@pharmacy.com</source>
+        <target>admin@farmacia.com</target>
+      </trans-unit>
+      <trans-unit id="login.emailRequired" datatype="html">
+        <source>Valid email is required.</source>
+        <target>Se requiere un correo electrónico válido.</target>
+      </trans-unit>
+      <trans-unit id="login.continueBtn" datatype="html">
+        <source>Continue</source>
+        <target>Continuar</target>
+      </trans-unit>
+      <trans-unit id="login.selectOrg" datatype="html">
+        <source>Select your organization:</source>
+        <target>Seleccione su organización:</target>
+      </trans-unit>
+      <trans-unit id="login.backBtn" datatype="html">
+        <source>Back</source>
+        <target>Volver</target>
+      </trans-unit>
+      <trans-unit id="login.changeEmail" datatype="html">
+        <source>Change</source>
+        <target>Cambiar</target>
+      </trans-unit>
+      <trans-unit id="login.passwordLabel" datatype="html">
+        <source>Password</source>
+        <target>Contraseña</target>
+      </trans-unit>
+      <trans-unit id="login.passwordPlaceholder" datatype="html">
+        <source>Password</source>
+        <target>Contraseña</target>
+      </trans-unit>
+      <trans-unit id="login.passwordRequired" datatype="html">
+        <source>Password is required.</source>
+        <target>La contraseña es obligatoria.</target>
+      </trans-unit>
+      <trans-unit id="login.signInBtn" datatype="html">
+        <source>Sign In</source>
+        <target>Ingresar</target>
+      </trans-unit>
+
+      <!-- Unauthorized -->
+      <trans-unit id="unauthorized.title" datatype="html">
+        <source>Access Denied</source>
+        <target>Acceso denegado</target>
+      </trans-unit>
+      <trans-unit id="unauthorized.message" datatype="html">
+        <source>You do not have permission to access this page. Please contact your administrator if you believe this is an error.</source>
+        <target>No tiene permiso para acceder a esta página. Comuníquese con su administrador si cree que esto es un error.</target>
+      </trans-unit>
+      <trans-unit id="unauthorized.goToCatalog" datatype="html">
+        <source>Go to Catalog</source>
+        <target>Ir al Catálogo</target>
+      </trans-unit>
+      <trans-unit id="unauthorized.goToPos" datatype="html">
+        <source>Go to POS</source>
+        <target>Ir al Punto de Venta</target>
+      </trans-unit>
+
+      <!-- Sync Status Bar -->
+      <trans-unit id="sync.statusOnline" datatype="html">
+        <source>Online</source>
+        <target>En línea</target>
+      </trans-unit>
+      <trans-unit id="sync.statusOffline" datatype="html">
+        <source>Offline</source>
+        <target>Sin conexión</target>
+      </trans-unit>
+      <trans-unit id="sync.pendingCount" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ offlineService.pendingCount() }}"/> pending</source>
+        <target><x id="INTERPOLATION" equiv-text="{{ offlineService.pendingCount() }}"/> pendiente(s)</target>
+      </trans-unit>
+      <trans-unit id="sync.syncNowBtn" datatype="html">
+        <source>Sync Now</source>
+        <target>Sincronizar ahora</target>
+      </trans-unit>
+
+      <!-- App Sidebar -->
+      <trans-unit id="sidebar.appName" datatype="html">
+        <source>Pharmacy</source>
+        <target>Farmacia</target>
+      </trans-unit>
+      <trans-unit id="sidebar.logout" datatype="html">
+        <source>Logout</source>
+        <target>Cerrar sesión</target>
+      </trans-unit>
+
+      <!-- Shared form actions -->
+      <trans-unit id="form.cancelBtn" datatype="html">
+        <source>Cancel</source>
+        <target>Cancelar</target>
+      </trans-unit>
+      <trans-unit id="form.saveBtn" datatype="html">
+        <source>Create</source>
+        <target>Guardar</target>
+      </trans-unit>
+
+      <!-- Shared table pagination -->
+      <trans-unit id="table.pageReport" datatype="html">
+        <source><x id="START_TAG_SPAN" equiv-text="{first}"/>–<x id="CLOSE_TAG_SPAN" equiv-text="{last}"/> of <x id="INTERPOLATION" equiv-text="{totalRecords}"/></source>
+        <target><x id="START_TAG_SPAN" equiv-text="{first}"/>–<x id="CLOSE_TAG_SPAN" equiv-text="{last}"/> de <x id="INTERPOLATION" equiv-text="{totalRecords}"/></target>
+      </trans-unit>
+
+      <!-- Products list -->
+      <trans-unit id="products.pageTitle" datatype="html">
+        <source>Products</source>
+        <target>Productos</target>
+      </trans-unit>
+      <trans-unit id="products.newBtn" datatype="html">
+        <source>New Product</source>
+        <target>Nuevo producto</target>
+      </trans-unit>
+      <trans-unit id="products.searchPlaceholder" datatype="html">
+        <source>Search by name, SKU...</source>
+        <target>Buscar por nombre, SKU...</target>
+      </trans-unit>
+      <trans-unit id="products.allCategoriesPlaceholder" datatype="html">
+        <source>All Categories</source>
+        <target>Todas las categorías</target>
+      </trans-unit>
+      <trans-unit id="products.clearFiltersTooltip" datatype="html">
+        <source>Clear filters</source>
+        <target>Limpiar filtros</target>
+      </trans-unit>
+      <trans-unit id="products.col.sku" datatype="html">
+        <source>SKU</source>
+        <target>SKU</target>
+      </trans-unit>
+      <trans-unit id="products.col.name" datatype="html">
+        <source>Name</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="products.col.category" datatype="html">
+        <source>Category</source>
+        <target>Categoría</target>
+      </trans-unit>
+      <trans-unit id="products.col.unitPrice" datatype="html">
+        <source>Unit Price</source>
+        <target>Precio unitario</target>
+      </trans-unit>
+      <trans-unit id="products.col.costPrice" datatype="html">
+        <source>Cost Price</source>
+        <target>Precio de costo</target>
+      </trans-unit>
+      <trans-unit id="products.col.unit" datatype="html">
+        <source>Unit</source>
+        <target>Unidad</target>
+      </trans-unit>
+      <trans-unit id="products.col.stock" datatype="html">
+        <source>Stock</source>
+        <target>Inventario</target>
+      </trans-unit>
+      <trans-unit id="products.col.status" datatype="html">
+        <source>Status</source>
+        <target>Estado</target>
+      </trans-unit>
+      <trans-unit id="products.col.actions" datatype="html">
+        <source>Actions</source>
+        <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="products.empty" datatype="html">
+        <source>No products found.</source>
+        <target>No se encontraron productos.</target>
+      </trans-unit>
+
+      <!-- Product form -->
+      <trans-unit id="productForm.editTitle" datatype="html">
+        <source>Edit Product</source>
+        <target>Editar producto</target>
+      </trans-unit>
+      <trans-unit id="productForm.nameLabel" datatype="html">
+        <source>Name *</source>
+        <target>Nombre *</target>
+      </trans-unit>
+      <trans-unit id="productForm.namePlaceholder" datatype="html">
+        <source>Product name</source>
+        <target>Nombre del producto</target>
+      </trans-unit>
+      <trans-unit id="productForm.nameRequired" datatype="html">
+        <source>Name is required.</source>
+        <target>El nombre es obligatorio.</target>
+      </trans-unit>
+      <trans-unit id="productForm.skuLabel" datatype="html">
+        <source>SKU *</source>
+        <target>SKU *</target>
+      </trans-unit>
+      <trans-unit id="productForm.skuPlaceholder" datatype="html">
+        <source>MED-001</source>
+        <target>MED-001</target>
+      </trans-unit>
+      <trans-unit id="productForm.skuRequired" datatype="html">
+        <source>SKU is required.</source>
+        <target>El SKU es obligatorio.</target>
+      </trans-unit>
+      <trans-unit id="productForm.descLabel" datatype="html">
+        <source>Description</source>
+        <target>Descripción</target>
+      </trans-unit>
+      <trans-unit id="productForm.descPlaceholder" datatype="html">
+        <source>Optional description</source>
+        <target>Descripción opcional</target>
+      </trans-unit>
+      <trans-unit id="productForm.unitPriceLabel" datatype="html">
+        <source>Unit Price *</source>
+        <target>Precio unitario *</target>
+      </trans-unit>
+      <trans-unit id="productForm.unitPriceRequired" datatype="html">
+        <source>Unit price is required.</source>
+        <target>El precio unitario es obligatorio.</target>
+      </trans-unit>
+      <trans-unit id="productForm.costPriceLabel" datatype="html">
+        <source>Cost Price *</source>
+        <target>Precio de costo *</target>
+      </trans-unit>
+      <trans-unit id="productForm.costPriceRequired" datatype="html">
+        <source>Cost price is required.</source>
+        <target>El precio de costo es obligatorio.</target>
+      </trans-unit>
+      <trans-unit id="productForm.unitLabel" datatype="html">
+        <source>Unit *</source>
+        <target>Unidad *</target>
+      </trans-unit>
+      <trans-unit id="productForm.unitPlaceholder" datatype="html">
+        <source>Select unit</source>
+        <target>Seleccione una unidad</target>
+      </trans-unit>
+      <trans-unit id="productForm.unitRequired" datatype="html">
+        <source>Unit is required.</source>
+        <target>La unidad es obligatoria.</target>
+      </trans-unit>
+      <trans-unit id="productForm.barcodeLabel" datatype="html">
+        <source>Barcode</source>
+        <target>Código de barras</target>
+      </trans-unit>
+      <trans-unit id="productForm.barcodePlaceholder" datatype="html">
+        <source>EAN-13</source>
+        <target>EAN-13</target>
+      </trans-unit>
+      <trans-unit id="productForm.categoryLabel" datatype="html">
+        <source>Category *</source>
+        <target>Categoría *</target>
+      </trans-unit>
+      <trans-unit id="productForm.categoryPlaceholder" datatype="html">
+        <source>Select category</source>
+        <target>Seleccione una categoría</target>
+      </trans-unit>
+      <trans-unit id="productForm.categoryRequired" datatype="html">
+        <source>Category is required.</source>
+        <target>La categoría es obligatoria.</target>
+      </trans-unit>
+      <trans-unit id="productForm.supplierLabel" datatype="html">
+        <source>Supplier</source>
+        <target>Proveedor</target>
+      </trans-unit>
+      <trans-unit id="productForm.supplierNonePlaceholder" datatype="html">
+        <source>None</source>
+        <target>Ninguno</target>
+      </trans-unit>
+      <trans-unit id="productForm.activeLabel" datatype="html">
+        <source>Active</source>
+        <target>Activo</target>
+      </trans-unit>
+
+      <!-- Categories list -->
+      <trans-unit id="categories.pageTitle" datatype="html">
+        <source>Categories</source>
+        <target>Categorías</target>
+      </trans-unit>
+      <trans-unit id="categories.newBtn" datatype="html">
+        <source>New Category</source>
+        <target>Nueva categoría</target>
+      </trans-unit>
+      <trans-unit id="categories.searchPlaceholder" datatype="html">
+        <source>Search categories...</source>
+        <target>Buscar categorías...</target>
+      </trans-unit>
+      <trans-unit id="categories.col.name" datatype="html">
+        <source>Name</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="categories.col.description" datatype="html">
+        <source>Description</source>
+        <target>Descripción</target>
+      </trans-unit>
+      <trans-unit id="categories.col.status" datatype="html">
+        <source>Status</source>
+        <target>Estado</target>
+      </trans-unit>
+      <trans-unit id="categories.col.actions" datatype="html">
+        <source>Actions</source>
+        <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="categories.empty" datatype="html">
+        <source>No categories found.</source>
+        <target>No se encontraron categorías.</target>
+      </trans-unit>
+
+      <!-- Category form -->
+      <trans-unit id="categoryForm.editTitle" datatype="html">
+        <source>Edit Category</source>
+        <target>Editar categoría</target>
+      </trans-unit>
+      <trans-unit id="categoryForm.nameLabel" datatype="html">
+        <source>Name *</source>
+        <target>Nombre *</target>
+      </trans-unit>
+      <trans-unit id="categoryForm.namePlaceholder" datatype="html">
+        <source>e.g. Analgesics</source>
+        <target>Ej. Analgésicos</target>
+      </trans-unit>
+      <trans-unit id="categoryForm.nameRequired" datatype="html">
+        <source>Name is required.</source>
+        <target>El nombre es obligatorio.</target>
+      </trans-unit>
+      <trans-unit id="categoryForm.descLabel" datatype="html">
+        <source>Description</source>
+        <target>Descripción</target>
+      </trans-unit>
+      <trans-unit id="categoryForm.activeLabel" datatype="html">
+        <source>Active</source>
+        <target>Activo</target>
+      </trans-unit>
+
+      <!-- Suppliers list -->
+      <trans-unit id="suppliers.pageTitle" datatype="html">
+        <source>Suppliers</source>
+        <target>Proveedores</target>
+      </trans-unit>
+      <trans-unit id="suppliers.newBtn" datatype="html">
+        <source>New Supplier</source>
+        <target>Nuevo proveedor</target>
+      </trans-unit>
+      <trans-unit id="suppliers.searchPlaceholder" datatype="html">
+        <source>Search suppliers...</source>
+        <target>Buscar proveedores...</target>
+      </trans-unit>
+      <trans-unit id="suppliers.col.name" datatype="html">
+        <source>Name</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="suppliers.col.contact" datatype="html">
+        <source>Contact</source>
+        <target>Contacto</target>
+      </trans-unit>
+      <trans-unit id="suppliers.col.email" datatype="html">
+        <source>Email</source>
+        <target>Correo electrónico</target>
+      </trans-unit>
+      <trans-unit id="suppliers.col.phone" datatype="html">
+        <source>Phone</source>
+        <target>Teléfono</target>
+      </trans-unit>
+      <trans-unit id="suppliers.col.status" datatype="html">
+        <source>Status</source>
+        <target>Estado</target>
+      </trans-unit>
+      <trans-unit id="suppliers.col.actions" datatype="html">
+        <source>Actions</source>
+        <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="suppliers.empty" datatype="html">
+        <source>No suppliers found.</source>
+        <target>No se encontraron proveedores.</target>
+      </trans-unit>
+
+      <!-- Supplier form -->
+      <trans-unit id="supplierForm.editTitle" datatype="html">
+        <source>Edit Supplier</source>
+        <target>Editar proveedor</target>
+      </trans-unit>
+      <trans-unit id="supplierForm.nameLabel" datatype="html">
+        <source>Name *</source>
+        <target>Nombre *</target>
+      </trans-unit>
+      <trans-unit id="supplierForm.namePlaceholder" datatype="html">
+        <source>Supplier name</source>
+        <target>Nombre del proveedor</target>
+      </trans-unit>
+      <trans-unit id="supplierForm.nameRequired" datatype="html">
+        <source>Name is required.</source>
+        <target>El nombre es obligatorio.</target>
+      </trans-unit>
+      <trans-unit id="supplierForm.contactLabel" datatype="html">
+        <source>Contact Name</source>
+        <target>Nombre de contacto</target>
+      </trans-unit>
+      <trans-unit id="supplierForm.contactPlaceholder" datatype="html">
+        <source>Contact person</source>
+        <target>Persona de contacto</target>
+      </trans-unit>
+      <trans-unit id="supplierForm.emailLabel" datatype="html">
+        <source>Contact Email</source>
+        <target>Correo de contacto</target>
+      </trans-unit>
+      <trans-unit id="supplierForm.emailPlaceholder" datatype="html">
+        <source>email@supplier.com</source>
+        <target>correo@proveedor.com</target>
+      </trans-unit>
+      <trans-unit id="supplierForm.emailInvalid" datatype="html">
+        <source>Enter a valid email.</source>
+        <target>Ingrese un correo electrónico válido.</target>
+      </trans-unit>
+      <trans-unit id="supplierForm.phoneLabel" datatype="html">
+        <source>Phone</source>
+        <target>Teléfono</target>
+      </trans-unit>
+      <trans-unit id="supplierForm.phonePlaceholder" datatype="html">
+        <source>+1 555 0100</source>
+        <target>+57 300 0000000</target>
+      </trans-unit>
+      <trans-unit id="supplierForm.activeLabel" datatype="html">
+        <source>Active</source>
+        <target>Activo</target>
+      </trans-unit>
+
+      <!-- Inventory shell navigation -->
+      <trans-unit id="inventory.nav.dashboard" datatype="html">
+        <source>Dashboard</source>
+        <target>Panel principal</target>
+      </trans-unit>
+      <trans-unit id="inventory.nav.stock" datatype="html">
+        <source>Stock</source>
+        <target>Inventario</target>
+      </trans-unit>
+      <trans-unit id="inventory.nav.movements" datatype="html">
+        <source>Movements</source>
+        <target>Movimientos</target>
+      </trans-unit>
+      <trans-unit id="inventory.nav.lowStock" datatype="html">
+        <source>Low Stock</source>
+        <target>Stock bajo</target>
+      </trans-unit>
+
+      <!-- Inventory Dashboard -->
+      <trans-unit id="invDashboard.totalProducts" datatype="html">
+        <source>Total Products</source>
+        <target>Total de productos</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.lowStockAlerts" datatype="html">
+        <source>Low Stock Alerts</source>
+        <target>Alertas de stock bajo</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.todayMovements" datatype="html">
+        <source>Today's Movements</source>
+        <target>Movimientos de hoy</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.recordIngressBtn" datatype="html">
+        <source>Record Ingress</source>
+        <target>Registrar ingreso</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.recordAdjustmentBtn" datatype="html">
+        <source>Record Adjustment</source>
+        <target>Registrar ajuste</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.viewAllStockBtn" datatype="html">
+        <source>View All Stock</source>
+        <target>Ver todo el inventario</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.lowStockSection" datatype="html">
+        <source>Low Stock Alerts</source>
+        <target>Alertas de stock bajo</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.lowStockSubtitle" datatype="html">
+        <source>Products at or below their threshold</source>
+        <target>Productos en o por debajo de su umbral mínimo</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.col.product" datatype="html">
+        <source>Product</source>
+        <target>Producto</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.col.sku" datatype="html">
+        <source>SKU</source>
+        <target>SKU</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.col.category" datatype="html">
+        <source>Category</source>
+        <target>Categoría</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.col.currentStock" datatype="html">
+        <source>Current Stock</source>
+        <target>Stock actual</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.col.threshold" datatype="html">
+        <source>Threshold</source>
+        <target>Umbral mínimo</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.col.status" datatype="html">
+        <source>Status</source>
+        <target>Estado</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.col.actions" datatype="html">
+        <source>Actions</source>
+        <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.recordIngressTooltip" datatype="html">
+        <source>Record Ingress</source>
+        <target>Registrar ingreso</target>
+      </trans-unit>
+      <trans-unit id="invDashboard.allStockedMsg" datatype="html">
+        <source>No low-stock items — all products are adequately stocked.</source>
+        <target>Sin productos con stock bajo — todos los productos tienen stock suficiente.</target>
+      </trans-unit>
+
+      <!-- Stock List -->
+      <trans-unit id="stockList.pageTitle" datatype="html">
+        <source>Stock Levels</source>
+        <target>Niveles de inventario</target>
+      </trans-unit>
+      <trans-unit id="stockList.adjustmentBtn" datatype="html">
+        <source>Adjustment</source>
+        <target>Ajuste</target>
+      </trans-unit>
+      <trans-unit id="stockList.searchPlaceholder" datatype="html">
+        <source>Search by product name or SKU...</source>
+        <target>Buscar por nombre de producto o SKU...</target>
+      </trans-unit>
+      <trans-unit id="stockList.col.productName" datatype="html">
+        <source>Product Name</source>
+        <target>Nombre del producto</target>
+      </trans-unit>
+      <trans-unit id="stockList.col.sku" datatype="html">
+        <source>SKU</source>
+        <target>SKU</target>
+      </trans-unit>
+      <trans-unit id="stockList.col.category" datatype="html">
+        <source>Category</source>
+        <target>Categoría</target>
+      </trans-unit>
+      <trans-unit id="stockList.col.currentStock" datatype="html">
+        <source>Current Stock</source>
+        <target>Stock actual</target>
+      </trans-unit>
+      <trans-unit id="stockList.col.threshold" datatype="html">
+        <source>Threshold</source>
+        <target>Umbral mínimo</target>
+      </trans-unit>
+      <trans-unit id="stockList.col.status" datatype="html">
+        <source>Status</source>
+        <target>Estado</target>
+      </trans-unit>
+      <trans-unit id="stockList.col.actions" datatype="html">
+        <source>Actions</source>
+        <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="stockList.viewMovementsTooltip" datatype="html">
+        <source>View Movements</source>
+        <target>Ver movimientos</target>
+      </trans-unit>
+      <trans-unit id="stockList.empty" datatype="html">
+        <source>No stock items found.</source>
+        <target>No se encontraron artículos en inventario.</target>
+      </trans-unit>
+
+      <!-- Low Stock -->
+      <trans-unit id="lowStock.pageTitle" datatype="html">
+        <source>Low Stock Alerts</source>
+        <target>Alertas de stock bajo</target>
+      </trans-unit>
+      <trans-unit id="lowStock.subtitle" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ inventoryService.lowStockItems().length }}"/> product(s) require attention</source>
+        <target><x id="INTERPOLATION" equiv-text="{{ inventoryService.lowStockItems().length }}"/> producto(s) requieren atención</target>
+      </trans-unit>
+      <trans-unit id="lowStock.refreshBtn" datatype="html">
+        <source>Refresh</source>
+        <target>Actualizar</target>
+      </trans-unit>
+      <trans-unit id="lowStock.col.product" datatype="html">
+        <source>Product</source>
+        <target>Producto</target>
+      </trans-unit>
+      <trans-unit id="lowStock.col.sku" datatype="html">
+        <source>SKU</source>
+        <target>SKU</target>
+      </trans-unit>
+      <trans-unit id="lowStock.col.category" datatype="html">
+        <source>Category</source>
+        <target>Categoría</target>
+      </trans-unit>
+      <trans-unit id="lowStock.col.currentStock" datatype="html">
+        <source>Current Stock</source>
+        <target>Stock actual</target>
+      </trans-unit>
+      <trans-unit id="lowStock.col.threshold" datatype="html">
+        <source>Threshold</source>
+        <target>Umbral mínimo</target>
+      </trans-unit>
+      <trans-unit id="lowStock.col.status" datatype="html">
+        <source>Status</source>
+        <target>Estado</target>
+      </trans-unit>
+      <trans-unit id="lowStock.col.actions" datatype="html">
+        <source>Actions</source>
+        <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="lowStock.allStockedMsg" datatype="html">
+        <source>All products are adequately stocked.</source>
+        <target>Todos los productos tienen stock suficiente.</target>
+      </trans-unit>
+
+      <!-- Movement History -->
+      <trans-unit id="movements.pageTitle" datatype="html">
+        <source>Movement History</source>
+        <target>Historial de movimientos</target>
+      </trans-unit>
+      <trans-unit id="movements.backToStockBtn" datatype="html">
+        <source>Back to Stock</source>
+        <target>Volver al inventario</target>
+      </trans-unit>
+      <trans-unit id="movements.allTypesPlaceholder" datatype="html">
+        <source>All Types</source>
+        <target>Todos los tipos</target>
+      </trans-unit>
+      <trans-unit id="movements.selectProductMsg" datatype="html">
+        <source>Select a product from the <x id="START_LINK" equiv-text="&lt;a&gt;"/>Stock List<x id="CLOSE_LINK" equiv-text="&lt;/a&gt;"/> to view its movement history.</source>
+        <target>Seleccione un producto de la <x id="START_LINK" equiv-text="&lt;a&gt;"/>lista de inventario<x id="CLOSE_LINK" equiv-text="&lt;/a&gt;"/> para ver su historial de movimientos.</target>
+      </trans-unit>
+      <trans-unit id="movements.col.date" datatype="html">
+        <source>Date</source>
+        <target>Fecha</target>
+      </trans-unit>
+      <trans-unit id="movements.col.type" datatype="html">
+        <source>Type</source>
+        <target>Tipo</target>
+      </trans-unit>
+      <trans-unit id="movements.col.quantity" datatype="html">
+        <source>Quantity</source>
+        <target>Cantidad</target>
+      </trans-unit>
+      <trans-unit id="movements.col.batchSupplier" datatype="html">
+        <source>Batch / Supplier</source>
+        <target>Lote / Proveedor</target>
+      </trans-unit>
+      <trans-unit id="movements.col.reason" datatype="html">
+        <source>Reason</source>
+        <target>Motivo</target>
+      </trans-unit>
+      <trans-unit id="movements.col.user" datatype="html">
+        <source>User</source>
+        <target>Usuario</target>
+      </trans-unit>
+      <trans-unit id="movements.empty" datatype="html">
+        <source>No movements found for this product.</source>
+        <target>No se encontraron movimientos para este producto.</target>
+      </trans-unit>
+
+      <!-- Ingress Form -->
+      <trans-unit id="ingressForm.title" datatype="html">
+        <source>Record Stock Ingress</source>
+        <target>Registrar ingreso de mercancía</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.productLabel" datatype="html">
+        <source>Product *</source>
+        <target>Producto *</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.productPlaceholder" datatype="html">
+        <source>Select product</source>
+        <target>Seleccione un producto</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.productSearchPlaceholder" datatype="html">
+        <source>Search products...</source>
+        <target>Buscar productos...</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.productRequired" datatype="html">
+        <source>Product is required.</source>
+        <target>El producto es obligatorio.</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.quantityLabel" datatype="html">
+        <source>Quantity *</source>
+        <target>Cantidad *</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.quantityMin" datatype="html">
+        <source>Quantity must be at least 1.</source>
+        <target>La cantidad debe ser al menos 1.</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.unitCostLabel" datatype="html">
+        <source>Unit Cost *</source>
+        <target>Costo unitario *</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.unitCostRequired" datatype="html">
+        <source>Unit cost is required.</source>
+        <target>El costo unitario es obligatorio.</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.supplierLabel" datatype="html">
+        <source>Supplier</source>
+        <target>Proveedor</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.supplierNonePlaceholder" datatype="html">
+        <source>None (optional)</source>
+        <target>Ninguno (opcional)</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.batchLabel" datatype="html">
+        <source>Batch Number</source>
+        <target>Número de lote</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.batchPlaceholder" datatype="html">
+        <source>e.g. LOT-2026-001</source>
+        <target>Ej. LOTE-2026-001</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.notesLabel" datatype="html">
+        <source>Notes</source>
+        <target>Notas</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.notesPlaceholder" datatype="html">
+        <source>Optional notes</source>
+        <target>Notas opcionales</target>
+      </trans-unit>
+      <trans-unit id="ingressForm.submitBtn" datatype="html">
+        <source>Record Ingress</source>
+        <target>Registrar ingreso</target>
+      </trans-unit>
+
+      <!-- Adjustment Form -->
+      <trans-unit id="adjustmentForm.title" datatype="html">
+        <source>Record Stock Adjustment</source>
+        <target>Registrar ajuste de inventario</target>
+      </trans-unit>
+      <trans-unit id="adjustmentForm.productLabel" datatype="html">
+        <source>Product *</source>
+        <target>Producto *</target>
+      </trans-unit>
+      <trans-unit id="adjustmentForm.currentStockHint" datatype="html">
+        <source>Current stock:</source>
+        <target>Stock actual:</target>
+      </trans-unit>
+      <trans-unit id="adjustmentForm.unitsLabel" datatype="html">
+        <source>units</source>
+        <target>unidades</target>
+      </trans-unit>
+      <trans-unit id="adjustmentForm.quantityLabel" datatype="html">
+        <source>New Quantity (signed) *</source>
+        <target>Nueva cantidad (con signo) *</target>
+      </trans-unit>
+      <trans-unit id="adjustmentForm.quantityHint" datatype="html">
+        <source>Use a negative value to reduce stock (e.g. -5 for damaged goods).</source>
+        <target>Use un valor negativo para reducir el stock (ej. -5 para mercancía dañada).</target>
+      </trans-unit>
+      <trans-unit id="adjustmentForm.quantityRequired" datatype="html">
+        <source>Quantity is required.</source>
+        <target>La cantidad es obligatoria.</target>
+      </trans-unit>
+      <trans-unit id="adjustmentForm.reasonLabel" datatype="html">
+        <source>Reason *</source>
+        <target>Motivo *</target>
+      </trans-unit>
+      <trans-unit id="adjustmentForm.reasonPlaceholder" datatype="html">
+        <source>Describe the reason (min. 10 characters)...</source>
+        <target>Describa el motivo (mín. 10 caracteres)...</target>
+      </trans-unit>
+      <trans-unit id="adjustmentForm.reasonRequired" datatype="html">
+        <source>Reason is required.</source>
+        <target>El motivo es obligatorio.</target>
+      </trans-unit>
+      <trans-unit id="adjustmentForm.reasonMinLength" datatype="html">
+        <source>Reason must be at least 10 characters.</source>
+        <target>El motivo debe tener al menos 10 caracteres.</target>
+      </trans-unit>
+      <trans-unit id="adjustmentForm.submitBtn" datatype="html">
+        <source>Apply Adjustment</source>
+        <target>Aplicar ajuste</target>
+      </trans-unit>
+
+      <!-- Sales navigation -->
+      <trans-unit id="sales.nav.pos" datatype="html">
+        <source>Point of Sale</source>
+        <target>Punto de venta</target>
+      </trans-unit>
+      <trans-unit id="sales.nav.history" datatype="html">
+        <source>Sales History</source>
+        <target>Historial de ventas</target>
+      </trans-unit>
+      <trans-unit id="sales.nav.conflictAlerts" datatype="html">
+        <source>Conflict Alerts</source>
+        <target>Alertas de conflictos</target>
+      </trans-unit>
+
+      <!-- POS -->
+      <trans-unit id="pos.offlineBanner" datatype="html">
+        <source>Offline mode — sale will be queued and synced when connection restores.</source>
+        <target>Modo sin conexión — la venta se pondrá en cola y se sincronizará al restablecer la conexión.</target>
+      </trans-unit>
+      <trans-unit id="pos.searchPlaceholder" datatype="html">
+        <source>Search products by name or SKU...</source>
+        <target>Buscar productos por nombre o SKU...</target>
+      </trans-unit>
+      <trans-unit id="pos.noProductsFound" datatype="html">
+        <source>No products found</source>
+        <target>No se encontraron productos</target>
+      </trans-unit>
+      <trans-unit id="pos.cartTitle" datatype="html">
+        <source>Cart</source>
+        <target>Carrito</target>
+      </trans-unit>
+      <trans-unit id="pos.itemCount" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ cartService.itemCount() }}"/> items</source>
+        <target><x id="INTERPOLATION" equiv-text="{{ cartService.itemCount() }}"/> artículo(s)</target>
+      </trans-unit>
+      <trans-unit id="pos.customerLabel" datatype="html">
+        <source>Customer (optional)</source>
+        <target>Cliente (opcional)</target>
+      </trans-unit>
+      <trans-unit id="pos.customerPlaceholder" datatype="html">
+        <source>Customer name</source>
+        <target>Nombre del cliente</target>
+      </trans-unit>
+      <trans-unit id="pos.unitPriceEach" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ item.unitPrice | currency:currencyCode:'symbol':'1.0-0' }}"/> each</source>
+        <target><x id="INTERPOLATION" equiv-text="{{ item.unitPrice | currency:currencyCode:'symbol':'1.0-0' }}"/> c/u</target>
+      </trans-unit>
+      <trans-unit id="pos.emptyCart" datatype="html">
+        <source>Cart is empty — click a product to add it.</source>
+        <target>El carrito está vacío — haga clic en un producto para agregarlo.</target>
+      </trans-unit>
+      <trans-unit id="pos.totalLabel" datatype="html">
+        <source>Total</source>
+        <target>Total</target>
+      </trans-unit>
+      <trans-unit id="pos.completeSaleBtn" datatype="html">
+        <source>Complete Sale</source>
+        <target>Completar venta</target>
+      </trans-unit>
+      <trans-unit id="pos.clearCartBtn" datatype="html">
+        <source>Clear Cart</source>
+        <target>Vaciar carrito</target>
+      </trans-unit>
+
+      <!-- Sale Detail -->
+      <trans-unit id="saleDetail.printBtn" datatype="html">
+        <source>Print</source>
+        <target>Imprimir</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.voidBtn" datatype="html">
+        <source>Void Sale</source>
+        <target>Anular venta</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.receiptTitle" datatype="html">
+        <source>Sale Receipt</source>
+        <target>Comprobante de venta</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.saleNumber" datatype="html">
+        <source>Sale Number</source>
+        <target>Número de venta</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.dateLabel" datatype="html">
+        <source>Date</source>
+        <target>Fecha</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.customerLabel" datatype="html">
+        <source>Customer</source>
+        <target>Cliente</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.syncLabel" datatype="html">
+        <source>Sync</source>
+        <target>Sincronización</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.offlineSync" datatype="html">
+        <source>Offline Sync</source>
+        <target>Sincronización sin conexión</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.col.product" datatype="html">
+        <source>Product</source>
+        <target>Producto</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.col.qty" datatype="html">
+        <source>Qty</source>
+        <target>Cant.</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.col.unitPrice" datatype="html">
+        <source>Unit Price</source>
+        <target>Precio unitario</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.col.subtotal" datatype="html">
+        <source>Subtotal</source>
+        <target>Subtotal</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.totalLabel" datatype="html">
+        <source>TOTAL</source>
+        <target>TOTAL</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.loading" datatype="html">
+        <source>Loading sale...</source>
+        <target>Cargando venta...</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.voidDialogTitle" datatype="html">
+        <source>Void Sale</source>
+        <target>Anular venta</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.voidConfirmMsg" datatype="html">
+        <source>Void sale <x id="START_BOLD_TEXT" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ salesService.currentSale()?.saleNumber }}"/><x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/strong&gt;"/>?</source>
+        <target>¿Anular la venta <x id="START_BOLD_TEXT" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ salesService.currentSale()?.saleNumber }}"/><x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/strong&gt;"/>?</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.voidWarning" datatype="html">
+        <source>Stock will be restored and this action cannot be undone.</source>
+        <target>El stock será restaurado y esta acción no puede deshacerse.</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.voidReasonLabel" datatype="html">
+        <source>Reason *</source>
+        <target>Motivo *</target>
+      </trans-unit>
+      <trans-unit id="saleDetail.voidReasonPlaceholder" datatype="html">
+        <source>Reason for voiding</source>
+        <target>Motivo de la anulación</target>
+      </trans-unit>
+
+      <!-- Sales History -->
+      <trans-unit id="salesHistory.pageTitle" datatype="html">
+        <source>Sales History</source>
+        <target>Historial de ventas</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.fromDatePlaceholder" datatype="html">
+        <source>From date</source>
+        <target>Desde</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.toDatePlaceholder" datatype="html">
+        <source>To date</source>
+        <target>Hasta</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.allStatusesPlaceholder" datatype="html">
+        <source>All statuses</source>
+        <target>Todos los estados</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.clearFiltersBtn" datatype="html">
+        <source>Clear Filters</source>
+        <target>Limpiar filtros</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.col.saleNumber" datatype="html">
+        <source>Sale #</source>
+        <target>Venta #</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.col.date" datatype="html">
+        <source>Date</source>
+        <target>Fecha</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.col.customer" datatype="html">
+        <source>Customer</source>
+        <target>Cliente</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.col.lines" datatype="html">
+        <source>Lines</source>
+        <target>Líneas</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.col.total" datatype="html">
+        <source>Total</source>
+        <target>Total</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.col.status" datatype="html">
+        <source>Status</source>
+        <target>Estado</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.col.actions" datatype="html">
+        <source>Actions</source>
+        <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.viewDetailTooltip" datatype="html">
+        <source>View Detail</source>
+        <target>Ver detalle</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.voidTooltip" datatype="html">
+        <source>Void Sale</source>
+        <target>Anular venta</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.saleLines" datatype="html">
+        <source>Sale Lines:</source>
+        <target>Líneas de venta:</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.linesCol.product" datatype="html">
+        <source>Product</source>
+        <target>Producto</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.linesCol.qty" datatype="html">
+        <source>Qty</source>
+        <target>Cant.</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.linesCol.unitPrice" datatype="html">
+        <source>Unit Price</source>
+        <target>Precio unitario</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.linesCol.subtotal" datatype="html">
+        <source>Subtotal</source>
+        <target>Subtotal</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.empty" datatype="html">
+        <source>No sales found for the selected filters.</source>
+        <target>No se encontraron ventas para los filtros seleccionados.</target>
+      </trans-unit>
+      <trans-unit id="salesHistory.voidConfirmMsg" datatype="html">
+        <source>Are you sure you want to void sale <x id="START_BOLD_TEXT" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ selectedSale?.saleNumber }}"/><x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/strong&gt;"/>?</source>
+        <target>¿Está seguro de que desea anular la venta <x id="START_BOLD_TEXT" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ selectedSale?.saleNumber }}"/><x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/strong&gt;"/>?</target>
+      </trans-unit>
+
+      <!-- Conflict Alerts -->
+      <trans-unit id="conflictAlerts.pageTitle" datatype="html">
+        <source>Stock Conflict Alerts</source>
+        <target>Alertas de conflictos de inventario</target>
+      </trans-unit>
+      <trans-unit id="conflictAlerts.unresolvedOnlyLabel" datatype="html">
+        <source>Unresolved only</source>
+        <target>Solo pendientes</target>
+      </trans-unit>
+      <trans-unit id="conflictAlerts.col.product" datatype="html">
+        <source>Product</source>
+        <target>Producto</target>
+      </trans-unit>
+      <trans-unit id="conflictAlerts.col.saleNumber" datatype="html">
+        <source>Sale #</source>
+        <target>Venta #</target>
+      </trans-unit>
+      <trans-unit id="conflictAlerts.col.expectedStock" datatype="html">
+        <source>Expected Stock</source>
+        <target>Stock esperado</target>
+      </trans-unit>
+      <trans-unit id="conflictAlerts.col.actualStock" datatype="html">
+        <source>Actual Stock</source>
+        <target>Stock real</target>
+      </trans-unit>
+      <trans-unit id="conflictAlerts.col.detectedAt" datatype="html">
+        <source>Detected At</source>
+        <target>Detectado el</target>
+      </trans-unit>
+      <trans-unit id="conflictAlerts.col.status" datatype="html">
+        <source>Status</source>
+        <target>Estado</target>
+      </trans-unit>
+      <trans-unit id="conflictAlerts.col.actions" datatype="html">
+        <source>Actions</source>
+        <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="conflictAlerts.resolveBtn" datatype="html">
+        <source>Resolve</source>
+        <target>Resolver</target>
+      </trans-unit>
+      <trans-unit id="conflictAlerts.empty" datatype="html">
+        <source>No conflict alerts found.</source>
+        <target>No se encontraron alertas de conflictos.</target>
+      </trans-unit>
+
+      <!-- Reports navigation -->
+      <trans-unit id="reports.nav.dashboard" datatype="html">
+        <source>Dashboard</source>
+        <target>Panel principal</target>
+      </trans-unit>
+      <trans-unit id="reports.nav.salesReport" datatype="html">
+        <source>Sales Report</source>
+        <target>Reporte de ventas</target>
+      </trans-unit>
+      <trans-unit id="reports.nav.inventoryReport" datatype="html">
+        <source>Inventory Report</source>
+        <target>Reporte de inventario</target>
+      </trans-unit>
+      <trans-unit id="reports.noData" datatype="html">
+        <source>No data available</source>
+        <target>No hay datos disponibles</target>
+      </trans-unit>
+
+      <!-- Reports Dashboard -->
+      <trans-unit id="repDashboard.salesToday" datatype="html">
+        <source>Sales Today</source>
+        <target>Ventas de hoy</target>
+      </trans-unit>
+      <trans-unit id="repDashboard.revenueToday" datatype="html">
+        <source>Revenue Today</source>
+        <target>Ingresos de hoy</target>
+      </trans-unit>
+      <trans-unit id="repDashboard.salesThisMonth" datatype="html">
+        <source>Sales This Month</source>
+        <target>Ventas este mes</target>
+      </trans-unit>
+      <trans-unit id="repDashboard.avgTicket" datatype="html">
+        <source>Avg Ticket (Month)</source>
+        <target>Ticket promedio (mes)</target>
+      </trans-unit>
+      <trans-unit id="repDashboard.lowStockProducts" datatype="html">
+        <source>Low Stock Products</source>
+        <target>Productos con stock bajo</target>
+      </trans-unit>
+      <trans-unit id="repDashboard.pendingConflicts" datatype="html">
+        <source>Pending Conflict Alerts</source>
+        <target>Alertas de conflictos pendientes</target>
+      </trans-unit>
+      <trans-unit id="repDashboard.viewLink" datatype="html">
+        <source>View →</source>
+        <target>Ver →</target>
+      </trans-unit>
+      <trans-unit id="repDashboard.top5Header" datatype="html">
+        <source>Top 5 Products This Month</source>
+        <target>Top 5 productos del mes</target>
+      </trans-unit>
+      <trans-unit id="repDashboard.col.product" datatype="html">
+        <source>Product</source>
+        <target>Producto</target>
+      </trans-unit>
+      <trans-unit id="repDashboard.col.qtySold" datatype="html">
+        <source>Qty Sold</source>
+        <target>Cant. vendida</target>
+      </trans-unit>
+      <trans-unit id="repDashboard.col.revenue" datatype="html">
+        <source>Revenue</source>
+        <target>Ingresos</target>
+      </trans-unit>
+      <trans-unit id="repDashboard.noSalesThisMonth" datatype="html">
+        <source>No sales this month</source>
+        <target>Sin ventas este mes</target>
+      </trans-unit>
+
+      <!-- Sales Report -->
+      <trans-unit id="salesReport.cardHeader" datatype="html">
+        <source>Sales Report</source>
+        <target>Reporte de ventas</target>
+      </trans-unit>
+      <trans-unit id="salesReport.fromLabel" datatype="html">
+        <source>From</source>
+        <target>Desde</target>
+      </trans-unit>
+      <trans-unit id="salesReport.toLabel" datatype="html">
+        <source>To</source>
+        <target>Hasta</target>
+      </trans-unit>
+      <trans-unit id="salesReport.loadBtn" datatype="html">
+        <source>Load Report</source>
+        <target>Cargar reporte</target>
+      </trans-unit>
+      <trans-unit id="salesReport.totalSales" datatype="html">
+        <source>Total Sales</source>
+        <target>Total de ventas</target>
+      </trans-unit>
+      <trans-unit id="salesReport.totalRevenue" datatype="html">
+        <source>Total Revenue</source>
+        <target>Ingresos totales</target>
+      </trans-unit>
+      <trans-unit id="salesReport.avgTicket" datatype="html">
+        <source>Average Ticket</source>
+        <target>Ticket promedio</target>
+      </trans-unit>
+      <trans-unit id="salesReport.dailySalesHeader" datatype="html">
+        <source>Daily Sales</source>
+        <target>Ventas diarias</target>
+      </trans-unit>
+      <trans-unit id="salesReport.topProductsHeader" datatype="html">
+        <source>Top Products</source>
+        <target>Productos destacados</target>
+      </trans-unit>
+      <trans-unit id="salesReport.noData" datatype="html">
+        <source>No data</source>
+        <target>Sin datos</target>
+      </trans-unit>
+
+      <!-- Inventory Report -->
+      <trans-unit id="invReport.totalProducts" datatype="html">
+        <source>Total Products</source>
+        <target>Total de productos</target>
+      </trans-unit>
+      <trans-unit id="invReport.lowStock" datatype="html">
+        <source>Low Stock</source>
+        <target>Stock bajo</target>
+      </trans-unit>
+      <trans-unit id="invReport.zeroStock" datatype="html">
+        <source>Zero Stock</source>
+        <target>Sin stock</target>
+      </trans-unit>
+      <trans-unit id="invReport.totalStockValue" datatype="html">
+        <source>Total Stock Value</source>
+        <target>Valor total del inventario</target>
+      </trans-unit>
+      <trans-unit id="invReport.tableHeader" datatype="html">
+        <source>Low Stock &amp; Zero Stock Products</source>
+        <target>Productos con stock bajo o sin stock</target>
+      </trans-unit>
+      <trans-unit id="invReport.col.product" datatype="html">
+        <source>Product</source>
+        <target>Producto</target>
+      </trans-unit>
+      <trans-unit id="invReport.col.sku" datatype="html">
+        <source>SKU</source>
+        <target>SKU</target>
+      </trans-unit>
+      <trans-unit id="invReport.col.currentStock" datatype="html">
+        <source>Current Stock</source>
+        <target>Stock actual</target>
+      </trans-unit>
+      <trans-unit id="invReport.col.threshold" datatype="html">
+        <source>Threshold</source>
+        <target>Umbral mínimo</target>
+      </trans-unit>
+      <trans-unit id="invReport.col.costPrice" datatype="html">
+        <source>Cost Price</source>
+        <target>Precio de costo</target>
+      </trans-unit>
+      <trans-unit id="invReport.col.status" datatype="html">
+        <source>Status</source>
+        <target>Estado</target>
+      </trans-unit>
+      <trans-unit id="invReport.zeroStockTag" datatype="html">
+        <source>Zero Stock</source>
+        <target>Sin stock</target>
+      </trans-unit>
+      <trans-unit id="invReport.lowStockTag" datatype="html">
+        <source>Low Stock</source>
+        <target>Stock bajo</target>
+      </trans-unit>
+      <trans-unit id="invReport.allHealthy" datatype="html">
+        <source>All products have healthy stock levels</source>
+        <target>Todos los productos tienen niveles de inventario saludables</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

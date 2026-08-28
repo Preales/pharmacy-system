@@ -7,6 +7,7 @@
         <p-button
           icon="pi pi-arrow-left"
           label="Back"
+          i18n-label="@@login.backBtn"
           severity="secondary"
           [outlined]="true"
         />
@@ -15,6 +16,7 @@
         <p-button
           icon="pi pi-print"
           label="Print"
+          i18n-label="@@saleDetail.printBtn"
           severity="secondary"
           (onClick)="printReceipt()"
         />
@@ -22,6 +24,7 @@
           <p-button
             icon="pi pi-ban"
             label="Void Sale"
+            i18n-label="@@saleDetail.voidBtn"
             severity="danger"
             [outlined]="true"
             (onClick)="voidDialogVisible = true"
@@ -32,7 +35,7 @@
 
     <div class="receipt-content">
       <div class="receipt-title">
-        <h2>Sale Receipt</h2>
+        <h2 i18n="@@saleDetail.receiptTitle">Sale Receipt</h2>
         <p-tag
           [value]="salesService.currentSale()!.status"
           [severity]="getStatusSeverity(salesService.currentSale()!.status)"
@@ -41,23 +44,23 @@
 
       <div class="receipt-meta">
         <div class="meta-row">
-          <span class="meta-label">Sale Number</span>
+          <span i18n="@@saleDetail.saleNumber" class="meta-label">Sale Number</span>
           <span class="meta-value"><code>{{ salesService.currentSale()!.saleNumber }}</code></span>
         </div>
         <div class="meta-row">
-          <span class="meta-label">Date</span>
+          <span i18n="@@saleDetail.dateLabel" class="meta-label">Date</span>
           <span class="meta-value">{{ salesService.currentSale()!.saleDate | date:'medium' }}</span>
         </div>
         @if (salesService.currentSale()!.customerName) {
           <div class="meta-row">
-            <span class="meta-label">Customer</span>
+            <span i18n="@@saleDetail.customerLabel" class="meta-label">Customer</span>
             <span class="meta-value">{{ salesService.currentSale()!.customerName }}</span>
           </div>
         }
         @if (salesService.currentSale()!.isOfflineSync) {
           <div class="meta-row">
-            <span class="meta-label">Sync</span>
-            <span class="meta-value text-orange-500">Offline Sync</span>
+            <span i18n="@@saleDetail.syncLabel" class="meta-label">Sync</span>
+            <span i18n="@@saleDetail.offlineSync" class="meta-value text-orange-500">Offline Sync</span>
           </div>
         }
       </div>
@@ -70,10 +73,10 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th>Product</th>
-            <th style="text-align:right">Qty</th>
-            <th style="text-align:right">Unit Price</th>
-            <th style="text-align:right">Subtotal</th>
+            <th i18n="@@saleDetail.col.product">Product</th>
+            <th i18n="@@saleDetail.col.qty" style="text-align:right">Qty</th>
+            <th i18n="@@saleDetail.col.unitPrice" style="text-align:right">Unit Price</th>
+            <th i18n="@@saleDetail.col.subtotal" style="text-align:right">Subtotal</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-line>
@@ -89,7 +92,7 @@
       <div class="receipt-divider"></div>
 
       <div class="receipt-total">
-        <span>TOTAL</span>
+        <span i18n="@@saleDetail.totalLabel">TOTAL</span>
         <span class="total-value">{{ salesService.currentSale()!.totalAmount | currency:currencyCode:'symbol':'1.0-0' }}</span>
       </div>
     </div>
@@ -97,25 +100,26 @@
 } @else {
   <div class="loading-state">
     <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-    <p>Loading sale...</p>
+    <p i18n="@@saleDetail.loading">Loading sale...</p>
   </div>
 }
 
 <!-- Void Dialog -->
 <p-dialog
   header="Void Sale"
+  i18n-header="@@saleDetail.voidDialogTitle"
   [(visible)]="voidDialogVisible"
   [modal]="true"
   [style]="{ width: '400px' }"
 >
-  <p>Void sale <strong>{{ salesService.currentSale()?.saleNumber }}</strong>?</p>
-  <p class="text-secondary text-sm">Stock will be restored and this action cannot be undone.</p>
+  <p i18n="@@saleDetail.voidConfirmMsg">Void sale <strong>{{ salesService.currentSale()?.saleNumber }}</strong>?</p>
+  <p i18n="@@saleDetail.voidWarning" class="text-secondary text-sm">Stock will be restored and this action cannot be undone.</p>
   <div class="form-field">
-    <label>Reason *</label>
-    <input pInputText type="text" [(ngModel)]="voidReason" placeholder="Reason for voiding" class="w-full" />
+    <label i18n="@@saleDetail.voidReasonLabel">Reason *</label>
+    <input pInputText type="text" [(ngModel)]="voidReason" placeholder="Reason for voiding" i18n-placeholder="@@saleDetail.voidReasonPlaceholder" class="w-full" />
   </div>
   <ng-template pTemplate="footer">
-    <p-button label="Cancel" severity="secondary" [outlined]="true" (onClick)="voidDialogVisible = false" />
-    <p-button label="Void Sale" severity="danger" [disabled]="!voidReason.trim()" (onClick)="confirmVoid()" />
+    <p-button label="Cancel" i18n-label="@@form.cancelBtn" severity="secondary" [outlined]="true" (onClick)="voidDialogVisible = false" />
+    <p-button label="Void Sale" i18n-label="@@saleDetail.voidBtn" severity="danger" [disabled]="!voidReason.trim()" (onClick)="confirmVoid()" />
   </ng-template>
 </p-dialog>

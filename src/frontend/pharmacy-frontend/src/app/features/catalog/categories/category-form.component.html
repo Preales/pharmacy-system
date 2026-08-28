@@ -1,5 +1,6 @@
 <p-dialog
   [header]="editTarget ? 'Edit Category' : 'New Category'"
+  i18n-header="@@categoryForm.editTitle"
   [(visible)]="visible"
   [modal]="true"
   [style]="{ width: '480px' }"
@@ -8,27 +9,29 @@
 >
   <form [formGroup]="form" (ngSubmit)="submit()" class="form-body">
     <div class="field">
-      <label for="catName">Name *</label>
+      <label for="catName" i18n="@@categoryForm.nameLabel">Name *</label>
       <input
         id="catName"
         pInputText
         formControlName="name"
         placeholder="e.g. Analgesics"
+        i18n-placeholder="@@categoryForm.namePlaceholder"
         class="w-full"
         [class.ng-invalid]="isInvalid('name')"
       />
       @if (isInvalid('name')) {
-        <small class="p-error">Name is required.</small>
+        <small i18n="@@categoryForm.nameRequired" class="p-error">Name is required.</small>
       }
     </div>
 
     <div class="field">
-      <label for="catDesc">Description</label>
+      <label for="catDesc" i18n="@@categoryForm.descLabel">Description</label>
       <textarea
         id="catDesc"
         pTextarea
         formControlName="description"
         placeholder="Optional description"
+        i18n-placeholder="@@productForm.descPlaceholder"
         class="w-full"
         rows="3"
       ></textarea>
@@ -37,15 +40,16 @@
     @if (editTarget) {
       <div class="field-checkbox">
         <p-checkbox formControlName="isActive" [binary]="true" inputId="catActive" />
-        <label for="catActive">Active</label>
+        <label for="catActive" i18n="@@categoryForm.activeLabel">Active</label>
       </div>
     }
   </form>
 
   <ng-template pTemplate="footer">
-    <p-button label="Cancel" severity="secondary" (onClick)="onCancel()" />
+    <p-button label="Cancel" i18n-label="@@form.cancelBtn" severity="secondary" (onClick)="onCancel()" />
     <p-button
       [label]="editTarget ? 'Update' : 'Create'"
+      i18n-label="@@form.saveBtn"
       icon="pi pi-check"
       [loading]="saving()"
       [disabled]="form.invalid || saving()"

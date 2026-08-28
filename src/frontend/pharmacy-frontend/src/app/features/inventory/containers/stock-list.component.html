@@ -1,10 +1,10 @@
 <p-toast />
 
 <div class="page-header">
-  <h2>Stock Levels</h2>
+  <h2 i18n="@@stockList.pageTitle">Stock Levels</h2>
   <div class="header-actions">
-    <p-button label="Record Ingress" icon="pi pi-arrow-down" (onClick)="openIngress()" />
-    <p-button label="Adjustment" icon="pi pi-pencil" severity="secondary" (onClick)="openAdjustment()" />
+    <p-button label="Record Ingress" i18n-label="@@invDashboard.recordIngressBtn" icon="pi pi-arrow-down" (onClick)="openIngress()" />
+    <p-button label="Adjustment" i18n-label="@@stockList.adjustmentBtn" icon="pi pi-pencil" severity="secondary" (onClick)="openAdjustment()" />
   </div>
 </div>
 
@@ -13,6 +13,7 @@
     pInputText
     [(ngModel)]="searchTerm"
     placeholder="Search by product name or SKU..."
+    i18n-placeholder="@@stockList.searchPlaceholder"
     (ngModelChange)="onSearchChange()"
     class="filter-input"
   />
@@ -22,6 +23,7 @@
     [text]="true"
     (onClick)="resetSearch()"
     pTooltip="Clear search"
+    i18n-pTooltip="@@products.clearFiltersTooltip"
   />
 </div>
 
@@ -35,19 +37,20 @@
   (onPage)="onPage($event)"
   [showCurrentPageReport]="true"
   currentPageReportTemplate="{first}–{last} of {totalRecords}"
+  i18n-currentPageReportTemplate="@@table.pageReport"
   [rowsPerPageOptions]="pageSizeOptions"
   styleClass="p-datatable-striped"
   dataKey="productId"
 >
   <ng-template pTemplate="header">
     <tr>
-      <th>Product Name</th>
-      <th>SKU</th>
-      <th>Category</th>
-      <th style="text-align:right">Current Stock</th>
-      <th style="text-align:right">Threshold</th>
-      <th>Status</th>
-      <th style="width: 110px">Actions</th>
+      <th i18n="@@stockList.col.productName">Product Name</th>
+      <th i18n="@@stockList.col.sku">SKU</th>
+      <th i18n="@@stockList.col.category">Category</th>
+      <th i18n="@@stockList.col.currentStock" style="text-align:right">Current Stock</th>
+      <th i18n="@@stockList.col.threshold" style="text-align:right">Threshold</th>
+      <th i18n="@@stockList.col.status">Status</th>
+      <th i18n="@@stockList.col.actions" style="width: 110px">Actions</th>
     </tr>
   </ng-template>
 
@@ -71,6 +74,7 @@
           [text]="true"
           severity="info"
           pTooltip="View Movements"
+          i18n-pTooltip="@@stockList.viewMovementsTooltip"
           (onClick)="viewMovements(item)"
         />
         <p-button
@@ -79,6 +83,7 @@
           [text]="true"
           severity="success"
           pTooltip="Record Ingress"
+          i18n-pTooltip="@@invDashboard.recordIngressTooltip"
           (onClick)="openIngressFor(item)"
         />
       </td>
@@ -87,7 +92,7 @@
 
   <ng-template pTemplate="empty">
     <tr>
-      <td colspan="7" class="text-center p-4">No stock items found.</td>
+      <td colspan="7" i18n="@@stockList.empty" class="text-center p-4">No stock items found.</td>
     </tr>
   </ng-template>
 </p-table>
