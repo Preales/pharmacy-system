@@ -16,50 +16,7 @@ import { SyncStatusBarComponent } from '../../core/components/sync-status-bar.co
     ButtonModule,
     SyncStatusBarComponent,
   ],
-  template: `
-    <div class="sales-shell">
-      <nav class="sales-sidebar">
-        <div class="sidebar-header">
-          <span class="pi pi-shopping-cart sidebar-icon"></span>
-          <span class="sidebar-title">Sales</span>
-        </div>
-
-        <ul class="sidebar-nav">
-          <li>
-            <a routerLink="pos" routerLinkActive="active" class="nav-item">
-              <i class="pi pi-calculator"></i>
-              <span>Point of Sale</span>
-            </a>
-          </li>
-          <li>
-            <a routerLink="history" routerLinkActive="active" class="nav-item">
-              <i class="pi pi-list"></i>
-              <span>Sales History</span>
-            </a>
-          </li>
-          <li>
-            <a routerLink="conflict-alerts" routerLinkActive="active" class="nav-item">
-              <i class="pi pi-exclamation-circle"></i>
-              <span>Conflict Alerts</span>
-            </a>
-          </li>
-        </ul>
-
-        <div class="sidebar-footer">
-          <app-sync-status-bar />
-          <button class="nav-item logout-btn" (click)="logout()">
-            <i class="pi pi-sign-out"></i>
-            <span>Logout</span>
-          </button>
-          <small class="user-email">{{ currentUser()?.email }}</small>
-        </div>
-      </nav>
-
-      <main class="sales-content">
-        <router-outlet />
-      </main>
-    </div>
-  `,
+  templateUrl: './sales-shell.component.html',
   styles: `
     .sales-shell {
       display: flex;

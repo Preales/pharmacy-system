@@ -1,0 +1,125 @@
+<p-toast />
+
+<!-- Summary cards -->
+<div class="summary-grid">
+  <p-card styleClass="summary-card">
+    <div class="summary-content">
+      <i class="pi pi-box summary-icon text-blue-500"></i>
+      <div>
+        <div class="summary-label">Total Products</div>
+        <div class="summary-value">{{ inventoryService.items().totalCount }}</div>
+      </div>
+    </div>
+  </p-card>
+
+  <p-card styleClass="summary-card">
+    <div class="summary-content">
+      <i class="pi pi-exclamation-triangle summary-icon text-orange-500"></i>
+      <div>
+        <div class="summary-label">Low Stock Alerts</div>
+        <div class="summary-value text-orange-500">{{ inventoryService.lowStockCount() }}</div>
+      </div>
+    </div>
+  </p-card>
+
+  <p-card styleClass="summary-card">
+    <div class="summary-content">
+      <i class="pi pi-history summary-icon text-green-500"></i>
+      <div>
+        <div class="summary-label">Today's Movements</div>
+        <div class="summary-value">{{ todayMovements }}</div>
+      </div>
+    </div>
+  </p-card>
+</div>
+
+<!-- Quick actions -->
+<div class="actions-bar">
+  <p-button
+    label="Record Ingress"
+    icon="pi pi-arrow-down"
+    (onClick)="ingressVisible = true"
+  />
+  <p-button
+    label="Record Adjustment"
+    icon="pi pi-pencil"
+    severity="secondary"
+    (onClick)="adjustmentVisible = true"
+  />
+  <p-button
+    label="View All Stock"
+    icon="pi pi-list"
+    severity="info"
+    [text]="true"
+    routerLink="../stock"
+  />
+</div>
+
+<!-- Low stock alerts table -->
+<div class="section-header">
+  <h3>Low Stock Alerts</h3>
+  <small class="text-secondary">Products at or below their threshold</small>
+</div>
+
+<p-table
+  [value]="inventoryService.lowStockItems()"
+  [loading]="inventoryService.loading()"
+  styleClass="p-datatable-striped p-datatable-sm"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Product</th>
+      <th>SKU</th>
+      <th>Category</th>
+      <th style="text-align:right">Current Stock</th>
+      <th style="text-align:right">Threshold</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item>
+    <tr>
+      <td>{{ item.productName }}</td>
+      <td><code>{{ item.sku }}</code></td>
+      <td>{{ item.categoryName }}</td>
+      <td style="text-align:right" [class]="item.currentStock <= 0 ? 'text-red-600 font-bold' : 'text-orange-500 font-semibold'">
+        {{ item.currentStock }}
+      </td>
+      <td style="text-align:right">{{ item.lowStockThreshold }}</td>
+      <td>
+        <p-tag
+          [value]="getStatusLabel(item.status)"
+          [severity]="getStatusSeverity(item.status)"
+        />
+      </td>
+      <td>
+        <p-button
+          icon="pi pi-arrow-down"
+          [rounded]="true"
+          [text]="true"
+          severity="success"
+          pTooltip="Record Ingress"
+          (onClick)="openIngressFor(item.productId)"
+        />
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="empty">
+    <tr>
+      <td colspan="7" class="text-center p-4">
+        <i class="pi pi-check-circle text-green-500"></i>
+        No low-stock items — all products are adequately stocked.
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<app-ingress-form
+  [(visible)]="ingressVisible"
+  [preselectedProductId]="preselectedProductId"
+  (saved)="onIngressSaved()"
+/>
+<app-adjustment-form
+  [(visible)]="adjustmentVisible"
+  (saved)="onAdjustmentSaved()"
+/>

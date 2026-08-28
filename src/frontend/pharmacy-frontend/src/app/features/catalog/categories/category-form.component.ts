@@ -21,63 +21,7 @@ import { CategoryService } from '../services/category.service';
     TextareaModule,
     CheckboxModule,
   ],
-  template: `
-    <p-dialog
-      [header]="editTarget ? 'Edit Category' : 'New Category'"
-      [(visible)]="visible"
-      [modal]="true"
-      [style]="{ width: '480px' }"
-      [draggable]="false"
-      (onHide)="onCancel()"
-    >
-      <form [formGroup]="form" (ngSubmit)="submit()" class="form-body">
-        <div class="field">
-          <label for="catName">Name *</label>
-          <input
-            id="catName"
-            pInputText
-            formControlName="name"
-            placeholder="e.g. Analgesics"
-            class="w-full"
-            [class.ng-invalid]="isInvalid('name')"
-          />
-          @if (isInvalid('name')) {
-            <small class="p-error">Name is required.</small>
-          }
-        </div>
-
-        <div class="field">
-          <label for="catDesc">Description</label>
-          <textarea
-            id="catDesc"
-            pTextarea
-            formControlName="description"
-            placeholder="Optional description"
-            class="w-full"
-            rows="3"
-          ></textarea>
-        </div>
-
-        @if (editTarget) {
-          <div class="field-checkbox">
-            <p-checkbox formControlName="isActive" [binary]="true" inputId="catActive" />
-            <label for="catActive">Active</label>
-          </div>
-        }
-      </form>
-
-      <ng-template pTemplate="footer">
-        <p-button label="Cancel" severity="secondary" (onClick)="onCancel()" />
-        <p-button
-          [label]="editTarget ? 'Update' : 'Create'"
-          icon="pi pi-check"
-          [loading]="saving()"
-          [disabled]="form.invalid || saving()"
-          (onClick)="submit()"
-        />
-      </ng-template>
-    </p-dialog>
-  `,
+  templateUrl: './category-form.component.html',
   styles: `
     .form-body { display: flex; flex-direction: column; gap: 1rem; padding: 0.5rem 0; }
     .field { display: flex; flex-direction: column; gap: 0.25rem; }

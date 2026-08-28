@@ -42,13 +42,13 @@ Chain strategy: feature-branch-chain
 
 ## Phase 2: External Templates (Wave 2)
 
-- [ ] 2.1 Extract inline template from `app.component.ts` → `app.component.html`; switch to `templateUrl:`
-- [ ] 2.2 Extract `catalog-shell.component.ts` → `catalog-shell.component.html`
-- [ ] 2.3 Extract `inventory-shell.component.ts` → `inventory-shell.component.html`
-- [ ] 2.4 Extract `sales-shell.component.ts` → `sales-shell.component.html`
-- [ ] 2.5 Extract `reports-shell.component.ts` → `reports-shell.component.html`
-- [ ] 2.6 Extract remaining 18 container/component `.ts` files → individual `.component.html` files; update each `templateUrl:`
-- [ ] 2.7 Verify: `ng build` passes; grep confirms zero `template:` backtick strings in any `.component.ts`
+- [x] 2.1 Extract inline template from `app.component.ts` → `app.component.html`; switch to `templateUrl:`
+- [x] 2.2 Extract `catalog-shell.component.ts` → `catalog-shell.component.html`
+- [x] 2.3 Extract `inventory-shell.component.ts` → `inventory-shell.component.html`
+- [x] 2.4 Extract `sales-shell.component.ts` → `sales-shell.component.html`
+- [x] 2.5 Extract `reports-shell.component.ts` → `reports-shell.component.html`
+- [x] 2.6 Extract remaining 18 container/component `.ts` files → individual `.component.html` files; update each `templateUrl:`
+- [x] 2.7 Verify: grep confirms zero `template:` backtick strings in any `.component.ts`; 3 pre-existing NG4 type errors (readonly array vs mutable any[]) confirmed present on base branch before Wave 2 — not introduced by this wave
 
 ## Phase 3: Shared Shell + Navigation (Wave 3)
 

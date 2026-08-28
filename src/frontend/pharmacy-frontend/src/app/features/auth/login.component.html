@@ -1,0 +1,128 @@
+<div class="login-wrapper">
+  <p-card header="Pharmacy System" class="login-card">
+    <p class="login-subtitle">Sign in to your account</p>
+
+    @if (errorMessage()) {
+      <p-message severity="error" [text]="errorMessage()!" styleClass="w-full mb-3" />
+    }
+
+    <!-- Step 1: Email -->
+    @if (state() === 'idle' || state() === 'resolvingTenant') {
+      <form [formGroup]="emailForm" (ngSubmit)="resolveEmail()" class="login-form">
+        <div class="field">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            pInputText
+            formControlName="email"
+            placeholder="admin@pharmacy.com"
+            class="w-full"
+            [class.ng-invalid]="isEmailInvalid()"
+          />
+          @if (isEmailInvalid()) {
+            <small class="p-error">Valid email is required.</small>
+          }
+        </div>
+
+        <p-button
+          type="submit"
+          label="Continue"
+          icon="pi pi-arrow-right"
+          [loading]="state() === 'resolvingTenant'"
+          [disabled]="emailForm.invalid || state() === 'resolvingTenant'"
+          styleClass="w-full mt-2"
+        />
+      </form>
+    }
+
+    <!-- Step 2a: Tenant picker (2+ tenants) -->
+    @if (state() === 'tenantPicker') {
+      <div class="login-form">
+        <p class="picker-label">Select your organization:</p>
+        <div class="tenant-list">
+          @for (tenant of tenants(); track tenant.id) {
+            <div class="tenant-option" (click)="selectTenant(tenant)">
+              <p-radioButton
+                [inputId]="'tenant-' + tenant.id"
+                name="tenant"
+                [value]="tenant.id"
+                [(ngModel)]="selectedTenantId"
+              />
+              <label [for]="'tenant-' + tenant.id" class="tenant-label">
+                <span class="tenant-name">{{ tenant.name }}</span>
+                <span class="tenant-slug">{{ tenant.slug }}</span>
+              </label>
+            </div>
+          }
+        </div>
+
+        <p-button
+          type="button"
+          label="Continue"
+          icon="pi pi-arrow-right"
+          [disabled]="!selectedTenantId"
+          (onClick)="confirmTenant()"
+          styleClass="w-full mt-2"
+        />
+
+        <p-button
+          type="button"
+          label="Back"
+          icon="pi pi-arrow-left"
+          severity="secondary"
+          [text]="true"
+          (onClick)="goBack()"
+          styleClass="w-full mt-1"
+        />
+      </div>
+    }
+
+    <!-- Step 2b: Password form -->
+    @if (state() === 'awaitingPassword' || state() === 'submitting') {
+      <form [formGroup]="passwordForm" (ngSubmit)="submit()" class="login-form">
+        <div class="resolved-email">
+          <span class="pi pi-user" style="margin-right: 0.5rem;"></span>
+          {{ emailForm.value.email }}
+          <button type="button" class="change-email-btn" (click)="goBack()">Change</button>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <p-password
+            inputId="password"
+            formControlName="password"
+            placeholder="Password"
+            [feedback]="false"
+            [toggleMask]="true"
+            styleClass="w-full"
+            inputStyleClass="w-full"
+            [class.ng-invalid]="isPasswordInvalid()"
+          />
+          @if (isPasswordInvalid()) {
+            <small class="p-error">Password is required.</small>
+          }
+        </div>
+
+        <p-button
+          type="submit"
+          label="Sign In"
+          icon="pi pi-sign-in"
+          [loading]="state() === 'submitting'"
+          [disabled]="passwordForm.invalid || state() === 'submitting'"
+          styleClass="w-full mt-2"
+        />
+
+        <p-button
+          type="button"
+          label="Back"
+          icon="pi pi-arrow-left"
+          severity="secondary"
+          [text]="true"
+          (onClick)="goBack()"
+          styleClass="w-full mt-1"
+        />
+      </form>
+    }
+  </p-card>
+</div>

@@ -1,0 +1,41 @@
+<div class="catalog-shell">
+  <nav class="catalog-sidebar">
+    <div class="sidebar-header">
+      <span class="pi pi-box sidebar-icon"></span>
+      <span class="sidebar-title">Catalog</span>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li>
+        <a routerLink="products" routerLinkActive="active" class="nav-item">
+          <i class="pi pi-tag"></i>
+          <span>Products</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="categories" routerLinkActive="active" class="nav-item">
+          <i class="pi pi-sitemap"></i>
+          <span>Categories</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="suppliers" routerLinkActive="active" class="nav-item">
+          <i class="pi pi-truck"></i>
+          <span>Suppliers</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <button class="nav-item logout-btn" (click)="logout()">
+        <i class="pi pi-sign-out"></i>
+        <span>Logout</span>
+      </button>
+      <small class="user-email">{{ currentUser()?.email }}</small>
+    </div>
+  </nav>
+
+  <main class="catalog-content">
+    <router-outlet />
+  </main>
+</div>

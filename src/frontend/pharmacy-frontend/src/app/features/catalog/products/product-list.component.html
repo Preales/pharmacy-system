@@ -1,0 +1,83 @@
+<p-toast />
+<p-confirmDialog />
+
+<div class="page-header">
+  <h2>Products</h2>
+  <p-button label="New Product" icon="pi pi-plus" (onClick)="openCreate()" />
+</div>
+
+<div class="filter-bar">
+  <input pInputText [(ngModel)]="searchTerm" placeholder="Search by name, SKU..." (ngModelChange)="onSearchChange()" class="filter-input" />
+  <p-select
+    [(ngModel)]="selectedCategory"
+    [options]="categoryOptions()"
+    optionLabel="label"
+    optionValue="value"
+    placeholder="All Categories"
+    [showClear]="true"
+    (ngModelChange)="applyFilter()"
+    styleClass="filter-select"
+  />
+  <p-button icon="pi pi-refresh" severity="secondary" [text]="true" (onClick)="resetFilters()" pTooltip="Clear filters" />
+</div>
+
+<p-table
+  [value]="productService.products().items"
+  [loading]="productService.loading()"
+  [lazy]="true"
+  [paginator]="true"
+  [rows]="pageSize"
+  [totalRecords]="productService.products().totalCount"
+  (onPage)="onPage($event)"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="{first}–{last} of {totalRecords}"
+  [rowsPerPageOptions]="pageSizeOptions"
+  styleClass="p-datatable-striped"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>SKU</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Unit Price</th>
+      <th>Cost Price</th>
+      <th>Unit</th>
+      <th>Stock</th>
+      <th pSortableColumn="isActive">Status <p-sortIcon field="isActive" /></th>
+      <th style="width: 120px">Actions</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td><code>{{ product.sku }}</code></td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.categoryName }}</td>
+      <td>{{ product.unitPrice | currency:currencyCode:'symbol':'1.0-0' }}</td>
+      <td>{{ product.costPrice | currency:currencyCode:'symbol':'1.0-0' }}</td>
+      <td>{{ product.unit }}</td>
+      <td>
+        <span [class]="product.stockQuantity < lowStockThreshold ? 'stock-low' : 'stock-ok'">
+          {{ product.stockQuantity }}
+        </span>
+      </td>
+      <td>
+        <p-tag [value]="product.isActive ? 'Active' : 'Inactive'" [severity]="product.isActive ? 'success' : 'danger'" />
+      </td>
+      <td>
+        <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" severity="info" (onClick)="openEdit(product)" />
+        <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" (onClick)="confirmDelete(product)" />
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="empty">
+    <tr><td colspan="9" class="text-center p-4">No products found.</td></tr>
+  </ng-template>
+</p-table>
+
+<app-product-form
+  [(visible)]="formVisible"
+  [editTarget]="editTarget()"
+  (saved)="onSaved()"
+/>

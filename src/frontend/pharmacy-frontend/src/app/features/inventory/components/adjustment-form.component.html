@@ -1,0 +1,82 @@
+<p-dialog
+  header="Record Stock Adjustment"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '480px' }"
+  [draggable]="false"
+  (onHide)="onCancel()"
+>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form-body">
+
+    <div class="field">
+      <label for="aProduct">Product *</label>
+      <p-select
+        inputId="aProduct"
+        formControlName="productId"
+        [options]="productOptions()"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Select product"
+        styleClass="w-full"
+        [filter]="true"
+        filterPlaceholder="Search products..."
+        [class.ng-invalid]="isInvalid('productId')"
+        (ngModelChange)="onProductChange($event)"
+        appendTo="body"
+      />
+      @if (isInvalid('productId')) { <small class="p-error">Product is required.</small> }
+
+      @if (currentStockDisplay()) {
+        <small class="current-stock-hint">
+          Current stock:
+          <strong [class]="currentStockDisplay()!.isLow ? 'text-orange-500' : 'text-green-600'">
+            {{ currentStockDisplay()!.stock }} units
+          </strong>
+        </small>
+      }
+    </div>
+
+    <div class="field">
+      <label for="aQty">New Quantity (signed) *</label>
+      <p-inputNumber
+        inputId="aQty"
+        formControlName="quantity"
+        styleClass="w-full"
+        [class.ng-invalid]="isInvalid('quantity')"
+      />
+      <small class="text-secondary">Use a negative value to reduce stock (e.g. -5 for damaged goods).</small>
+      @if (isInvalid('quantity')) { <small class="p-error">Quantity is required.</small> }
+    </div>
+
+    <div class="field">
+      <label for="aReason">Reason *</label>
+      <textarea
+        id="aReason"
+        pTextarea
+        formControlName="reason"
+        rows="3"
+        class="w-full"
+        placeholder="Describe the reason (min. 10 characters)..."
+        [class.ng-invalid]="isInvalid('reason')"
+      ></textarea>
+      @if (isInvalid('reason')) {
+        <small class="p-error">
+          @if (form.get('reason')?.errors?.['required']) { Reason is required. }
+          @else { Reason must be at least 10 characters. }
+        </small>
+      }
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <p-button label="Cancel" severity="secondary" (onClick)="onCancel()" />
+    <p-button
+      label="Apply Adjustment"
+      icon="pi pi-check"
+      severity="warn"
+      [loading]="saving()"
+      [disabled]="form.invalid || saving()"
+      (onClick)="submit()"
+    />
+  </ng-template>
+</p-dialog>

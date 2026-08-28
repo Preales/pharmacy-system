@@ -1,0 +1,62 @@
+<p-toast />
+<p-confirmDialog />
+
+<div class="page-header">
+  <h2>Suppliers</h2>
+  <p-button label="New Supplier" icon="pi pi-plus" (onClick)="openCreate()" />
+</div>
+
+<div class="search-bar">
+  <span class="p-input-icon-left">
+    <i class="pi pi-search"></i>
+    <input pInputText [(ngModel)]="searchTerm" placeholder="Search suppliers..." class="w-full" />
+  </span>
+</div>
+
+<p-table
+  [value]="filtered()"
+  [loading]="supplierService.loading()"
+  [paginator]="true"
+  [rows]="10"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="{first}–{last} of {totalRecords}"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  styleClass="p-datatable-striped"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+      <th>Contact</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th pSortableColumn="isActive">Status <p-sortIcon field="isActive" /></th>
+      <th style="width: 120px">Actions</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-sup>
+    <tr>
+      <td>{{ sup.name }}</td>
+      <td>{{ sup.contactName ?? '—' }}</td>
+      <td>{{ sup.contactEmail ?? '—' }}</td>
+      <td>{{ sup.phone ?? '—' }}</td>
+      <td>
+        <p-tag [value]="sup.isActive ? 'Active' : 'Inactive'" [severity]="sup.isActive ? 'success' : 'danger'" />
+      </td>
+      <td>
+        <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" severity="info" (onClick)="openEdit(sup)" />
+        <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" (onClick)="confirmDelete(sup)" />
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="empty">
+    <tr><td colspan="6" class="text-center p-4">No suppliers found.</td></tr>
+  </ng-template>
+</p-table>
+
+<app-supplier-form
+  [(visible)]="formVisible"
+  [editTarget]="editTarget()"
+  (saved)="onSaved()"
+/>

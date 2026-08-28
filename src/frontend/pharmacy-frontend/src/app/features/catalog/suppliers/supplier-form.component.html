@@ -1,0 +1,50 @@
+<p-dialog
+  [header]="editTarget ? 'Edit Supplier' : 'New Supplier'"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '480px' }"
+  [draggable]="false"
+  (onHide)="onCancel()"
+>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form-body">
+    <div class="field">
+      <label for="supName">Name *</label>
+      <input id="supName" pInputText formControlName="name" placeholder="Supplier name" class="w-full" [class.ng-invalid]="isInvalid('name')" />
+      @if (isInvalid('name')) { <small class="p-error">Name is required.</small> }
+    </div>
+
+    <div class="field">
+      <label for="supContact">Contact Name</label>
+      <input id="supContact" pInputText formControlName="contactName" placeholder="Contact person" class="w-full" />
+    </div>
+
+    <div class="field">
+      <label for="supEmail">Contact Email</label>
+      <input id="supEmail" type="email" pInputText formControlName="contactEmail" placeholder="email@supplier.com" class="w-full" [class.ng-invalid]="isInvalid('contactEmail')" />
+      @if (isInvalid('contactEmail')) { <small class="p-error">Enter a valid email.</small> }
+    </div>
+
+    <div class="field">
+      <label for="supPhone">Phone</label>
+      <input id="supPhone" pInputText formControlName="phone" placeholder="+1 555 0100" class="w-full" />
+    </div>
+
+    @if (editTarget) {
+      <div class="field-checkbox">
+        <p-checkbox formControlName="isActive" [binary]="true" inputId="supActive" />
+        <label for="supActive">Active</label>
+      </div>
+    }
+  </form>
+
+  <ng-template pTemplate="footer">
+    <p-button label="Cancel" severity="secondary" (onClick)="onCancel()" />
+    <p-button
+      [label]="editTarget ? 'Update' : 'Create'"
+      icon="pi pi-check"
+      [loading]="saving()"
+      [disabled]="form.invalid || saving()"
+      (onClick)="submit()"
+    />
+  </ng-template>
+</p-dialog>

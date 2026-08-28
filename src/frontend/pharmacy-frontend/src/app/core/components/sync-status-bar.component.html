@@ -1,0 +1,29 @@
+<div class="sync-status-bar" [class.offline]="!offlineService.isOnline()">
+  <div class="status-indicator">
+    <i
+      class="pi"
+      [class.pi-wifi]="offlineService.isOnline()"
+      [class.pi-wifi-off]="!offlineService.isOnline()"
+      [class.text-green-500]="offlineService.isOnline()"
+      [class.text-orange-500]="!offlineService.isOnline()"
+    ></i>
+    <span class="status-label">
+      {{ offlineService.isOnline() ? 'Online' : 'Offline' }}
+    </span>
+  </div>
+
+  @if (offlineService.pendingCount() > 0) {
+    <div class="pending-badge">
+      <i class="pi pi-clock text-orange-500"></i>
+      <span>{{ offlineService.pendingCount() }} pending</span>
+    </div>
+    <p-button
+      label="Sync Now"
+      icon="pi pi-refresh"
+      size="small"
+      severity="warn"
+      [outlined]="true"
+      (onClick)="syncNow()"
+    />
+  }
+</div>

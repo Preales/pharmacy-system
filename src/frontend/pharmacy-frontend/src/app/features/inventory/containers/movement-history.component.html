@@ -1,0 +1,79 @@
+<div class="page-header">
+  <div>
+    <h2>Movement History</h2>
+    <small *ngIf="productName" class="text-secondary">{{ productName }}</small>
+  </div>
+  <p-button label="Back to Stock" icon="pi pi-arrow-left" severity="secondary" [text]="true" routerLink="../stock" />
+</div>
+
+<div class="filter-bar" *ngIf="productId">
+  <p-select
+    [(ngModel)]="selectedType"
+    [options]="typeOptions"
+    optionLabel="label"
+    optionValue="value"
+    placeholder="All Types"
+    [showClear]="true"
+    (ngModelChange)="applyFilter()"
+    styleClass="filter-select"
+  />
+</div>
+
+<div *ngIf="!productId" class="empty-state">
+  <i class="pi pi-info-circle text-blue-400" style="font-size: 2rem"></i>
+  <p>Select a product from the <a routerLink="../stock">Stock List</a> to view its movement history.</p>
+</div>
+
+<p-table
+  *ngIf="productId"
+  [value]="filteredMovements()"
+  [loading]="inventoryService.movementsLoading()"
+  [lazy]="true"
+  [paginator]="true"
+  [rows]="pageSize"
+  [totalRecords]="inventoryService.movements().totalCount"
+  (onPage)="onPage($event)"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="{first}–{last} of {totalRecords}"
+  [rowsPerPageOptions]="pageSizeOptions"
+  styleClass="p-datatable-striped p-datatable-sm"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="timestamp">Date <p-sortIcon field="timestamp" /></th>
+      <th>Type</th>
+      <th style="text-align:right">Quantity</th>
+      <th>Batch / Supplier</th>
+      <th>Reason</th>
+      <th>User</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-mov>
+    <tr>
+      <td>{{ mov.timestamp | date:'yyyy-MM-dd HH:mm' }}</td>
+      <td>
+        <p-tag
+          [value]="mov.movementType"
+          [severity]="getTypeSeverity(mov.movementType)"
+        />
+      </td>
+      <td style="text-align:right" [class]="mov.quantity >= 0 ? 'qty-positive' : 'qty-negative'">
+        {{ mov.quantity >= 0 ? '+' : '' }}{{ mov.quantity }}
+      </td>
+      <td>
+        <span *ngIf="mov.batchNumber"><code>{{ mov.batchNumber }}</code></span>
+        <span *ngIf="mov.supplierName" class="text-secondary"> · {{ mov.supplierName }}</span>
+        <span *ngIf="!mov.batchNumber && !mov.supplierName" class="text-secondary">—</span>
+      </td>
+      <td>{{ mov.reason ?? '—' }}</td>
+      <td>{{ mov.userEmail ?? mov.userId }}</td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="empty">
+    <tr>
+      <td colspan="6" class="text-center p-4">No movements found for this product.</td>
+    </tr>
+  </ng-template>
+</p-table>

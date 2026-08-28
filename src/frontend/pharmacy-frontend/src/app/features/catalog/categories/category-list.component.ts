@@ -27,74 +27,7 @@ import { CategoryFormComponent } from './category-form.component';
     CategoryFormComponent,
   ],
   providers: [ConfirmationService, MessageService],
-  template: `
-    <p-toast />
-    <p-confirmDialog />
-
-    <div class="page-header">
-      <h2>Categories</h2>
-      <p-button label="New Category" icon="pi pi-plus" (onClick)="openCreate()" />
-    </div>
-
-    <div class="search-bar">
-      <span class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        <input
-          pInputText
-          [(ngModel)]="searchTerm"
-          placeholder="Search categories..."
-          class="w-full"
-        />
-      </span>
-    </div>
-
-    <p-table
-      [value]="filtered()"
-      [loading]="categoryService.loading()"
-      [paginator]="true"
-      [rows]="10"
-      [showCurrentPageReport]="true"
-      currentPageReportTemplate="{first}–{last} of {totalRecords}"
-      [rowsPerPageOptions]="[10, 25, 50]"
-      styleClass="p-datatable-striped"
-    >
-      <ng-template pTemplate="header">
-        <tr>
-          <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
-          <th>Description</th>
-          <th pSortableColumn="isActive">Status <p-sortIcon field="isActive" /></th>
-          <th style="width: 120px">Actions</th>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="body" let-cat>
-        <tr>
-          <td>{{ cat.name }}</td>
-          <td>{{ cat.description ?? '—' }}</td>
-          <td>
-            <p-tag
-              [value]="cat.isActive ? 'Active' : 'Inactive'"
-              [severity]="cat.isActive ? 'success' : 'danger'"
-            />
-          </td>
-          <td>
-            <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" severity="info" (onClick)="openEdit(cat)" />
-            <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" (onClick)="confirmDelete(cat)" />
-          </td>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="empty">
-        <tr><td colspan="4" class="text-center p-4">No categories found.</td></tr>
-      </ng-template>
-    </p-table>
-
-    <app-category-form
-      [(visible)]="formVisible"
-      [editTarget]="editTarget()"
-      (saved)="onSaved()"
-    />
-  `,
+  templateUrl: './category-list.component.html',
   styles: `
     .search-bar { margin-bottom: 1rem; }
   `,

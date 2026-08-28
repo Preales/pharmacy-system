@@ -8,55 +8,7 @@ import { AuthService } from '../../core/services/auth.service';
   selector: 'app-inventory-shell',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, ButtonModule],
-  template: `
-    <div class="inventory-shell">
-      <nav class="inventory-sidebar">
-        <div class="sidebar-header">
-          <span class="pi pi-warehouse sidebar-icon"></span>
-          <span class="sidebar-title">Inventory</span>
-        </div>
-
-        <ul class="sidebar-nav">
-          <li>
-            <a routerLink="dashboard" routerLinkActive="active" class="nav-item">
-              <i class="pi pi-home"></i>
-              <span>Dashboard</span>
-            </a>
-          </li>
-          <li>
-            <a routerLink="stock" routerLinkActive="active" class="nav-item">
-              <i class="pi pi-box"></i>
-              <span>Stock</span>
-            </a>
-          </li>
-          <li>
-            <a routerLink="movements" routerLinkActive="active" class="nav-item">
-              <i class="pi pi-history"></i>
-              <span>Movements</span>
-            </a>
-          </li>
-          <li>
-            <a routerLink="low-stock" routerLinkActive="active" class="nav-item">
-              <i class="pi pi-exclamation-triangle"></i>
-              <span>Low Stock</span>
-            </a>
-          </li>
-        </ul>
-
-        <div class="sidebar-footer">
-          <button class="nav-item logout-btn" (click)="logout()">
-            <i class="pi pi-sign-out"></i>
-            <span>Logout</span>
-          </button>
-          <small class="user-email">{{ currentUser()?.email }}</small>
-        </div>
-      </nav>
-
-      <main class="inventory-content">
-        <router-outlet />
-      </main>
-    </div>
-  `,
+  templateUrl: './inventory-shell.component.html',
   styles: `
     .inventory-shell {
       display: flex;

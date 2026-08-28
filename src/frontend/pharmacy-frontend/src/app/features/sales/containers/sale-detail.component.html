@@ -1,0 +1,121 @@
+<p-toast />
+
+@if (salesService.currentSale()) {
+  <div class="sale-detail receipt-style">
+    <div class="receipt-header no-print">
+      <a routerLink="/sales/history" class="back-link">
+        <p-button
+          icon="pi pi-arrow-left"
+          label="Back"
+          severity="secondary"
+          [outlined]="true"
+        />
+      </a>
+      <div class="header-actions">
+        <p-button
+          icon="pi pi-print"
+          label="Print"
+          severity="secondary"
+          (onClick)="printReceipt()"
+        />
+        @if (isAdmin() && salesService.currentSale()!.status === 'Completed') {
+          <p-button
+            icon="pi pi-ban"
+            label="Void Sale"
+            severity="danger"
+            [outlined]="true"
+            (onClick)="voidDialogVisible = true"
+          />
+        }
+      </div>
+    </div>
+
+    <div class="receipt-content">
+      <div class="receipt-title">
+        <h2>Sale Receipt</h2>
+        <p-tag
+          [value]="salesService.currentSale()!.status"
+          [severity]="getStatusSeverity(salesService.currentSale()!.status)"
+        />
+      </div>
+
+      <div class="receipt-meta">
+        <div class="meta-row">
+          <span class="meta-label">Sale Number</span>
+          <span class="meta-value"><code>{{ salesService.currentSale()!.saleNumber }}</code></span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">Date</span>
+          <span class="meta-value">{{ salesService.currentSale()!.saleDate | date:'medium' }}</span>
+        </div>
+        @if (salesService.currentSale()!.customerName) {
+          <div class="meta-row">
+            <span class="meta-label">Customer</span>
+            <span class="meta-value">{{ salesService.currentSale()!.customerName }}</span>
+          </div>
+        }
+        @if (salesService.currentSale()!.isOfflineSync) {
+          <div class="meta-row">
+            <span class="meta-label">Sync</span>
+            <span class="meta-value text-orange-500">Offline Sync</span>
+          </div>
+        }
+      </div>
+
+      <div class="receipt-divider"></div>
+
+      <p-table
+        [value]="salesService.currentSale()!.lines"
+        styleClass="p-datatable-sm"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Product</th>
+            <th style="text-align:right">Qty</th>
+            <th style="text-align:right">Unit Price</th>
+            <th style="text-align:right">Subtotal</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-line>
+          <tr>
+            <td>{{ line.productName }}</td>
+            <td style="text-align:right">{{ line.quantity }}</td>
+            <td style="text-align:right">{{ line.unitPrice | currency:currencyCode:'symbol':'1.0-0' }}</td>
+            <td style="text-align:right;font-weight:600">{{ line.subtotal | currency:currencyCode:'symbol':'1.0-0' }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <div class="receipt-divider"></div>
+
+      <div class="receipt-total">
+        <span>TOTAL</span>
+        <span class="total-value">{{ salesService.currentSale()!.totalAmount | currency:currencyCode:'symbol':'1.0-0' }}</span>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="loading-state">
+    <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+    <p>Loading sale...</p>
+  </div>
+}
+
+<!-- Void Dialog -->
+<p-dialog
+  header="Void Sale"
+  [(visible)]="voidDialogVisible"
+  [modal]="true"
+  [style]="{ width: '400px' }"
+>
+  <p>Void sale <strong>{{ salesService.currentSale()?.saleNumber }}</strong>?</p>
+  <p class="text-secondary text-sm">Stock will be restored and this action cannot be undone.</p>
+  <div class="form-field">
+    <label>Reason *</label>
+    <input pInputText type="text" [(ngModel)]="voidReason" placeholder="Reason for voiding" class="w-full" />
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancel" severity="secondary" [outlined]="true" (onClick)="voidDialogVisible = false" />
+    <p-button label="Void Sale" severity="danger" [disabled]="!voidReason.trim()" (onClick)="confirmVoid()" />
+  </ng-template>
+</p-dialog>
