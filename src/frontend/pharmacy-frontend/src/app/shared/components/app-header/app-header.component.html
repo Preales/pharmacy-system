@@ -8,9 +8,18 @@
     <span class="app-header__email">{{ userEmail }}</span>
 
     <button
+      class="app-header__lang-toggle"
+      type="button"
+      [attr.aria-label]="'lang.toggle' | translate"
+      (click)="toggleLanguage()"
+    >
+      {{ toggleLangLabel }}
+    </button>
+
+    <button
       class="app-header__theme-toggle"
       type="button"
-      [attr.aria-label]="themeService.isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
+      [attr.aria-label]="(themeService.isDarkMode() ? 'theme.toggleLight' : 'theme.toggleDark') | translate"
       (click)="toggleTheme()"
     >
       <i

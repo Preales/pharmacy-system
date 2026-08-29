@@ -35,15 +35,6 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
-      "i18n": {
-        "sourceLocale": "en",
-        "locales": {
-          "es": {
-            "translation": "src/locale/messages.es.xlf",
-            "baseHref": "/es/"
-          }
-        }
-      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
@@ -94,11 +85,6 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
-            },
-            "es": {
-              "localize": ["es"],
-              "optimization": true,
-              "outputHashing": "all"
             }
           },
           "defaultConfiguration": "production"
