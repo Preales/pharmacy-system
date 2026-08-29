@@ -7,9 +7,9 @@ import {
   UpdateUserRequest,
   ChangeRoleRequest,
 } from '../models/user.model';
-import { PagedResult } from '../../../../core/models/shared.models';
-import { Pagination } from '../../../../core/constants/app.constants';
-import { environment } from '../../../../../environments/environment';
+import { PagedResult } from '../../../core/models/shared.models';
+import { Pagination } from '../../../core/constants/app.constants';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -54,7 +54,7 @@ export class UserService {
       tap((updated) =>
         this.users.update((paged) => ({
           ...paged,
-          items: paged.items.map((u) => (u.id === id ? updated : u)),
+          items: paged.items.map((u: UserModel) => (u.id === id ? updated : u)),
         }))
       )
     );
@@ -65,7 +65,7 @@ export class UserService {
       tap(() =>
         this.users.update((paged) => ({
           ...paged,
-          items: paged.items.map((u) =>
+          items: paged.items.map((u: UserModel) =>
             u.id === id ? { ...u, isActive: false } : u
           ),
         }))
@@ -78,7 +78,7 @@ export class UserService {
       tap((updated) =>
         this.users.update((paged) => ({
           ...paged,
-          items: paged.items.map((u) => (u.id === id ? updated : u)),
+          items: paged.items.map((u: UserModel) => (u.id === id ? updated : u)),
         }))
       )
     );

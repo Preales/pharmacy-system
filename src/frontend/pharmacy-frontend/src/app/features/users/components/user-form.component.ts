@@ -8,7 +8,7 @@ import { PasswordModule } from 'primeng/password';
 import { SelectModule } from 'primeng/select';
 import { UserModel, CreateUserRequest, UpdateUserRequest, ChangeRoleRequest } from '../models/user.model';
 import { UserService } from '../services/user.service';
-import { AppRoles } from '../../../../core/constants/app.constants';
+import { AppRoles } from '../../../core/constants/app.constants';
 
 interface RoleOption {
   label: string;
