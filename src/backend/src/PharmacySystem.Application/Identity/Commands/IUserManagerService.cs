@@ -24,6 +24,22 @@ public interface IUserManagerService
     /// Returns an empty list for unknown emails — never throws or returns null.
     /// </summary>
     Task<IReadOnlyList<TenantSummaryDto>> FindTenantsByEmailAsync(string email, CancellationToken ct = default);
+
+    /// <summary>Updates the user's first name and last name.</summary>
+    Task<(IdentityResultWrapper result, string userId)> UpdateUserAsync(
+        string userId, string firstName, string lastName);
+
+    /// <summary>Soft-deletes the user by setting IsActive = false. Does not remove the record.</summary>
+    Task<IdentityResultWrapper> DeactivateUserAsync(string userId);
+
+    /// <summary>Replaces the user's current role with the specified new role.</summary>
+    Task<IdentityResultWrapper> ChangeUserRoleAsync(string userId, string newRole);
+
+    /// <summary>
+    /// Returns the count of users in the given tenant that hold the Admin role.
+    /// Used by the last-Admin guard in ChangeUserRoleCommand.
+    /// </summary>
+    Task<int> CountAdminsInTenantAsync(Guid tenantId, CancellationToken ct = default);
 }
 
 /// <summary>

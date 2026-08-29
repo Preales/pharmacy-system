@@ -23,7 +23,8 @@ public record UserDto(
     string LastName,
     string FullName,
     string Role,
-    Guid TenantId);
+    Guid TenantId,
+    bool IsActive = true);
 
 public record TenantDto(
     Guid Id,

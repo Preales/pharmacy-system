@@ -7,7 +7,8 @@ public record InventoryItemDto(
     string ProductSku,
     int CurrentStock,
     int LowStockThreshold,
-    bool IsLowStock);
+    bool IsLowStock,
+    DateTime? LastMovementDate = null);
 
 public record StockMovementDto(
     Guid Id,

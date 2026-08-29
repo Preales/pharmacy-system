@@ -28,6 +28,7 @@ public record ValidationError(
 public record NotFoundError(string Code, string Message) : DomainError(Code, Message);
 public record ConflictError(string Code, string Message) : DomainError(Code, Message);
 public record UnauthorizedError(string Code, string Message) : DomainError(Code, Message);
+public record BusinessRuleError(string Code, string Message) : DomainError(Code, Message);
 
 /// <summary>
 /// Returned when a login or register request arrives without X-Tenant-Id and the email

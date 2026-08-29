@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PharmacySystem.Application.Identity.Commands;
 using PharmacySystem.Application.Identity.DTOs;
 using PharmacySystem.Application.Identity.Mappings;
+using PharmacySystem.Domain.Identity;
 using PharmacySystem.Infrastructure.Persistence;
 
 namespace PharmacySystem.Infrastructure.Identity;
@@ -105,4 +106,57 @@ public class UserManagerService(
     private static IdentityResultWrapper WrapResult(IdentityResult result) =>
         new(result.Succeeded,
             result.Errors.Select(e => new IdentityErrorWrapper(e.Code, e.Description)));
+
+    // ─── New methods ────────────────────────────────────────────────────────
+
+    public async Task<(IdentityResultWrapper result, string userId)> UpdateUserAsync(
+        string userId, string firstName, string lastName)
+    {
+        var user = await userManager.FindByIdAsync(userId);
+        if (user is null)
+            return (new IdentityResultWrapper(false, [new IdentityErrorWrapper("UserNotFound", $"User {userId} not found.")]), userId);
+
+        user.FirstName = firstName;
+        user.LastName = lastName;
+
+        var result = await userManager.UpdateAsync(user);
+        return (WrapResult(result), user.Id);
+    }
+
+    public async Task<IdentityResultWrapper> DeactivateUserAsync(string userId)
+    {
+        var user = await userManager.FindByIdAsync(userId);
+        if (user is null)
+            return new IdentityResultWrapper(false, [new IdentityErrorWrapper("UserNotFound", $"User {userId} not found.")]);
+
+        user.IsActive = false;
+
+        var result = await userManager.UpdateAsync(user);
+        return WrapResult(result);
+    }
+
+    public async Task<IdentityResultWrapper> ChangeUserRoleAsync(string userId, string newRole)
+    {
+        var user = await userManager.FindByIdAsync(userId);
+        if (user is null)
+            return new IdentityResultWrapper(false, [new IdentityErrorWrapper("UserNotFound", $"User {userId} not found.")]);
+
+        // Remove all existing roles and assign the new one
+        var currentRoles = await userManager.GetRolesAsync(user);
+        if (currentRoles.Count > 0)
+            await userManager.RemoveFromRolesAsync(user, currentRoles);
+
+        // Ensure role exists
+        if (!await roleManager.RoleExistsAsync(newRole))
+            await roleManager.CreateAsync(new ApplicationRole(newRole));
+
+        var result = await userManager.AddToRoleAsync(user, newRole);
+        return WrapResult(result);
+    }
+
+    public async Task<int> CountAdminsInTenantAsync(Guid tenantId, CancellationToken ct = default)
+    {
+        var adminUsers = await userManager.GetUsersInRoleAsync(Roles.Admin);
+        return adminUsers.Count(u => u.TenantId == tenantId && u.IsActive);
+    }
 }
