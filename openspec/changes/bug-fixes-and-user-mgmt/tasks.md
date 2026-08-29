@@ -54,17 +54,17 @@ Chain strategy: stacked-to-main
 
 ## Phase 3: Frontend — Users Feature Module (PR 3 target)
 
-- [ ] 3.1 `user.model.ts` (new) — `UserModel` interface (`id`, `email`, `firstName`, `lastName`, `fullName`, `role: string`, `tenantId`, `isActive: boolean`)
-- [ ] 3.2 `user.service.ts` (new) — signal-based: `loadAll(page, role?, isActive?)`, `create()`, `update()`, `deactivate()`, `changeRole()`; state: `PagedResult<UserModel>`
-- [ ] 3.3 `user-list.component.ts` (new) — PrimeNG Table: columns name, email, role, status; edit + deactivate action buttons; mirrors `category-list` pattern
-- [ ] 3.4 `user-form.component.ts` (new) — p-dialog; fields: firstName, lastName, role (dropdown: Admin/Pharmacist/Cashier); email read-only on edit
-- [ ] 3.5 `users.routes.ts` (new) — lazy route `/users` with `AdminGuard` (redirect non-Admin to `/home`)
-- [ ] 3.6 `app.routes.ts` — register `/users` lazy route
+- [x] 3.1 `user.model.ts` (new) — `UserModel` interface (`id`, `email`, `firstName`, `lastName`, `fullName`, `role: string`, `tenantId`, `isActive: boolean`)
+- [x] 3.2 `user.service.ts` (new) — signal-based: `loadAll(page, role?, isActive?)`, `create()`, `update()`, `deactivate()`, `changeRole()`; state: `PagedResult<UserModel>`
+- [x] 3.3 `user-list.component.ts` (new) — PrimeNG Table: columns name, email, role, status; edit + deactivate action buttons; mirrors `category-list` pattern
+- [x] 3.4 `user-form.component.ts` (new) — p-dialog; fields: firstName, lastName, role (dropdown: Admin/Pharmacist/Cashier); email read-only on edit
+- [x] 3.5 `users.routes.ts` (new) — lazy route `/users` with `AdminGuard` (redirect non-Admin to `/home`)
+- [x] 3.6 `app.routes.ts` — register `/users` lazy route
 - [ ] 3.7 E2E / route guard test: non-Admin navigates to `/users` → redirected to `/home`
 - [ ] 3.8 Smoke test: Admin creates user via dialog → list refreshes with new entry
 
 ## Phase 4: Cleanup
 
-- [ ] 4.1 Remove any `// TODO` or investigation comments added during conflict-alerts debugging
-- [ ] 4.2 Confirm `GET /api/v1/conflict-alerts` resolves after inventory fix (tenantInterceptor + correct endpoint); close Issue 4 notes
-- [ ] 4.3 SCSS scan: assert no hex literals remain in `app-header.component.scss` and `app-sidebar.component.scss`
+- [x] 4.1 Remove any `// TODO` or investigation comments added during conflict-alerts debugging
+- [x] 4.2 Confirm `GET /api/v1/conflict-alerts` resolves after inventory fix (tenantInterceptor + correct endpoint); close Issue 4 notes
+- [x] 4.3 SCSS scan: assert no hex literals remain in `app-header.component.scss` and `app-sidebar.component.scss`
