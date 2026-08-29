@@ -76,6 +76,28 @@ The system MUST record all stock changes as immutable StockMovement records. Mov
 - THEN all movements are returned chronologically
 - AND each includes type, quantity, user, and timestamp
 
+### Requirement: Paginated Full Inventory List
+
+`GET /api/v1/inventory` — paginated (`page`, `pageSize`), optional `search` (product name or SKU). Returns all inventory items including zero-stock products. Each item includes: `productName`, `currentStock`, `lastMovementDate`.
+
+#### Scenario: Paginated inventory list
+
+- GIVEN 45 inventory items across the tenant
+- WHEN a user requests GET `/api/v1/inventory?page=1&pageSize=20`
+- THEN 20 items are returned with totalCount 45
+
+#### Scenario: Zero-stock product included
+
+- GIVEN a product with `currentStock: 0`
+- WHEN the inventory list is requested
+- THEN the product is included with `currentStock: 0`
+
+#### Scenario: Search by product name
+
+- GIVEN products including "Ibuprofen 400mg"
+- WHEN the user searches with `search=ibu`
+- THEN only matching products are returned
+
 ### Requirement: Inventory Dashboard Reporting
 
 The system MUST provide inventory summary reports: total products, total stock value (qty * unit price), low-stock count, movements by type in a date range. Reports MUST be tenant-scoped.

@@ -34,7 +34,7 @@ The system MUST allow tenant-scoped user registration using ASP.NET Identity. Us
 
 - GIVEN a valid tenant context
 - WHEN a new user registers with email, password, and full name
-- THEN the user is created with the default role (Clerk)
+    - THEN the user is created with the default role (Cashier)
 - AND the user is associated with the current tenant
 
 #### Scenario: Duplicate email within tenant
@@ -67,13 +67,42 @@ The system MUST issue JWT tokens upon successful login. Tokens MUST include `sub
 - THEN HTTP 401 is returned with a ProblemDetails error
 - AND no token is issued
 
+### Requirement: Role Check Helper
+
+`AuthService` MUST expose `hasRole(role: string): boolean` backed by `this._currentUser()?.roles?.includes(role)`. Returns `false` when no user is present.
+
+| Scenario | Given | When | Then |
+|----------|-------|------|------|
+| Role present | roles: ['Admin'] | hasRole('Admin') | returns true |
+| Role absent | roles: ['Cashier'] | hasRole('Admin') | returns false |
+| No user | signal is null | hasRole('Admin') | returns false, no throw |
+
+### Requirement: User Management Endpoints Contract
+
+| Method | Path | Role | Description |
+|--------|------|------|-------------|
+| POST | `/api/v1/users` | Admin | Create user |
+| PUT | `/api/v1/users/{id}` | Admin | Update name/role |
+| DELETE | `/api/v1/users/{id}` | Admin | Soft deactivate |
+| PUT | `/api/v1/users/{id}/role` | Admin | Change role only |
+
+Non-Admin callers MUST receive HTTP 403. All endpoints MUST be tenant-scoped.
+
+**Scenarios**: Admin creates → HTTP 201; Admin deactivates → `isActive=false`, HTTP 204, no hard delete; Pharmacist creates → HTTP 403.
+
+### Requirement: User Model Contract Alignment
+
+`UserDto.Role` (string) → maps to → `UserModel.role` (string). `AuthUser.roles` (string[]) is for authorization only. These MUST NOT be conflated.
+
+**Scenario**: `UserDto.Role: "Pharmacist"` → `userModel.role === 'Pharmacist'`; `AuthUser.roles` unaffected.
+
 ### Requirement: Role-Based Authorization
 
-The system MUST enforce three roles: Admin, Pharmacist, Clerk. Admin MUST have full CRUD access. Pharmacist MUST have read/write for catalog, inventory, and sales. Clerk MUST have read-only catalog access and sales creation.
+The system MUST enforce three roles: Admin, Pharmacist, Cashier. Admin MUST have full CRUD access. Pharmacist MUST have read/write for catalog, inventory, and sales. Cashier MUST have read-only catalog access and sales creation.
 
-#### Scenario: Clerk attempts product deletion
+#### Scenario: Cashier attempts product deletion
 
-- GIVEN a user with role Clerk
+- GIVEN a user with role Cashier
 - WHEN they attempt DELETE `/api/v1/products/{id}`
 - THEN HTTP 403 Forbidden is returned
 
@@ -85,10 +114,16 @@ The system MUST enforce three roles: Admin, Pharmacist, Clerk. Admin MUST have f
 
 ### Requirement: Route Protection (Frontend)
 
-The Angular app MUST use functional route guards to protect routes. Unauthenticated users MUST be redirected to login. Routes MUST be restricted by role. JWT token MUST be injected via functional HTTP interceptor.
+The Angular app MUST use functional route guards to protect routes. Unauthenticated users MUST be redirected to login. Routes MUST be restricted by role. JWT token MUST be injected via functional HTTP interceptor. The interceptor MUST attach the `X-Tenant-Id` header (from the JWT `tenantId` claim) on every `/api/**` request. Without this header, `TenantMiddleware` returns HTTP 400.
 
 #### Scenario: Unauthenticated access to protected route
 
 - GIVEN a user without a valid JWT
 - WHEN they navigate to `/inventory`
 - THEN they are redirected to `/auth/login`
+
+#### Scenario: Tenant header attached to API requests
+
+- GIVEN a logged-in user with tenantId in their JWT
+- WHEN they make any request to `/api/**`
+- THEN the interceptor adds `X-Tenant-Id` header to the request

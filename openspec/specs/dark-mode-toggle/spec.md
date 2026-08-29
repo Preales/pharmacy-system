@@ -40,7 +40,7 @@ The system MUST persist the dark mode preference in `localStorage` under the key
 
 ### Requirement: .dark-mode Class on html Element
 
-The system MUST apply the `.dark-mode` CSS class to the `<html>` element when dark mode is active, and remove it when inactive. This MUST be the sole mechanism that activates the Aura dark color scheme.
+The system MUST apply the `.dark-mode` CSS class to the `<html>` element when dark mode is active, and remove it when inactive. This MUST be the sole mechanism that activates the Aura dark color scheme. The `.dark-mode` block in `styles.scss` MUST define: `--text-color`, `--text-color-secondary`, and `--brand-primary-subtle`. This removes any dependency on hardcoded hex fallbacks in component SCSS.
 
 #### Scenario: Toggle adds class to html
 
@@ -53,6 +53,22 @@ The system MUST apply the `.dark-mode` CSS class to the `<html>` element when da
 - GIVEN `isDarkMode()` is `true`
 - WHEN `ThemeService.toggle()` is called
 - THEN `document.documentElement` does NOT have the class `dark-mode`
+
+### Requirement: No Hardcoded Color Fallbacks in Component SCSS
+
+`app-header.component.scss` and `app-sidebar.component.scss` MUST NOT contain hardcoded hex literals in color declarations. All color references MUST use CSS custom properties (`var(--...)`).
+
+#### Scenario: Header SCSS scan passes
+
+- GIVEN `app-header.component.scss`
+- WHEN scanned for hex color literals
+- THEN no hex color values are found
+
+#### Scenario: Sidebar SCSS scan passes
+
+- GIVEN `app-sidebar.component.scss`
+- WHEN scanned for hex color literals
+- THEN no hex color values are found
 
 ### Requirement: AppHeaderComponent Toggle Button
 
