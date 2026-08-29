@@ -13,7 +13,7 @@ import { MessageService } from 'primeng/api';
 import { SalesService } from '../services/sales.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { SaleStatus, VoidSaleRequest } from '../models/sale.model';
-import { AppRoles } from '../../../core/constants/app.constants';
+import { AppRoles, AppCurrency } from '../../../core/constants/app.constants';
 
 @Component({
   selector: 'app-sale-detail',
@@ -114,8 +114,8 @@ import { AppRoles } from '../../../core/constants/app.constants';
               <tr>
                 <td>{{ line.productName }}</td>
                 <td style="text-align:right">{{ line.quantity }}</td>
-                <td style="text-align:right">{{ line.unitPrice | currency:'COP':'symbol':'1.0-0' }}</td>
-                <td style="text-align:right;font-weight:600">{{ line.subtotal | currency:'COP':'symbol':'1.0-0' }}</td>
+                <td style="text-align:right">{{ line.unitPrice | currency:currencyCode:'symbol':'1.0-0' }}</td>
+                <td style="text-align:right;font-weight:600">{{ line.subtotal | currency:currencyCode:'symbol':'1.0-0' }}</td>
               </tr>
             </ng-template>
           </p-table>
@@ -124,7 +124,7 @@ import { AppRoles } from '../../../core/constants/app.constants';
 
           <div class="receipt-total">
             <span>TOTAL</span>
-            <span class="total-value">{{ salesService.currentSale()!.totalAmount | currency:'COP':'symbol':'1.0-0' }}</span>
+            <span class="total-value">{{ salesService.currentSale()!.totalAmount | currency:currencyCode:'symbol':'1.0-0' }}</span>
           </div>
         </div>
       </div>
@@ -195,6 +195,9 @@ export class SaleDetailComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly route = inject(ActivatedRoute);
   private readonly messageService = inject(MessageService);
+
+  /** Exposed constants for template binding */
+  readonly currencyCode = AppCurrency.COP;
 
   voidDialogVisible = false;
   voidReason = '';

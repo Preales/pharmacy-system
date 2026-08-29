@@ -12,6 +12,7 @@ import { InventoryService } from '../services/inventory.service';
 import { IngressFormComponent } from '../components/ingress-form.component';
 import { AdjustmentFormComponent } from '../components/adjustment-form.component';
 import { InventoryItem, StockStatus } from '../models/inventory-item.model';
+import { Pagination } from '../../../core/constants/app.constants';
 
 @Component({
   selector: 'app-stock-list',
@@ -42,6 +43,9 @@ export class StockListComponent implements OnInit {
   readonly inventoryService = inject(InventoryService);
   private readonly router = inject(Router);
   private readonly messageService = inject(MessageService);
+
+  /** Exposed constants for template binding */
+  readonly pageSizeOptions = Pagination.PageSizeOptions;
 
   searchTerm = '';
   pageSize = 20;

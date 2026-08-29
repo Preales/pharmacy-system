@@ -35,7 +35,7 @@
   (onPage)="onPage($event)"
   [showCurrentPageReport]="true"
   currentPageReportTemplate="{first}–{last} of {totalRecords}"
-  [rowsPerPageOptions]="[10, 20, 50]"
+  [rowsPerPageOptions]="pageSizeOptions"
   styleClass="p-datatable-striped"
   dataKey="productId"
 >

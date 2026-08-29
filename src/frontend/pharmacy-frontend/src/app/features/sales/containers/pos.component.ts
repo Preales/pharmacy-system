@@ -15,6 +15,7 @@ import { SalesService } from '../services/sales.service';
 import { OfflineService } from '../../../core/offline/offline.service';
 import { CreateSaleRequest } from '../models/sale.model';
 import { environment } from '../../../../environments/environment';
+import { AppCurrency } from '../../../core/constants/app.constants';
 
 @Component({
   selector: 'app-pos',
@@ -150,6 +151,9 @@ export class PosComponent implements OnInit {
   private readonly messageService = inject(MessageService);
   private readonly http = inject(HttpClient);
   private readonly productsUrl = `${environment.apiBaseUrl}/products`;
+
+  /** Exposed constants for template binding */
+  readonly currencyCode = AppCurrency.COP;
 
   private readonly _products = signal<Product[]>([]);
   searchTerm = '';
