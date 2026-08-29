@@ -13,6 +13,7 @@ public interface IApplicationUserProjection
     string FirstName { get; }
     string LastName { get; }
     Guid TenantId { get; }
+    bool IsActive { get; }
 }
 
 public static class UserMappings
@@ -28,5 +29,6 @@ public static class UserMappings
             LastName: user.LastName,
             FullName: $"{user.FirstName} {user.LastName}",
             Role: role,
-            TenantId: user.TenantId);
+            TenantId: user.TenantId,
+            IsActive: user.IsActive);
 }

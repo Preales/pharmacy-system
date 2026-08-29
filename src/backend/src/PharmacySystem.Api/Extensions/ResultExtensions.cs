@@ -38,6 +38,15 @@ public static class ResultExtensions
                 Detail = conflict.Message
             }),
             UnauthorizedError => new UnauthorizedResult(),
+            BusinessRuleError businessRule =>
+                new ObjectResult(new ProblemDetails
+                {
+                    Type = "https://tools.ietf.org/html/rfc7807",
+                    Title = "Business Rule Violation",
+                    Status = StatusCodes.Status422UnprocessableEntity,
+                    Detail = businessRule.Message
+                })
+                { StatusCode = StatusCodes.Status422UnprocessableEntity },
             TenantSelectionRequiredError tenantSelection =>
                 new ObjectResult(new ProblemDetails
                 {

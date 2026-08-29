@@ -13,4 +13,5 @@ public class ApplicationUser : IdentityUser, IApplicationUserProjection
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public Guid TenantId { get; set; }
+    public bool IsActive { get; set; } = true;
 }

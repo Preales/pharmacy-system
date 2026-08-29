@@ -10,6 +10,80 @@ using PharmacySystem.Domain.Inventory;
 
 namespace PharmacySystem.Application.Inventory.Queries;
 
+// ─── Get All Inventory Items (paginated, optional search) ────────────────────
+
+public record GetAllInventoryItemsQuery(
+    int Page = 1,
+    int PageSize = 20,
+    string? Search = null) : IRequest<Result<PagedResult<InventoryItemDto>>>;
+
+public class GetAllInventoryItemsQueryHandler(IPharmacyDbContext db)
+    : IRequestHandler<GetAllInventoryItemsQuery, Result<PagedResult<InventoryItemDto>>>
+{
+    public async Task<Result<PagedResult<InventoryItemDto>>> Handle(
+        GetAllInventoryItemsQuery request,
+        CancellationToken cancellationToken)
+    {
+        // Load products — apply optional search filter
+        var productsQuery = db.Set<Product>().AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(request.Search))
+        {
+            var searchTerm = request.Search.Trim().ToLower();
+            productsQuery = productsQuery.Where(p =>
+                p.Name.ToLower().Contains(searchTerm) ||
+                p.Sku.ToLower().Contains(searchTerm));
+        }
+
+        var total = await productsQuery.CountAsync(cancellationToken);
+
+        var products = await productsQuery
+            .OrderBy(p => p.Name)
+            .Skip((request.Page - 1) * request.PageSize)
+            .Take(request.PageSize)
+            .ToListAsync(cancellationToken);
+
+        if (products.Count == 0)
+            return Result<PagedResult<InventoryItemDto>>.Success(
+                new PagedResult<InventoryItemDto>([], total, request.Page, request.PageSize));
+
+        var productIds = products.Select(p => p.Id).ToList();
+
+        // Load inventory items for the current page of products (LEFT JOIN semantics: use dictionary)
+        var inventoryItems = await db.Set<InventoryItem>()
+            .Where(i => productIds.Contains(i.ProductId))
+            .ToDictionaryAsync(i => i.ProductId, cancellationToken);
+
+        // Load the latest stock movement date per product
+        var lastMovements = await db.Set<StockMovement>()
+            .Where(m => productIds.Contains(m.ProductId))
+            .GroupBy(m => m.ProductId)
+            .Select(g => new { ProductId = g.Key, LastDate = g.Max(m => m.Timestamp) })
+            .ToDictionaryAsync(x => x.ProductId, x => (DateTime?)x.LastDate, cancellationToken);
+
+        var dtos = products.Select(product =>
+        {
+            inventoryItems.TryGetValue(product.Id, out var item);
+            lastMovements.TryGetValue(product.Id, out var lastDate);
+
+            return item is not null
+                ? item.ToDto(product) with { LastMovementDate = lastDate }
+                : new InventoryItemDto(
+                    Id: Guid.Empty,
+                    ProductId: product.Id,
+                    ProductName: product.Name,
+                    ProductSku: product.Sku,
+                    CurrentStock: 0,
+                    LowStockThreshold: 10,
+                    IsLowStock: true,
+                    LastMovementDate: lastDate);
+        }).ToList();
+
+        return Result<PagedResult<InventoryItemDto>>.Success(
+            new PagedResult<InventoryItemDto>(dtos, total, request.Page, request.PageSize));
+    }
+}
+
 // ─── Get Inventory Item (single product stock level) ─────────────────────────
 
 public record GetInventoryItemQuery(Guid ProductId) : IRequest<Result<InventoryItemDto>>;

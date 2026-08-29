@@ -17,6 +17,23 @@ namespace PharmacySystem.Api.Controllers.V1;
 public class InventoryController(ISender mediator) : ControllerBase
 {
     /// <summary>
+    /// Returns all inventory items with current stock levels. Supports pagination and optional search.
+    /// </summary>
+    [HttpGet]
+    [Authorize(Policy = "PharmacistPolicy")]
+    [ProducesResponseType(typeof(PagedResult<InventoryItemDto>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAll(
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 20,
+        [FromQuery] string? search = null,
+        CancellationToken cancellationToken = default)
+    {
+        var result = await mediator.Send(
+            new GetAllInventoryItemsQuery(page, pageSize, search), cancellationToken);
+        return result.ToActionResult();
+    }
+
+    /// <summary>
     /// Returns current stock level for a specific product.
     /// </summary>
     [HttpGet("{productId:guid}")]
