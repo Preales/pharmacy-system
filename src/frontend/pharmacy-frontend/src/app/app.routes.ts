@@ -17,32 +17,40 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'catalog',
+    // All authenticated routes rendered inside the AppShell layout
+    path: '',
     canActivate: [authGuard],
-    loadChildren: () =>
-      import('./features/catalog/catalog.routes').then((m) => m.CATALOG_ROUTES),
-  },
-  {
-    path: 'inventory',
-    canActivate: [authGuard],
-    loadChildren: () =>
-      import('./features/inventory/inventory.routes').then(
-        (m) => m.INVENTORY_ROUTES
+    loadComponent: () =>
+      import('./shared/components/app-shell/app-shell.component').then(
+        (m) => m.AppShellComponent
       ),
+    children: [
+      {
+        path: 'catalog',
+        loadChildren: () =>
+          import('./features/catalog/catalog.routes').then((m) => m.CATALOG_ROUTES),
+      },
+      {
+        path: 'inventory',
+        loadChildren: () =>
+          import('./features/inventory/inventory.routes').then(
+            (m) => m.INVENTORY_ROUTES
+          ),
+      },
+      {
+        path: 'sales',
+        loadChildren: () =>
+          import('./features/sales/sales.routes').then((m) => m.SALES_ROUTES),
+      },
+      {
+        path: 'reports',
+        canActivate: [roleGuard],
+        data: { roles: [AppRoles.Admin, AppRoles.Pharmacist] },
+        loadChildren: () =>
+          import('./features/reports/reports.routes').then((m) => m.REPORTS_ROUTES),
+      },
+      { path: '', redirectTo: 'catalog', pathMatch: 'full' },
+    ],
   },
-  {
-    path: 'sales',
-    canActivate: [authGuard],
-    loadChildren: () =>
-      import('./features/sales/sales.routes').then((m) => m.SALES_ROUTES),
-  },
-  {
-    path: 'reports',
-    canActivate: [authGuard, roleGuard],
-    data: { roles: [AppRoles.Admin, AppRoles.Pharmacist] },
-    loadChildren: () =>
-      import('./features/reports/reports.routes').then((m) => m.REPORTS_ROUTES),
-  },
-  { path: '', redirectTo: 'catalog', pathMatch: 'full' },
   { path: '**', redirectTo: 'catalog' },
 ];

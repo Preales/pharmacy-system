@@ -96,8 +96,8 @@ import { AuthService } from '../../core/services/auth.service';
     }
     .nav-item:hover { background: var(--surface-hover); }
     .nav-item.active {
-      background: var(--primary-50, #e3f2fd);
-      color: var(--primary-color);
+      background: var(--brand-primary-subtle);
+      color: var(--color-primary);
       font-weight: 600;
     }
     .sidebar-footer {
