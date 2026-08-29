@@ -34,7 +34,7 @@ import { StockStatus } from '../models/inventory-item.model';
     <div class="summary-grid">
       <p-card styleClass="summary-card">
         <div class="summary-content">
-          <i class="pi pi-box summary-icon text-blue-500"></i>
+          <i class="pi pi-box summary-icon"></i>
           <div>
             <div class="summary-label">Total Products</div>
             <div class="summary-value">{{ inventoryService.items().totalCount }}</div>
@@ -44,7 +44,7 @@ import { StockStatus } from '../models/inventory-item.model';
 
       <p-card styleClass="summary-card">
         <div class="summary-content">
-          <i class="pi pi-exclamation-triangle summary-icon text-orange-500"></i>
+          <i class="pi pi-exclamation-triangle summary-icon"></i>
           <div>
             <div class="summary-label">Low Stock Alerts</div>
             <div class="summary-value text-orange-500">{{ inventoryService.lowStockCount() }}</div>
@@ -54,7 +54,7 @@ import { StockStatus } from '../models/inventory-item.model';
 
       <p-card styleClass="summary-card">
         <div class="summary-content">
-          <i class="pi pi-history summary-icon text-green-500"></i>
+          <i class="pi pi-history summary-icon"></i>
           <div>
             <div class="summary-label">Today's Movements</div>
             <div class="summary-value">{{ todayMovements }}</div>
@@ -161,15 +161,15 @@ import { StockStatus } from '../models/inventory-item.model';
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
-    .summary-card { border-radius: 8px; }
+    .summary-card { border-radius: 8px; background: var(--color-card); }
     .summary-content { display: flex; align-items: center; gap: 1rem; }
-    .summary-icon { font-size: 2rem; }
+    .summary-icon { font-size: 2rem; color: var(--color-primary); }
     .summary-label { font-size: 0.85rem; color: var(--text-color-secondary); }
     .summary-value { font-size: 1.75rem; font-weight: 700; line-height: 1; }
     .actions-bar { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
     .section-header { margin-bottom: 0.5rem; }
     .section-header h3 { margin: 0 0 0.15rem; }
-    code { font-family: monospace; font-size: 0.85rem; background: var(--surface-100); padding: 0.1rem 0.3rem; border-radius: 4px; }
+    code { font-family: monospace; font-size: 0.85rem; background: var(--color-card); padding: 0.1rem 0.3rem; border-radius: 4px; }
   `,
 })
 export class InventoryDashboardComponent implements OnInit {

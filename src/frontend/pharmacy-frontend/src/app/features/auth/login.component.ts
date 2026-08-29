@@ -164,11 +164,15 @@ type LoginState = 'idle' | 'resolvingTenant' | 'tenantPicker' | 'awaitingPasswor
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      background: var(--surface-ground);
+      background: var(--color-background);
+      font-family: Inter, sans-serif;
     }
     .login-card {
       width: 100%;
       max-width: 420px;
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
     }
     .login-subtitle {
       color: var(--text-color-secondary);
@@ -204,13 +208,13 @@ type LoginState = 'idle' | 'resolvingTenant' | 'tenantPicker' | 'awaitingPasswor
       align-items: center;
       gap: 0.75rem;
       padding: 0.75rem;
-      border: 1px solid var(--surface-border);
+      border: 1px solid var(--color-border);
       border-radius: var(--border-radius);
       cursor: pointer;
       transition: background-color 0.2s;
     }
     .tenant-option:hover {
-      background-color: var(--surface-hover);
+      background-color: var(--brand-primary-subtle);
     }
     .tenant-label {
       display: flex;
@@ -232,14 +236,15 @@ type LoginState = 'idle' | 'resolvingTenant' | 'tenantPicker' | 'awaitingPasswor
       font-size: 0.875rem;
       color: var(--text-color-secondary);
       padding: 0.5rem 0.75rem;
-      background: var(--surface-50);
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
       border-radius: var(--border-radius);
     }
     .change-email-btn {
       margin-left: auto;
       background: none;
       border: none;
-      color: var(--primary-color);
+      color: var(--color-primary);
       cursor: pointer;
       font-size: 0.8rem;
       padding: 0;

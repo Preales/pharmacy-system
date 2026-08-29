@@ -46,8 +46,8 @@ Chain strategy: feature-branch-chain
 ## Phase 3: Visual Corrections (→ PR 3)
 
 - [x] 3.1 `src/app/shared/components/app-sidebar/app-sidebar.component.scss` — replace line 61 `var(--primary-50, #e3f2fd)` with `var(--brand-primary-subtle)`; add `3px` left-border accent on `.nav-item.active`
-- [ ] 3.2 `src/app/features/auth/login.component.ts` — update inline styles to `--brand-*` tokens; set background to `var(--brand-bg)`
-- [ ] 3.3 `src/app/features/inventory/containers/inventory-dashboard.component.ts` — update `.summary-icon` color to `var(--brand-primary)`
+- [x] 3.2 `src/app/features/auth/login.component.ts` — update inline styles to `--brand-*` tokens; set background to `var(--brand-bg)`
+- [x] 3.3 `src/app/features/inventory/containers/inventory-dashboard.component.ts` — update `.summary-icon` color to `var(--brand-primary)`
 
 ## Phase 4: Tests
 
@@ -57,6 +57,6 @@ Chain strategy: feature-branch-chain
 
 ## Phase 5: Cleanup
 
-- [ ] 5.1 Grep codebase for remaining `--primary-50` and `#e3f2fd` fallback values; replace any found with brand tokens
-- [ ] 5.2 Confirm no `Material` imports remain anywhere in `app.config.ts` or component files
-- [ ] 5.3 Resolve open questions in `design.md`: tenant name display and collapsed sidebar scope for next slice
+- [x] 5.1 Grep codebase for remaining `--primary-50` and `#e3f2fd` fallback values; replace any found with brand tokens
+- [x] 5.2 Confirm no `Material` imports remain anywhere in `app.config.ts` or component files
+- [x] 5.3 Resolve open questions in `design.md`: tenant name display and collapsed sidebar scope for next slice
