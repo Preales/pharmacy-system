@@ -1,6 +1,7 @@
 import { Component, OnInit, inject, computed } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
@@ -12,7 +13,7 @@ import { LowStockProduct } from '../models/report.model';
 @Component({
   selector: 'app-inventory-report',
   standalone: true,
-  imports: [DecimalPipe, CardModule, TableModule, TagModule, ButtonModule, ProgressSpinnerModule, RouterLink],
+  imports: [DecimalPipe, TranslatePipe, CardModule, TableModule, TagModule, ButtonModule, ProgressSpinnerModule, RouterLink],
   template: `
     @if (service.loading()) {
       <div class="flex justify-center p-8">
@@ -24,25 +25,25 @@ import { LowStockProduct } from '../models/report.model';
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <p-card>
             <div class="text-center">
-              <p class="text-surface-500 text-sm m-0">Total Products</p>
+              <p class="text-surface-500 text-sm m-0">{{ 'reports.inventoryReport.totalProducts' | translate }}</p>
               <p class="text-3xl font-bold text-primary m-0">{{ report()!.totalProducts }}</p>
             </div>
           </p-card>
           <p-card>
             <div class="text-center">
-              <p class="text-surface-500 text-sm m-0">Low Stock</p>
+              <p class="text-surface-500 text-sm m-0">{{ 'reports.inventoryReport.lowStock' | translate }}</p>
               <p class="text-3xl font-bold text-orange-500 m-0">{{ report()!.lowStockProducts }}</p>
             </div>
           </p-card>
           <p-card>
             <div class="text-center">
-              <p class="text-surface-500 text-sm m-0">Zero Stock</p>
+              <p class="text-surface-500 text-sm m-0">{{ 'reports.inventoryReport.zeroStock' | translate }}</p>
               <p class="text-3xl font-bold text-red-500 m-0">{{ report()!.zeroStockProducts }}</p>
             </div>
           </p-card>
           <p-card>
             <div class="text-center">
-              <p class="text-surface-500 text-sm m-0">Total Stock Value</p>
+              <p class="text-surface-500 text-sm m-0">{{ 'reports.inventoryReport.totalStockValue' | translate }}</p>
               <p class="text-2xl font-bold text-green-500 m-0">
                 {{ report()!.totalStockValue | number:'1.2-2' }}
               </p>
@@ -51,7 +52,7 @@ import { LowStockProduct } from '../models/report.model';
         </div>
 
         <!-- Low/zero stock products table -->
-        <p-card header="Low Stock & Zero Stock Products">
+        <p-card [header]="'reports.inventoryReport.tableTitle' | translate">
           <p-table
             [value]="report()!.lowStockItems"
             [paginator]="true"
@@ -60,12 +61,12 @@ import { LowStockProduct } from '../models/report.model';
           >
             <ng-template pTemplate="header">
               <tr>
-                <th>Product</th>
-                <th>SKU</th>
-                <th class="text-right">Current Stock</th>
-                <th class="text-right">Threshold</th>
-                <th class="text-right">Cost Price</th>
-                <th>Status</th>
+                <th>{{ 'reports.inventoryReport.product' | translate }}</th>
+                <th>{{ 'reports.inventoryReport.sku' | translate }}</th>
+                <th class="text-right">{{ 'reports.inventoryReport.currentStock' | translate }}</th>
+                <th class="text-right">{{ 'reports.inventoryReport.threshold' | translate }}</th>
+                <th class="text-right">{{ 'reports.inventoryReport.costPrice' | translate }}</th>
+                <th>{{ 'reports.inventoryReport.status' | translate }}</th>
                 <th></th>
               </tr>
             </ng-template>
@@ -80,9 +81,9 @@ import { LowStockProduct } from '../models/report.model';
                 <td class="text-right">{{ item.costPrice | number:'1.2-2' }}</td>
                 <td>
                   @if (item.currentStock <= 0) {
-                    <p-tag severity="danger" value="Zero Stock" />
+                    <p-tag severity="danger" [value]="'reports.inventoryReport.tagZeroStock' | translate" />
                   } @else {
-                    <p-tag severity="warn" value="Low Stock" />
+                    <p-tag severity="warn" [value]="'reports.inventoryReport.tagLowStock' | translate" />
                   }
                 </td>
                 <td>
@@ -93,13 +94,13 @@ import { LowStockProduct } from '../models/report.model';
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
-              <tr><td colspan="7" class="text-center text-surface-400 p-4">All products have healthy stock levels</td></tr>
+              <tr><td colspan="7" class="text-center text-surface-400 p-4">{{ 'reports.inventoryReport.allHealthy' | translate }}</td></tr>
             </ng-template>
           </p-table>
         </p-card>
       </div>
     } @else {
-      <div class="p-8 text-center text-surface-400">No data available</div>
+      <div class="p-8 text-center text-surface-400">{{ 'reports.inventoryReport.noData' | translate }}</div>
     }
   `,
 })

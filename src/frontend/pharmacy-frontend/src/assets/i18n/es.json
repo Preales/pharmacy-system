@@ -70,7 +70,13 @@
       "edit": "Editar producto",
       "deleteConfirm": "¿Está seguro de eliminar este producto?",
       "deleted": "Producto eliminado",
-      "saved": "Producto guardado"
+      "saved": "Producto guardado",
+      "units": {
+        "unit": "Unidad",
+        "box": "Caja",
+        "blister": "Blíster",
+        "bottle": "Frasco"
+      }
     },
     "categories": {
       "title": "Categorías",
@@ -92,7 +98,9 @@
       "edit": "Editar proveedor",
       "deleteConfirm": "¿Está seguro de eliminar este proveedor?",
       "deleted": "Proveedor eliminado",
-      "saved": "Proveedor guardado"
+      "saved": "Proveedor guardado",
+      "contactName": "Nombre de contacto",
+      "contactNamePlaceholder": "Persona de contacto"
     }
   },
   "inventory": {
@@ -121,6 +129,25 @@
       "stockUpdated": "Stock actualizado correctamente.",
       "adjustmentApplied": "Ajuste aplicado",
       "stockAdjusted": "Stock ajustado correctamente."
+    },
+    "dashboard": {
+      "totalProducts": "Total de productos",
+      "lowStockAlerts": "Alertas de stock bajo",
+      "todayMovements": "Movimientos de hoy",
+      "recordIngress": "Registrar ingreso",
+      "recordAdjustment": "Registrar ajuste",
+      "viewAllStock": "Ver todo el stock",
+      "lowStockSection": "Alertas de stock bajo",
+      "lowStockSubtitle": "Productos en o por debajo del mínimo",
+      "product": "Producto",
+      "sku": "SKU",
+      "category": "Categoría",
+      "currentStock": "Stock actual",
+      "threshold": "Mínimo",
+      "status": "Estado",
+      "actions": "Acciones",
+      "tooltipIngress": "Registrar ingreso",
+      "allStocked": "Sin alertas de stock bajo — todos los productos tienen stock suficiente."
     },
     "lowStock": {
       "title": "Alertas de Stock Bajo",
@@ -324,36 +351,52 @@
   "reports": {
     "dashboard": {
       "title": "Panel de Reportes",
-      "sales": "Reporte de Ventas",
-      "inventory": "Reporte de Inventario",
-      "viewSales": "Ver reporte de ventas",
-      "viewInventory": "Ver reporte de inventario",
-      "conflicts": "Alertas de conflicto",
-      "viewConflicts": "Ver →"
+      "salesToday": "Ventas hoy",
+      "revenueToday": "Ingresos hoy",
+      "salesThisMonth": "Ventas este mes",
+      "avgTicket": "Ticket promedio (mes)",
+      "lowStockProducts": "Productos con stock bajo",
+      "pendingConflicts": "Alertas de conflicto pendientes",
+      "viewConflicts": "Ver →",
+      "top5Title": "Top 5 productos del mes",
+      "product": "Producto",
+      "qtySold": "Cant. vendida",
+      "revenue": "Ingresos",
+      "noSales": "Sin ventas este mes",
+      "noData": "Sin datos disponibles"
     },
     "salesReport": {
       "title": "Reporte de Ventas",
-      "period": "Período",
       "from": "Desde",
       "to": "Hasta",
-      "apply": "Aplicar",
+      "loadReport": "Cargar reporte",
       "totalSales": "Total de ventas",
       "totalRevenue": "Ingresos totales",
-      "averageSale": "Venta promedio",
+      "averageTicket": "Ticket promedio",
+      "dailySales": "Ventas diarias",
       "topProducts": "Productos más vendidos",
       "product": "Producto",
-      "quantity": "Unidades vendidas",
-      "revenue": "Ingresos"
+      "qtySold": "Cant. vendida",
+      "revenue": "Ingresos",
+      "noData": "Sin datos"
     },
     "inventoryReport": {
       "title": "Reporte de Inventario",
       "totalProducts": "Total de productos",
-      "lowStockCount": "Productos con stock bajo",
-      "totalValue": "Valor total",
-      "byCategory": "Por categoría",
-      "category": "Categoría",
-      "products": "Productos",
-      "value": "Valor"
+      "lowStock": "Stock bajo",
+      "zeroStock": "Sin stock",
+      "totalStockValue": "Valor total del stock",
+      "tableTitle": "Productos con stock bajo o sin stock",
+      "product": "Producto",
+      "sku": "SKU",
+      "currentStock": "Stock actual",
+      "threshold": "Mínimo",
+      "costPrice": "Costo",
+      "status": "Estado",
+      "tagZeroStock": "Sin stock",
+      "tagLowStock": "Stock bajo",
+      "allHealthy": "Todos los productos tienen niveles de stock saludables",
+      "noData": "Sin datos disponibles"
     }
   },
   "users": {
@@ -382,6 +425,20 @@
       "role": "Rol",
       "save": "Guardar",
       "cancel": "Cancelar"
+    }
+  },
+  "core": {
+    "sync": {
+      "online": "En línea",
+      "offline": "Sin conexión",
+      "pending": "pendiente(s)",
+      "syncNow": "Sincronizar"
+    },
+    "unauthorized": {
+      "title": "Acceso denegado",
+      "message": "No tiene permiso para acceder a esta página. Contacte a su administrador si cree que esto es un error.",
+      "goToCatalog": "Ir al catálogo",
+      "goToPos": "Ir al POS"
     }
   }
 }

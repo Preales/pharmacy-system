@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { BadgeModule } from 'primeng/badge';
 import { TagModule } from 'primeng/tag';
@@ -8,7 +9,7 @@ import { OfflineService } from '../offline/offline.service';
 @Component({
   selector: 'app-sync-status-bar',
   standalone: true,
-  imports: [CommonModule, ButtonModule, BadgeModule, TagModule],
+  imports: [CommonModule, TranslatePipe, ButtonModule, BadgeModule, TagModule],
   template: `
     <div class="sync-status-bar" [class.offline]="!offlineService.isOnline()">
       <div class="status-indicator">
@@ -20,17 +21,17 @@ import { OfflineService } from '../offline/offline.service';
           [class.text-orange-500]="!offlineService.isOnline()"
         ></i>
         <span class="status-label">
-          {{ offlineService.isOnline() ? 'Online' : 'Offline' }}
+          {{ offlineService.isOnline() ? ('core.sync.online' | translate) : ('core.sync.offline' | translate) }}
         </span>
       </div>
 
       @if (offlineService.pendingCount() > 0) {
         <div class="pending-badge">
           <i class="pi pi-clock text-orange-500"></i>
-          <span>{{ offlineService.pendingCount() }} pending</span>
+          <span>{{ offlineService.pendingCount() }} {{ 'core.sync.pending' | translate }}</span>
         </div>
         <p-button
-          label="Sync Now"
+          [label]="'core.sync.syncNow' | translate"
           icon="pi pi-refresh"
           size="small"
           severity="warn"

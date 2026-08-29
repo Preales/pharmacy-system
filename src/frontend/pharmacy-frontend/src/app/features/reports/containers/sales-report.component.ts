@@ -1,6 +1,7 @@
 import { Component, OnInit, inject, computed, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
@@ -15,6 +16,7 @@ import { ReportsService } from '../services/reports.service';
   imports: [
     DecimalPipe,
     FormsModule,
+    TranslatePipe,
     CardModule,
     ChartModule,
     TableModule,
@@ -25,17 +27,17 @@ import { ReportsService } from '../services/reports.service';
   template: `
     <div class="p-4 flex flex-col gap-4">
       <!-- Date range filter -->
-      <p-card header="Sales Report">
+      <p-card [header]="'reports.salesReport.title' | translate">
         <div class="flex gap-3 align-items-end flex-wrap">
           <div class="flex flex-col gap-1">
-            <label class="text-sm text-surface-600">From</label>
+            <label class="text-sm text-surface-600">{{ 'reports.salesReport.from' | translate }}</label>
             <p-datepicker [(ngModel)]="dateFrom" dateFormat="yy-mm-dd" [showIcon]="true" />
           </div>
           <div class="flex flex-col gap-1">
-            <label class="text-sm text-surface-600">To</label>
+            <label class="text-sm text-surface-600">{{ 'reports.salesReport.to' | translate }}</label>
             <p-datepicker [(ngModel)]="dateTo" dateFormat="yy-mm-dd" [showIcon]="true" />
           </div>
-          <p-button label="Load Report" icon="pi pi-chart-bar" (onClick)="load()" />
+          <p-button [label]="'reports.salesReport.loadReport' | translate" icon="pi pi-chart-bar" (onClick)="load()" />
         </div>
       </p-card>
 
@@ -48,39 +50,39 @@ import { ReportsService } from '../services/reports.service';
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <p-card>
             <div class="text-center">
-              <p class="text-surface-500 text-sm m-0">Total Sales</p>
+              <p class="text-surface-500 text-sm m-0">{{ 'reports.salesReport.totalSales' | translate }}</p>
               <p class="text-3xl font-bold text-primary m-0">{{ report()!.totalSales }}</p>
             </div>
           </p-card>
           <p-card>
             <div class="text-center">
-              <p class="text-surface-500 text-sm m-0">Total Revenue</p>
+              <p class="text-surface-500 text-sm m-0">{{ 'reports.salesReport.totalRevenue' | translate }}</p>
               <p class="text-3xl font-bold text-green-500 m-0">{{ report()!.totalRevenue | number:'1.2-2' }}</p>
             </div>
           </p-card>
           <p-card>
             <div class="text-center">
-              <p class="text-surface-500 text-sm m-0">Average Ticket</p>
+              <p class="text-surface-500 text-sm m-0">{{ 'reports.salesReport.averageTicket' | translate }}</p>
               <p class="text-3xl font-bold text-blue-500 m-0">{{ report()!.averageTicket | number:'1.2-2' }}</p>
             </div>
           </p-card>
         </div>
 
         <!-- Daily sales chart -->
-        <p-card header="Daily Sales">
+        <p-card [header]="'reports.salesReport.dailySales' | translate">
           @if (chartData()) {
             <p-chart type="bar" [data]="chartData()!" [options]="chartOptions" height="300px" />
           }
         </p-card>
 
         <!-- Top products -->
-        <p-card header="Top Products">
+        <p-card [header]="'reports.salesReport.topProducts' | translate">
           <p-table [value]="report()!.topProducts" styleClass="p-datatable-sm">
             <ng-template pTemplate="header">
               <tr>
-                <th>Product</th>
-                <th class="text-right">Qty Sold</th>
-                <th class="text-right">Revenue</th>
+                <th>{{ 'reports.salesReport.product' | translate }}</th>
+                <th class="text-right">{{ 'reports.salesReport.qtySold' | translate }}</th>
+                <th class="text-right">{{ 'reports.salesReport.revenue' | translate }}</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-p>
@@ -91,7 +93,7 @@ import { ReportsService } from '../services/reports.service';
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
-              <tr><td colspan="3" class="text-center text-surface-400 p-4">No data</td></tr>
+              <tr><td colspan="3" class="text-center text-surface-400 p-4">{{ 'reports.salesReport.noData' | translate }}</td></tr>
             </ng-template>
           </p-table>
         </p-card>
