@@ -1,0 +1,19 @@
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.shell-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.shell-content {
+  flex: 1;
+  padding: 1.5rem;
+  background: var(--color-background);
+  overflow: auto;
+}

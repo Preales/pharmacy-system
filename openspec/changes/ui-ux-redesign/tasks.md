@@ -35,13 +35,13 @@ Chain strategy: feature-branch-chain
 
 ## Phase 2: ThemeService + AppHeader + Shell Wiring (→ PR 2)
 
-- [ ] 2.1 `src/app/core/services/theme.service.ts` — create standalone `ThemeService`; `isDark` signal initialized from `localStorage('theme')`; `toggleTheme()` flips signal, sets/removes `.dark-mode` on `document.documentElement`, writes `localStorage`
-- [ ] 2.2 `src/app/shared/components/app-header/app-header.component.ts` — create standalone component; inject `ThemeService` + `AuthService`; expose `isDark` signal and `toggleTheme()`
-- [ ] 2.3 `src/app/shared/components/app-header/app-header.component.html` — tenant name + user email display; dark-mode toggle button using PrimeIcons (`pi-sun` / `pi-moon`)
-- [ ] 2.4 `src/app/shared/components/app-header/app-header.component.scss` — fixed-height topbar, flex row, brand token usage (`--brand-primary`, `--brand-bg`)
-- [ ] 2.5 `src/app/shared/components/app-shell/app-shell.component.ts` — import and add `AppHeaderComponent` to `imports[]`
-- [ ] 2.6 `src/app/shared/components/app-shell/app-shell.component.html` — insert `<app-header />` above `.shell-body`
-- [ ] 2.7 `src/app/shared/components/app-shell/app-shell.component.scss` — set outer shell to `flex-column`; account for header height so sidebar + content fill remaining viewport
+- [x] 2.1 `src/app/core/services/theme.service.ts` — create standalone `ThemeService`; `isDark` signal initialized from `localStorage('theme')`; `toggleTheme()` flips signal, sets/removes `.dark-mode` on `document.documentElement`, writes `localStorage`
+- [x] 2.2 `src/app/shared/components/app-header/app-header.component.ts` — create standalone component; inject `ThemeService` + `AuthService`; expose `isDark` signal and `toggleTheme()`
+- [x] 2.3 `src/app/shared/components/app-header/app-header.component.html` — tenant name + user email display; dark-mode toggle button using PrimeIcons (`pi-sun` / `pi-moon`)
+- [x] 2.4 `src/app/shared/components/app-header/app-header.component.scss` — fixed-height topbar, flex row, brand token usage (`--brand-primary`, `--brand-bg`)
+- [x] 2.5 `src/app/shared/components/app-shell/app-shell.component.ts` — import and add `AppHeaderComponent` to `imports[]`
+- [x] 2.6 `src/app/shared/components/app-shell/app-shell.component.html` — insert `<app-header />` above `.shell-body`
+- [x] 2.7 `src/app/shared/components/app-shell/app-shell.component.scss` — set outer shell to `flex-column`; account for header height so sidebar + content fill remaining viewport
 
 ## Phase 3: Visual Corrections (→ PR 3)
 

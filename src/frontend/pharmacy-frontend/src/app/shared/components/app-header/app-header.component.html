@@ -1,0 +1,23 @@
+<header class="app-header">
+  <div class="app-header__brand">
+    <span class="pi pi-heart app-header__brand-icon"></span>
+    <span class="app-header__tenant" title="Tenant">{{ tenantDisplay }}</span>
+  </div>
+
+  <div class="app-header__actions">
+    <span class="app-header__email">{{ userEmail }}</span>
+
+    <button
+      class="app-header__theme-toggle"
+      type="button"
+      [attr.aria-label]="themeService.isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
+      (click)="toggleTheme()"
+    >
+      <i
+        class="pi"
+        [class.pi-sun]="themeService.isDarkMode()"
+        [class.pi-moon]="!themeService.isDarkMode()"
+      ></i>
+    </button>
+  </div>
+</header>
