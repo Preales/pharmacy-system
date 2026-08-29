@@ -5,15 +5,11 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
-  template: `
-    <main class="app-shell">
-      <router-outlet />
-    </main>
-  `,
+  template: `<router-outlet />`,
   styles: `
-    .app-shell {
-      min-height: 100vh;
-      padding: 1rem;
+    :host {
+      display: block;
+      height: 100%;
     }
   `,
 })

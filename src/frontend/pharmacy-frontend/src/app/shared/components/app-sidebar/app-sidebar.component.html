@@ -1,0 +1,53 @@
+<nav class="app-sidebar" [class.app-sidebar--collapsed]="isCollapsed()">
+  <!-- Collapse toggle -->
+  <button
+    class="collapse-toggle"
+    type="button"
+    (click)="toggleCollapse()"
+    [attr.aria-label]="isCollapsed() ? 'Expand sidebar' : 'Collapse sidebar'"
+    [attr.title]="isCollapsed() ? 'Expand' : 'Collapse'"
+  >
+    <i class="pi pi-bars"></i>
+  </button>
+
+  <!-- Brand / Logo -->
+  <div class="sidebar-header">
+    <span class="pi pi-heart sidebar-icon"></span>
+    <span class="sidebar-title" *ngIf="!isCollapsed()">Pharmacy</span>
+  </div>
+
+  <ul class="sidebar-nav">
+    <li>
+      <a routerLink="/catalog" routerLinkActive="active" class="nav-item" title="Catalog">
+        <i class="pi pi-tag"></i>
+        <span class="nav-label" *ngIf="!isCollapsed()">Catalog</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/inventory" routerLinkActive="active" class="nav-item" title="Inventory">
+        <i class="pi pi-warehouse"></i>
+        <span class="nav-label" *ngIf="!isCollapsed()">Inventory</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/sales" routerLinkActive="active" class="nav-item" title="Sales">
+        <i class="pi pi-shopping-cart"></i>
+        <span class="nav-label" *ngIf="!isCollapsed()">Sales</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/reports" routerLinkActive="active" class="nav-item" title="Reports">
+        <i class="pi pi-chart-bar"></i>
+        <span class="nav-label" *ngIf="!isCollapsed()">Reports</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="sidebar-footer">
+    <button class="nav-item logout-btn" (click)="logout()" title="Logout">
+      <i class="pi pi-sign-out"></i>
+      <span class="nav-label" *ngIf="!isCollapsed()">Logout</span>
+    </button>
+    <small class="user-email" *ngIf="!isCollapsed()">{{ currentUser()?.email }}</small>
+  </div>
+</nav>
