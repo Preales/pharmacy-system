@@ -26,6 +26,14 @@ export class AuthService {
   readonly currentTenantId = computed(() => this._currentUser()?.tenantId ?? null);
   readonly pendingTenantId = this._pendingTenantId.asReadonly();
 
+  /**
+   * Returns true when the current user has the given role.
+   * Safe to call when no user is present — returns false without throwing.
+   */
+  hasRole(role: string): boolean {
+    return this._currentUser()?.roles?.includes(role) ?? false;
+  }
+
   login(request: LoginRequest): Observable<AuthResponse> {
     return this.http
       .post<AuthResponse>(`${environment.apiBaseUrl}/auth/login`, request)

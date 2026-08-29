@@ -35,12 +35,22 @@
         <span class="nav-label" *ngIf="!isCollapsed()">Sales</span>
       </a>
     </li>
+    @if(hasRole('Admin') || hasRole('Pharmacist')) {
     <li>
       <a routerLink="/reports" routerLinkActive="active" class="nav-item" title="Reports">
         <i class="pi pi-chart-bar"></i>
         <span class="nav-label" *ngIf="!isCollapsed()">Reports</span>
       </a>
     </li>
+    }
+    @if(hasRole('Admin')) {
+    <li>
+      <a routerLink="/users" routerLinkActive="active" class="nav-item" title="Users">
+        <i class="pi pi-users"></i>
+        <span class="nav-label" *ngIf="!isCollapsed()">Users</span>
+      </a>
+    </li>
+    }
   </ul>
 
   <div class="sidebar-footer">

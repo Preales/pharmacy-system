@@ -14,10 +14,23 @@
 }
 
 .dark-mode {
-  --color-background: #0F172A;
-  --color-card:       #1E293B;
-  --color-border:     #334155;
-  --color-foreground: #F1F5F9;
+  --color-background:       #0F172A;
+  --color-card:             #1E293B;
+  --color-border:           #334155;
+  --color-foreground:       #F1F5F9;
+
+  // Semantic text tokens — consumed by components via var()
+  --text-color:             #F1F5F9;
+  --text-color-secondary:   #94A3B8;
+  --color-muted-foreground: #94A3B8;
+
+  // Brand subtle — dark variant
+  --brand-primary-subtle:   #14532D;
+
+  // PrimeNG surface token overrides for dark mode
+  --p-surface-ground:       #0F172A;
+  --p-surface-card:         #1E293B;
+  --p-text-color:           #F1F5F9;
 }
 // ─────────────────────────────────────────────────────────────────────────────
 

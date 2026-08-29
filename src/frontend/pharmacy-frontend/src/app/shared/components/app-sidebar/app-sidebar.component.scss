@@ -95,8 +95,17 @@
 
 .nav-item.active {
   background: var(--brand-primary-subtle);
-  color: var(--primary-color);
+  color: var(--color-primary);
   font-weight: 600;
+}
+
+// Dark mode nav text overrides
+.dark-mode .nav-item {
+  color: var(--text-color);
+}
+
+.dark-mode .nav-item.active {
+  color: var(--color-primary);
 }
 
 .sidebar-footer {
@@ -121,5 +130,5 @@
 }
 
 .logout-btn:hover {
-  background: var(--red-50, #fff5f5);
+  background: var(--red-50);
 }

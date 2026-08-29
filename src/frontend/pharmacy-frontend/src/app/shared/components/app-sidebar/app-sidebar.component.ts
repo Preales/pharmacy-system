@@ -17,6 +17,11 @@ export class AppSidebarComponent {
   protected readonly authService = inject(AuthService);
   readonly currentUser = this.authService.currentUser;
 
+  /** Delegates to AuthService.hasRole — exposed for template use. */
+  hasRole(role: string): boolean {
+    return this.authService.hasRole(role);
+  }
+
   /** Whether the sidebar is in collapsed (icon-only) state. */
   readonly isCollapsed = signal<boolean>(this.loadCollapseState());
 
