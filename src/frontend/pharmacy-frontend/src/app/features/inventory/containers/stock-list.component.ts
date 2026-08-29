@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { InventoryService } from '../services/inventory.service';
 import { IngressFormComponent } from '../components/ingress-form.component';
 import { AdjustmentFormComponent } from '../components/adjustment-form.component';
@@ -25,6 +26,7 @@ import { Pagination } from '../../../core/constants/app.constants';
     InputTextModule,
     TagModule,
     ToastModule,
+    TranslatePipe,
     IngressFormComponent,
     AdjustmentFormComponent,
   ],
@@ -43,6 +45,7 @@ export class StockListComponent implements OnInit {
   readonly inventoryService = inject(InventoryService);
   private readonly router = inject(Router);
   private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
 
   /** Exposed constants for template binding */
   readonly pageSizeOptions = Pagination.PageSizeOptions;
@@ -106,8 +109,12 @@ export class StockListComponent implements OnInit {
   }
 
   getStatusLabel(status: StockStatus): string {
-    const labels: Record<StockStatus, string> = { OK: 'OK', Low: 'Low', Critical: 'Critical' };
-    return labels[status] ?? status;
+    const keyMap: Record<StockStatus, string> = {
+      OK: 'inventory.stock.normal',
+      Low: 'inventory.stock.low',
+      Critical: 'inventory.stock.critical',
+    };
+    return this.translate.instant(keyMap[status] ?? status);
   }
 
   getStatusSeverity(status: StockStatus): 'success' | 'warn' | 'danger' {
@@ -119,11 +126,19 @@ export class StockListComponent implements OnInit {
   onIngressSaved(): void {
     this.preselectedProductId.set(null);
     this.loadStock();
-    this.messageService.add({ severity: 'success', summary: 'Ingress Recorded', detail: 'Stock updated successfully.' });
+    this.messageService.add({
+      severity: 'success',
+      summary: this.translate.instant('inventory.stock.ingressRecorded'),
+      detail: this.translate.instant('inventory.stock.stockUpdated'),
+    });
   }
 
   onAdjustmentSaved(): void {
     this.loadStock();
-    this.messageService.add({ severity: 'success', summary: 'Adjustment Applied', detail: 'Stock adjusted successfully.' });
+    this.messageService.add({
+      severity: 'success',
+      summary: this.translate.instant('inventory.stock.adjustmentApplied'),
+      detail: this.translate.instant('inventory.stock.stockAdjusted'),
+    });
   }
 }

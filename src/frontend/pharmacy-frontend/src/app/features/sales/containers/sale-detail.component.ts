@@ -10,6 +10,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SalesService } from '../services/sales.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { SaleStatus, VoidSaleRequest } from '../models/sale.model';
@@ -29,6 +30,7 @@ import { AppRoles, AppCurrency } from '../../../core/constants/app.constants';
     ToastModule,
     DialogModule,
     InputTextModule,
+    TranslatePipe,
   ],
   providers: [MessageService],
   template: `
@@ -40,7 +42,7 @@ import { AppRoles, AppCurrency } from '../../../core/constants/app.constants';
           <a routerLink="/sales/history" class="back-link">
             <p-button
               icon="pi pi-arrow-left"
-              label="Back"
+              [label]="'sales.detail.back' | translate"
               severity="secondary"
               [outlined]="true"
             />
@@ -48,14 +50,14 @@ import { AppRoles, AppCurrency } from '../../../core/constants/app.constants';
           <div class="header-actions">
             <p-button
               icon="pi pi-print"
-              label="Print"
+              [label]="'sales.detail.print' | translate"
               severity="secondary"
               (onClick)="printReceipt()"
             />
             @if (isAdmin() && salesService.currentSale()!.status === 'Completed') {
               <p-button
                 icon="pi pi-ban"
-                label="Void Sale"
+                [label]="'sales.detail.voidSale' | translate"
                 severity="danger"
                 [outlined]="true"
                 (onClick)="voidDialogVisible = true"
@@ -66,7 +68,7 @@ import { AppRoles, AppCurrency } from '../../../core/constants/app.constants';
 
         <div class="receipt-content">
           <div class="receipt-title">
-            <h2>Sale Receipt</h2>
+            <h2>{{ 'sales.detail.title' | translate }}</h2>
             <p-tag
               [value]="salesService.currentSale()!.status"
               [severity]="getStatusSeverity(salesService.currentSale()!.status)"
@@ -75,23 +77,23 @@ import { AppRoles, AppCurrency } from '../../../core/constants/app.constants';
 
           <div class="receipt-meta">
             <div class="meta-row">
-              <span class="meta-label">Sale Number</span>
+              <span class="meta-label">{{ 'sales.detail.saleNumber' | translate }}</span>
               <span class="meta-value"><code>{{ salesService.currentSale()!.saleNumber }}</code></span>
             </div>
             <div class="meta-row">
-              <span class="meta-label">Date</span>
+              <span class="meta-label">{{ 'sales.detail.date' | translate }}</span>
               <span class="meta-value">{{ salesService.currentSale()!.saleDate | date:'medium' }}</span>
             </div>
             @if (salesService.currentSale()!.customerName) {
               <div class="meta-row">
-                <span class="meta-label">Customer</span>
+                <span class="meta-label">{{ 'sales.detail.customer' | translate }}</span>
                 <span class="meta-value">{{ salesService.currentSale()!.customerName }}</span>
               </div>
             }
             @if (salesService.currentSale()!.isOfflineSync) {
               <div class="meta-row">
-                <span class="meta-label">Sync</span>
-                <span class="meta-value text-orange-500">Offline Sync</span>
+                <span class="meta-label">{{ 'sales.detail.sync' | translate }}</span>
+                <span class="meta-value text-orange-500">{{ 'sales.detail.offlineSync' | translate }}</span>
               </div>
             }
           </div>
@@ -104,10 +106,10 @@ import { AppRoles, AppCurrency } from '../../../core/constants/app.constants';
           >
             <ng-template pTemplate="header">
               <tr>
-                <th>Product</th>
-                <th style="text-align:right">Qty</th>
-                <th style="text-align:right">Unit Price</th>
-                <th style="text-align:right">Subtotal</th>
+                <th>{{ 'sales.detail.product' | translate }}</th>
+                <th style="text-align:right">{{ 'sales.detail.quantity' | translate }}</th>
+                <th style="text-align:right">{{ 'sales.detail.unitPrice' | translate }}</th>
+                <th style="text-align:right">{{ 'sales.detail.subtotal' | translate }}</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-line>
@@ -123,7 +125,7 @@ import { AppRoles, AppCurrency } from '../../../core/constants/app.constants';
           <div class="receipt-divider"></div>
 
           <div class="receipt-total">
-            <span>TOTAL</span>
+            <span>{{ 'sales.detail.lines' | translate }}</span>
             <span class="total-value">{{ salesService.currentSale()!.totalAmount | currency:currencyCode:'symbol':'1.0-0' }}</span>
           </div>
         </div>
@@ -131,26 +133,26 @@ import { AppRoles, AppCurrency } from '../../../core/constants/app.constants';
     } @else {
       <div class="loading-state">
         <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-        <p>Loading sale...</p>
+        <p>{{ 'sales.detail.loading' | translate }}</p>
       </div>
     }
 
     <!-- Void Dialog -->
     <p-dialog
-      header="Void Sale"
+      [header]="'sales.detail.voidDialogHeader' | translate"
       [(visible)]="voidDialogVisible"
       [modal]="true"
       [style]="{ width: '400px' }"
     >
-      <p>Void sale <strong>{{ salesService.currentSale()?.saleNumber }}</strong>?</p>
-      <p class="text-secondary text-sm">Stock will be restored and this action cannot be undone.</p>
+      <p>{{ 'sales.detail.voidConfirmText' | translate }} <strong>{{ salesService.currentSale()?.saleNumber }}</strong>?</p>
+      <p class="text-secondary text-sm">{{ 'sales.detail.voidStockNote' | translate }}</p>
       <div class="form-field">
-        <label>Reason *</label>
-        <input pInputText type="text" [(ngModel)]="voidReason" placeholder="Reason for voiding" class="w-full" />
+        <label>{{ 'sales.detail.voidReason' | translate }}</label>
+        <input pInputText type="text" [(ngModel)]="voidReason" [placeholder]="'sales.detail.voidReasonPlaceholder' | translate" class="w-full" />
       </div>
       <ng-template pTemplate="footer">
-        <p-button label="Cancel" severity="secondary" [outlined]="true" (onClick)="voidDialogVisible = false" />
-        <p-button label="Void Sale" severity="danger" [disabled]="!voidReason.trim()" (onClick)="confirmVoid()" />
+        <p-button [label]="'sales.detail.cancel' | translate" severity="secondary" [outlined]="true" (onClick)="voidDialogVisible = false" />
+        <p-button [label]="'sales.detail.confirmVoid' | translate" severity="danger" [disabled]="!voidReason.trim()" (onClick)="confirmVoid()" />
       </ng-template>
     </p-dialog>
   `,
@@ -195,6 +197,7 @@ export class SaleDetailComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly route = inject(ActivatedRoute);
   private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
 
   /** Exposed constants for template binding */
   readonly currencyCode = AppCurrency.COP;
@@ -219,12 +222,20 @@ export class SaleDetailComponent implements OnInit {
     const request: VoidSaleRequest = { reason: this.voidReason.trim() };
     this.salesService.voidSale(sale.id, request).subscribe({
       next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Voided', detail: 'Sale has been voided.' });
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translate.instant('sales.detail.voidSuccess'),
+          detail: this.translate.instant('sales.detail.voidSuccessDetail'),
+        });
         this.voidDialogVisible = false;
         this.salesService.getSaleById(sale.id);
       },
       error: () => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Could not void sale.' });
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translate.instant('sales.detail.error'),
+          detail: this.translate.instant('sales.detail.errorDetail'),
+        });
       },
     });
   }

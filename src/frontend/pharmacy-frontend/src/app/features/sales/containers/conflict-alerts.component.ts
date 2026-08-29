@@ -7,6 +7,7 @@ import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { MessageService } from 'primeng/api';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ConflictAlertsService } from '../services/conflict-alerts.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { ConflictAlert, ConflictAlertFilter } from '../models/conflict-alert.model';
@@ -23,17 +24,18 @@ import { AppRoles } from '../../../core/constants/app.constants';
     TagModule,
     ToastModule,
     ToggleSwitchModule,
+    TranslatePipe,
   ],
   providers: [MessageService],
   template: `
     <p-toast />
 
     <div class="page-header">
-      <h2>Stock Conflict Alerts</h2>
+      <h2>{{ 'sales.conflicts.title' | translate }}</h2>
       <div class="header-controls">
         <label class="toggle-label">
           <p-toggleswitch [(ngModel)]="showUnresolvedOnly" (onChange)="loadAlerts()" />
-          <span>Unresolved only</span>
+          <span>{{ 'sales.conflicts.unresolvedOnly' | translate }}</span>
         </label>
       </div>
     </div>
@@ -50,13 +52,13 @@ import { AppRoles } from '../../../core/constants/app.constants';
     >
       <ng-template pTemplate="header">
         <tr>
-          <th>Product</th>
-          <th>Sale #</th>
-          <th style="text-align:right">Expected Stock</th>
-          <th style="text-align:right">Actual Stock</th>
-          <th>Detected At</th>
-          <th>Status</th>
-          <th>Actions</th>
+          <th>{{ 'sales.conflicts.product' | translate }}</th>
+          <th>{{ 'sales.conflicts.saleNumber' | translate }}</th>
+          <th style="text-align:right">{{ 'sales.conflicts.expectedStock' | translate }}</th>
+          <th style="text-align:right">{{ 'sales.conflicts.actualStock' | translate }}</th>
+          <th>{{ 'sales.conflicts.detectedAt' | translate }}</th>
+          <th>{{ 'sales.conflicts.status' | translate }}</th>
+          <th>{{ 'sales.conflicts.actions' | translate }}</th>
         </tr>
       </ng-template>
 
@@ -71,7 +73,7 @@ import { AppRoles } from '../../../core/constants/app.constants';
           <td>{{ alert.detectedAt | date:'short' }}</td>
           <td>
             <p-tag
-              [value]="alert.isResolved ? 'Resolved' : 'Unresolved'"
+              [value]="alert.isResolved ? ('sales.conflicts.resolved' | translate) : ('sales.conflicts.unresolved' | translate)"
               [severity]="alert.isResolved ? 'success' : 'danger'"
             />
           </td>
@@ -79,7 +81,7 @@ import { AppRoles } from '../../../core/constants/app.constants';
             @if (!alert.isResolved && isAdmin()) {
               <p-button
                 icon="pi pi-check"
-                label="Resolve"
+                [label]="'sales.conflicts.resolve' | translate"
                 size="small"
                 severity="success"
                 [outlined]="true"
@@ -99,7 +101,7 @@ import { AppRoles } from '../../../core/constants/app.constants';
         <tr>
           <td colspan="7" class="text-center p-4">
             <i class="pi pi-check-circle text-green-500"></i>
-            No conflict alerts found.
+            {{ 'sales.conflicts.noAlerts' | translate }}
           </td>
         </tr>
       </ng-template>
@@ -125,6 +127,7 @@ export class ConflictAlertsComponent implements OnInit {
   readonly alertsService = inject(ConflictAlertsService);
   private readonly authService = inject(AuthService);
   private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
 
   readonly AppRoles = AppRoles;
   pageSize = 20;
@@ -156,12 +159,16 @@ export class ConflictAlertsComponent implements OnInit {
       next: () => {
         this.messageService.add({
           severity: 'success',
-          summary: 'Alert Resolved',
-          detail: `Stock conflict for ${alert.productName} has been resolved.`,
+          summary: this.translate.instant('sales.conflicts.alertResolved'),
+          detail: this.translate.instant('sales.conflicts.alertResolvedDetail', { product: alert.productName }),
         });
       },
       error: () => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Could not resolve alert.' });
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translate.instant('sales.conflicts.error'),
+          detail: this.translate.instant('sales.conflicts.errorDetail'),
+        });
       },
     });
   }

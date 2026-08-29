@@ -16,6 +16,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import { TagModule } from 'primeng/tag';
+import { TranslatePipe } from '@ngx-translate/core';
 import { InventoryService } from '../services/inventory.service';
 import { ProductService } from '../../catalog/services/product.service';
 import { Product } from '../../catalog/models/product.model';
@@ -42,10 +43,11 @@ function minLength(min: number) {
     SelectModule,
     TextareaModule,
     TagModule,
+    TranslatePipe,
   ],
   template: `
     <p-dialog
-      header="Record Stock Adjustment"
+      [header]="'inventory.adjustment.title' | translate"
       [(visible)]="visible"
       [modal]="true"
       [style]="{ width: '480px' }"
@@ -55,69 +57,69 @@ function minLength(min: number) {
       <form [formGroup]="form" (ngSubmit)="submit()" class="form-body">
 
         <div class="field">
-          <label for="aProduct">Product *</label>
+          <label for="aProduct">{{ 'inventory.adjustment.product' | translate }} *</label>
           <p-select
             inputId="aProduct"
             formControlName="productId"
             [options]="productOptions()"
             optionLabel="label"
             optionValue="value"
-            placeholder="Select product"
+            [placeholder]="'inventory.adjustment.selectProduct' | translate"
             styleClass="w-full"
             [filter]="true"
-            filterPlaceholder="Search products..."
+            [filterPlaceholder]="'inventory.adjustment.searchProducts' | translate"
             [class.ng-invalid]="isInvalid('productId')"
             (ngModelChange)="onProductChange($event)"
             appendTo="body"
           />
-          @if (isInvalid('productId')) { <small class="p-error">Product is required.</small> }
+          @if (isInvalid('productId')) { <small class="p-error">{{ 'inventory.adjustment.productRequired' | translate }}</small> }
 
           @if (currentStockDisplay()) {
             <small class="current-stock-hint">
-              Current stock:
+              {{ 'inventory.adjustment.currentStock' | translate }}:
               <strong [class]="currentStockDisplay()!.isLow ? 'text-orange-500' : 'text-green-600'">
-                {{ currentStockDisplay()!.stock }} units
+                {{ currentStockDisplay()!.stock }} {{ 'inventory.adjustment.units' | translate }}
               </strong>
             </small>
           }
         </div>
 
         <div class="field">
-          <label for="aQty">New Quantity (signed) *</label>
+          <label for="aQty">{{ 'inventory.adjustment.signedQty' | translate }} *</label>
           <p-inputNumber
             inputId="aQty"
             formControlName="quantity"
             styleClass="w-full"
             [class.ng-invalid]="isInvalid('quantity')"
           />
-          <small class="text-secondary">Use a negative value to reduce stock (e.g. -5 for damaged goods).</small>
-          @if (isInvalid('quantity')) { <small class="p-error">Quantity is required.</small> }
+          <small class="text-secondary">{{ 'inventory.adjustment.negativeHint' | translate }}</small>
+          @if (isInvalid('quantity')) { <small class="p-error">{{ 'inventory.adjustment.quantityRequired' | translate }}</small> }
         </div>
 
         <div class="field">
-          <label for="aReason">Reason *</label>
+          <label for="aReason">{{ 'inventory.adjustment.reason' | translate }} *</label>
           <textarea
             id="aReason"
             pTextarea
             formControlName="reason"
             rows="3"
             class="w-full"
-            placeholder="Describe the reason (min. 10 characters)..."
+            [placeholder]="'inventory.adjustment.reasonPlaceholder' | translate"
             [class.ng-invalid]="isInvalid('reason')"
           ></textarea>
           @if (isInvalid('reason')) {
             <small class="p-error">
-              @if (form.get('reason')?.errors?.['required']) { Reason is required. }
-              @else { Reason must be at least 10 characters. }
+              @if (form.get('reason')?.errors?.['required']) { {{ 'inventory.adjustment.reasonRequired' | translate }} }
+              @else { {{ 'inventory.adjustment.reasonMin' | translate }} }
             </small>
           }
         </div>
       </form>
 
       <ng-template pTemplate="footer">
-        <p-button label="Cancel" severity="secondary" (onClick)="onCancel()" />
+        <p-button [label]="'inventory.adjustment.cancel' | translate" severity="secondary" (onClick)="onCancel()" />
         <p-button
-          label="Apply Adjustment"
+          [label]="'inventory.adjustment.save' | translate"
           icon="pi pi-check"
           severity="warn"
           [loading]="saving()"

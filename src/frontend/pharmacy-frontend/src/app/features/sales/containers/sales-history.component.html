@@ -1,31 +1,31 @@
 <p-toast />
 
 <div class="page-header">
-  <h2>Sales History</h2>
+  <h2>{{ 'sales.history.title' | translate }}</h2>
 </div>
 
 <!-- Filters -->
 <div class="filters-bar">
   <p-datepicker
     [(ngModel)]="dateFrom"
-    placeholder="From date"
+    [placeholder]="'sales.history.fromDate' | translate"
     dateFormat="yy-mm-dd"
     (onSelect)="loadSales()"
   />
   <p-datepicker
     [(ngModel)]="dateTo"
-    placeholder="To date"
+    [placeholder]="'sales.history.toDate' | translate"
     dateFormat="yy-mm-dd"
     (onSelect)="loadSales()"
   />
   <p-select
     [(ngModel)]="statusFilter"
     [options]="statusOptions"
-    placeholder="All statuses"
+    [placeholder]="'sales.history.allStatuses' | translate"
     (onChange)="loadSales()"
   />
   <p-button
-    label="Clear Filters"
+    [label]="'sales.history.clearFilters' | translate"
     severity="secondary"
     [outlined]="true"
     icon="pi pi-times"
@@ -49,13 +49,13 @@
   <ng-template pTemplate="header">
     <tr>
       <th style="width: 3rem"></th>
-      <th>Sale #</th>
-      <th>Date</th>
-      <th>Customer</th>
-      <th style="text-align:center">Lines</th>
-      <th style="text-align:right">Total</th>
-      <th>Status</th>
-      <th>Actions</th>
+      <th>{{ 'sales.history.number' | translate }}</th>
+      <th>{{ 'sales.history.date' | translate }}</th>
+      <th>{{ 'sales.history.customer' | translate }}</th>
+      <th style="text-align:center">{{ 'sales.history.lines' | translate }}</th>
+      <th style="text-align:right">{{ 'sales.history.total' | translate }}</th>
+      <th>{{ 'sales.history.status' | translate }}</th>
+      <th>{{ 'sales.history.actions' | translate }}</th>
     </tr>
   </ng-template>
 
@@ -88,7 +88,7 @@
             [rounded]="true"
             [text]="true"
             severity="info"
-            pTooltip="View Detail"
+            [pTooltip]="'sales.history.viewDetail' | translate"
           />
         </a>
         @if (isAdmin() && sale.status === 'Completed') {
@@ -97,7 +97,7 @@
             [rounded]="true"
             [text]="true"
             severity="danger"
-            pTooltip="Void Sale"
+            [pTooltip]="'sales.history.voidSale' | translate"
             (onClick)="openVoidDialog(sale)"
           />
         }
@@ -109,14 +109,14 @@
     <tr>
       <td colspan="8">
         <div class="expanded-lines">
-          <strong>Sale Lines:</strong>
+          <strong>{{ 'sales.history.saleLines' | translate }}</strong>
           <table class="lines-table">
             <thead>
               <tr>
-                <th>Product</th>
-                <th style="text-align:right">Qty</th>
-                <th style="text-align:right">Unit Price</th>
-                <th style="text-align:right">Subtotal</th>
+                <th>{{ 'sales.history.product' | translate }}</th>
+                <th style="text-align:right">{{ 'sales.history.qty' | translate }}</th>
+                <th style="text-align:right">{{ 'sales.history.unitPrice' | translate }}</th>
+                <th style="text-align:right">{{ 'sales.history.subtotal' | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -137,34 +137,34 @@
 
   <ng-template pTemplate="empty">
     <tr>
-      <td colspan="8" class="text-center p-4">No sales found for the selected filters.</td>
+      <td colspan="8" class="text-center p-4">{{ 'sales.history.empty' | translate }}</td>
     </tr>
   </ng-template>
 </p-table>
 
 <!-- Void Dialog -->
 <p-dialog
-  header="Void Sale"
+  [header]="'sales.history.voidDialogHeader' | translate"
   [(visible)]="voidDialogVisible"
   [modal]="true"
   [style]="{ width: '400px' }"
 >
-  <p>Are you sure you want to void sale <strong>{{ selectedSale?.saleNumber }}</strong>?</p>
-  <p class="text-secondary text-sm">Stock will be restored. This action cannot be undone.</p>
+  <p>{{ 'sales.history.voidConfirmText' | translate }} <strong>{{ selectedSale?.saleNumber }}</strong>?</p>
+  <p class="text-secondary text-sm">{{ 'sales.history.voidStockNote' | translate }}</p>
   <div class="form-field">
-    <label>Reason *</label>
+    <label>{{ 'sales.history.voidReason' | translate }}</label>
     <input
       pInputText
       type="text"
       [(ngModel)]="voidReason"
-      placeholder="Reason for voiding"
+      [placeholder]="'sales.history.voidReasonPlaceholder' | translate"
       class="w-full"
     />
   </div>
   <ng-template pTemplate="footer">
-    <p-button label="Cancel" severity="secondary" [outlined]="true" (onClick)="voidDialogVisible = false" />
+    <p-button [label]="'sales.history.cancel' | translate" severity="secondary" [outlined]="true" (onClick)="voidDialogVisible = false" />
     <p-button
-      label="Void Sale"
+      [label]="'sales.history.confirmVoid' | translate"
       severity="danger"
       [disabled]="!voidReason.trim()"
       (onClick)="confirmVoid()"

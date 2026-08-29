@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { SelectModule } from 'primeng/select';
 import { CalendarModule } from 'primeng/calendar';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { InventoryService } from '../services/inventory.service';
 import { MovementType } from '../models/inventory-item.model';
 import { Pagination } from '../../../core/constants/app.constants';
@@ -25,14 +26,15 @@ interface SelectOption { label: string; value: string | null; }
     TagModule,
     SelectModule,
     CalendarModule,
+    TranslatePipe,
   ],
   template: `
     <div class="page-header">
       <div>
-        <h2>Movement History</h2>
+        <h2>{{ 'inventory.movements.title' | translate }}</h2>
         <small *ngIf="productName" class="text-secondary">{{ productName }}</small>
       </div>
-      <p-button label="Back to Stock" icon="pi pi-arrow-left" severity="secondary" [text]="true" routerLink="../stock" />
+      <p-button [label]="'inventory.movements.backToStock' | translate" icon="pi pi-arrow-left" severity="secondary" [text]="true" routerLink="../stock" />
     </div>
 
     <div class="filter-bar" *ngIf="productId">
@@ -41,7 +43,7 @@ interface SelectOption { label: string; value: string | null; }
         [options]="typeOptions"
         optionLabel="label"
         optionValue="value"
-        placeholder="All Types"
+        [placeholder]="'inventory.movements.allTypes' | translate"
         [showClear]="true"
         (ngModelChange)="applyFilter()"
         styleClass="filter-select"
@@ -50,7 +52,7 @@ interface SelectOption { label: string; value: string | null; }
 
     <div *ngIf="!productId" class="empty-state">
       <i class="pi pi-info-circle text-blue-400" style="font-size: 2rem"></i>
-      <p>Select a product from the <a routerLink="../stock">Stock List</a> to view its movement history.</p>
+      <p>{{ 'inventory.movements.selectProduct' | translate }}</p>
     </div>
 
     <p-table
@@ -69,12 +71,12 @@ interface SelectOption { label: string; value: string | null; }
     >
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="timestamp">Date <p-sortIcon field="timestamp" /></th>
-          <th>Type</th>
-          <th style="text-align:right">Quantity</th>
-          <th>Batch / Supplier</th>
-          <th>Reason</th>
-          <th>User</th>
+          <th pSortableColumn="timestamp">{{ 'inventory.movements.date' | translate }} <p-sortIcon field="timestamp" /></th>
+          <th>{{ 'inventory.movements.type' | translate }}</th>
+          <th style="text-align:right">{{ 'inventory.movements.quantity' | translate }}</th>
+          <th>{{ 'inventory.movements.batchSupplier' | translate }}</th>
+          <th>{{ 'inventory.movements.reason' | translate }}</th>
+          <th>{{ 'inventory.movements.user' | translate }}</th>
         </tr>
       </ng-template>
 
@@ -102,7 +104,7 @@ interface SelectOption { label: string; value: string | null; }
 
       <ng-template pTemplate="empty">
         <tr>
-          <td colspan="6" class="text-center p-4">No movements found for this product.</td>
+          <td colspan="6" class="text-center p-4">{{ 'inventory.movements.noMovements' | translate }}</td>
         </tr>
       </ng-template>
     </p-table>
@@ -122,6 +124,7 @@ interface SelectOption { label: string; value: string | null; }
 export class MovementHistoryComponent implements OnInit {
   readonly inventoryService = inject(InventoryService);
   private readonly route = inject(ActivatedRoute);
+  private readonly translate = inject(TranslateService);
 
   /** Exposed constants for template binding */
   readonly pageSizeOptions = Pagination.PageSizeOptions;
@@ -132,12 +135,14 @@ export class MovementHistoryComponent implements OnInit {
   pageSize = 20;
   currentPage = 1;
 
-  readonly typeOptions: SelectOption[] = [
-    { label: 'Ingress', value: 'Ingress' },
-    { label: 'Sale', value: 'Sale' },
-    { label: 'Adjustment', value: 'Adjustment' },
-    { label: 'Loss', value: 'Loss' },
-  ];
+  get typeOptions(): SelectOption[] {
+    return [
+      { label: this.translate.instant('inventory.movements.ingress'), value: 'Ingress' },
+      { label: this.translate.instant('inventory.movements.sale'), value: 'Sale' },
+      { label: this.translate.instant('inventory.movements.adjustment'), value: 'Adjustment' },
+      { label: this.translate.instant('inventory.movements.loss'), value: 'Loss' },
+    ];
+  }
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {

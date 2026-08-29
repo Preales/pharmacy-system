@@ -16,6 +16,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
+import { TranslatePipe } from '@ngx-translate/core';
 import { InventoryService } from '../services/inventory.service';
 import { ProductService } from '../../catalog/services/product.service';
 import { SupplierService } from '../../catalog/services/supplier.service';
@@ -37,10 +38,11 @@ interface SelectOption { label: string; value: string; }
     InputTextModule,
     SelectModule,
     TextareaModule,
+    TranslatePipe,
   ],
   template: `
     <p-dialog
-      header="Record Stock Ingress"
+      [header]="'inventory.ingress.title' | translate"
       [(visible)]="visible"
       [modal]="true"
       [style]="{ width: '520px' }"
@@ -50,26 +52,26 @@ interface SelectOption { label: string; value: string; }
       <form [formGroup]="form" (ngSubmit)="submit()" class="form-body">
 
         <div class="field">
-          <label for="iProduct">Product *</label>
+          <label for="iProduct">{{ 'inventory.ingress.product' | translate }} *</label>
           <p-select
             inputId="iProduct"
             formControlName="productId"
             [options]="productOptions()"
             optionLabel="label"
             optionValue="value"
-            placeholder="Select product"
+            [placeholder]="'inventory.ingress.selectProduct' | translate"
             styleClass="w-full"
             [filter]="true"
-            filterPlaceholder="Search products..."
+            [filterPlaceholder]="'inventory.ingress.searchProducts' | translate"
             [class.ng-invalid]="isInvalid('productId')"
             appendTo="body"
           />
-          @if (isInvalid('productId')) { <small class="p-error">Product is required.</small> }
+          @if (isInvalid('productId')) { <small class="p-error">{{ 'inventory.ingress.productRequired' | translate }}</small> }
         </div>
 
         <div class="form-row">
           <div class="field">
-            <label for="iQty">Quantity *</label>
+            <label for="iQty">{{ 'inventory.ingress.quantity' | translate }} *</label>
             <p-inputNumber
               inputId="iQty"
               formControlName="quantity"
@@ -77,10 +79,10 @@ interface SelectOption { label: string; value: string; }
               styleClass="w-full"
               [class.ng-invalid]="isInvalid('quantity')"
             />
-            @if (isInvalid('quantity')) { <small class="p-error">Quantity must be at least 1.</small> }
+            @if (isInvalid('quantity')) { <small class="p-error">{{ 'inventory.ingress.quantityMin' | translate }}</small> }
           </div>
           <div class="field">
-            <label for="iCost">Unit Cost *</label>
+            <label for="iCost">{{ 'inventory.ingress.unitCost' | translate }} *</label>
             <p-inputNumber
               inputId="iCost"
               formControlName="unitCost"
@@ -91,19 +93,19 @@ interface SelectOption { label: string; value: string; }
               styleClass="w-full"
               [class.ng-invalid]="isInvalid('unitCost')"
             />
-            @if (isInvalid('unitCost')) { <small class="p-error">Unit cost is required.</small> }
+            @if (isInvalid('unitCost')) { <small class="p-error">{{ 'inventory.ingress.costRequired' | translate }}</small> }
           </div>
         </div>
 
         <div class="field">
-          <label for="iSupplier">Supplier</label>
+          <label for="iSupplier">{{ 'inventory.ingress.supplier' | translate }}</label>
           <p-select
             inputId="iSupplier"
             formControlName="supplierId"
             [options]="supplierOptions()"
             optionLabel="label"
             optionValue="value"
-            placeholder="None (optional)"
+            [placeholder]="'inventory.ingress.noSupplier' | translate"
             styleClass="w-full"
             [showClear]="true"
             [filter]="true"
@@ -112,20 +114,20 @@ interface SelectOption { label: string; value: string; }
         </div>
 
         <div class="field">
-          <label for="iBatch">Batch Number</label>
-          <input id="iBatch" pInputText formControlName="batchNumber" placeholder="e.g. LOT-2026-001" class="w-full" />
+          <label for="iBatch">{{ 'inventory.ingress.batchNumber' | translate }}</label>
+          <input id="iBatch" pInputText formControlName="batchNumber" [placeholder]="'inventory.ingress.batchPlaceholder' | translate" class="w-full" />
         </div>
 
         <div class="field">
-          <label for="iNotes">Notes</label>
-          <textarea id="iNotes" pTextarea formControlName="reason" rows="2" class="w-full" placeholder="Optional notes"></textarea>
+          <label for="iNotes">{{ 'inventory.ingress.notes' | translate }}</label>
+          <textarea id="iNotes" pTextarea formControlName="reason" rows="2" class="w-full" [placeholder]="'inventory.ingress.notesPlaceholder' | translate"></textarea>
         </div>
       </form>
 
       <ng-template pTemplate="footer">
-        <p-button label="Cancel" severity="secondary" (onClick)="onCancel()" />
+        <p-button [label]="'inventory.ingress.cancel' | translate" severity="secondary" (onClick)="onCancel()" />
         <p-button
-          label="Record Ingress"
+          [label]="'inventory.ingress.save' | translate"
           icon="pi pi-check"
           [loading]="saving()"
           [disabled]="form.invalid || saving()"
