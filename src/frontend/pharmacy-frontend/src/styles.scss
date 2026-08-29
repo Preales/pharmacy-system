@@ -1,5 +1,26 @@
 @use 'primeicons/primeicons.css';
 
+// ─── Brand token layer ────────────────────────────────────────────────────────
+:root {
+  --color-primary:        #15803D;
+  --color-secondary:      #22C55E;
+  --color-accent:         #0369A1;
+  --color-background:     #F0FDF4;
+  --color-card:           #FFFFFF;
+  --color-border:         #BBF7D0;
+  --color-destructive:    #DC2626;
+  --brand-primary-subtle: #DCFCE7;
+  font-family: Inter, sans-serif;
+}
+
+.dark-mode {
+  --color-background: #0F172A;
+  --color-card:       #1E293B;
+  --color-border:     #334155;
+  --color-foreground: #F1F5F9;
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 html, body {
   margin: 0;
   padding: 0;

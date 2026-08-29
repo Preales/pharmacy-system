@@ -3,7 +3,8 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
-import Material from '@primeng/themes/material';
+import Aura from '@primeng/themes/aura';
+import { definePreset } from '@primeng/themes';
 
 import { routes } from './app.routes';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
@@ -20,7 +21,23 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: Material,
+        preset: definePreset(Aura, {
+          semantic: {
+            primary: {
+              50:  '{green.50}',
+              100: '{green.100}',
+              200: '{green.200}',
+              300: '{green.300}',
+              400: '{green.400}',
+              500: '#15803D',
+              600: '#166534',
+              700: '#14532D',
+              800: '#052E16',
+              900: '#022c1a',
+              950: '#011a10',
+            },
+          },
+        }),
         options: {
           darkModeSelector: '.dark-mode',
         },
