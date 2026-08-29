@@ -24,9 +24,11 @@ export class SalesService {
   readonly sales = signal<PagedResult<Sale>>({
     items: [],
     totalCount: 0,
-    pageNumber: 1,
+    page: 1,
     pageSize: 20,
     totalPages: 0,
+    hasNextPage: false,
+    hasPreviousPage: false,
   });
 
   readonly currentSale = signal<Sale | null>(null);
@@ -36,7 +38,7 @@ export class SalesService {
   loadSales(filter: SaleFilter = { pageNumber: 1, pageSize: 20 }): void {
     this.loading.set(true);
     let params = new HttpParams()
-      .set('pageNumber', filter.pageNumber.toString())
+      .set('page', filter.pageNumber.toString())
       .set('pageSize', filter.pageSize.toString());
 
     if (filter.dateFrom) params = params.set('dateFrom', filter.dateFrom);

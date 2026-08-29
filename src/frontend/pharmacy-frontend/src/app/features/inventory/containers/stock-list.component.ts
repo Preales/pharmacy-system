@@ -36,9 +36,9 @@ import { Pagination } from '../../../core/constants/app.constants';
     .header-actions { display: flex; gap: 0.5rem; }
     .filter-bar { display: flex; gap: 0.5rem; margin-bottom: 1rem; align-items: center; }
     .filter-input { flex: 1; }
-    code { font-family: monospace; font-size: 0.85rem; background: var(--surface-100); padding: 0.1rem 0.3rem; border-radius: 4px; }
-    :host ::ng-deep .row-critical td { background: var(--red-50, #fff5f5) !important; }
-    :host ::ng-deep .row-low td { background: var(--orange-50, #fff8f0) !important; }
+    code { font-family: monospace; font-size: 0.85rem; background: var(--color-card); padding: 0.1rem 0.3rem; border-radius: 4px; }
+    :host ::ng-deep .row-critical td { background: color-mix(in srgb, var(--color-destructive) 10%, transparent) !important; }
+    :host ::ng-deep .row-low td { background: color-mix(in srgb, var(--color-accent) 10%, transparent) !important; }
   `,
 })
 export class StockListComponent implements OnInit {

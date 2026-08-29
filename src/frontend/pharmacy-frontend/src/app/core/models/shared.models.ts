@@ -1,7 +1,9 @@
 export interface PagedResult<T> {
   items: T[];
   totalCount: number;
-  pageNumber: number;
+  page: number;       // matches backend: Page
   pageSize: number;
   totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
 }

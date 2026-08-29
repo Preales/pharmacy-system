@@ -19,16 +19,18 @@ export class ProductService {
   readonly products = signal<PagedResult<Product>>({
     items: [],
     totalCount: 0,
-    pageNumber: 1,
+    page: 1,
     pageSize: Pagination.DefaultPageSize,
     totalPages: 0,
+    hasNextPage: false,
+    hasPreviousPage: false,
   });
   readonly loading = signal(false);
 
   loadPage(filter: ProductFilter): void {
     this.loading.set(true);
     let params = new HttpParams()
-      .set('pageNumber', filter.pageNumber.toString())
+      .set('page', filter.pageNumber.toString())
       .set('pageSize', filter.pageSize.toString());
 
     if (filter.search) params = params.set('search', filter.search);

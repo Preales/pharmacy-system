@@ -35,7 +35,7 @@
         <span class="nav-label" *ngIf="!isCollapsed()">{{ 'nav.sales' | translate }}</span>
       </a>
     </li>
-    @if(hasRole('Admin') || hasRole('Pharmacist')) {
+    @if(canViewReports()) {
     <li>
       <a routerLink="/reports" routerLinkActive="active" class="nav-item" [title]="'nav.reports' | translate">
         <i class="pi pi-chart-bar"></i>
@@ -43,7 +43,7 @@
       </a>
     </li>
     }
-    @if(hasRole('Admin')) {
+    @if(canViewUsers()) {
     <li>
       <a routerLink="/users" routerLinkActive="active" class="nav-item" title="Users">
         <i class="pi pi-users"></i>

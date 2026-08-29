@@ -13,9 +13,11 @@ export class ConflictAlertsService {
   readonly alerts = signal<PagedResult<ConflictAlert>>({
     items: [],
     totalCount: 0,
-    pageNumber: 1,
+    page: 1,
     pageSize: 20,
     totalPages: 0,
+    hasNextPage: false,
+    hasPreviousPage: false,
   });
 
   readonly loading = signal(false);
@@ -27,7 +29,7 @@ export class ConflictAlertsService {
   loadAlerts(filter: ConflictAlertFilter = { pageNumber: 1, pageSize: 20 }): void {
     this.loading.set(true);
     let params = new HttpParams()
-      .set('pageNumber', filter.pageNumber.toString())
+      .set('page', filter.pageNumber.toString())
       .set('pageSize', filter.pageSize.toString());
 
     if (filter.isResolved !== undefined) {

@@ -1,8 +1,9 @@
-import { Component, inject, signal, effect, HostListener } from '@angular/core';
+import { Component, inject, signal, effect, HostListener, computed } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../../core/services/auth.service';
+import { AppRoles } from '../../../core/constants/app.constants';
 
 const SIDEBAR_KEY = 'pharmacy-sidebar';
 const COLLAPSE_BREAKPOINT = 768;
@@ -18,10 +19,11 @@ export class AppSidebarComponent {
   protected readonly authService = inject(AuthService);
   readonly currentUser = this.authService.currentUser;
 
-  /** Delegates to AuthService.hasRole — exposed for template use. */
-  hasRole(role: string): boolean {
-    return this.authService.hasRole(role);
-  }
+  /** Reactive computed signals for role-based visibility. */
+  readonly canViewReports = computed(() =>
+    this.authService.hasRole(AppRoles.Admin) || this.authService.hasRole(AppRoles.Pharmacist)
+  );
+  readonly canViewUsers = computed(() => this.authService.hasRole(AppRoles.Admin));
 
   /** Whether the sidebar is in collapsed (icon-only) state. */
   readonly isCollapsed = signal<boolean>(this.loadCollapseState());

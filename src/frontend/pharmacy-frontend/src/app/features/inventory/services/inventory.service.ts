@@ -14,9 +14,11 @@ export class InventoryService {
   readonly items = signal<PagedResult<InventoryItem>>({
     items: [],
     totalCount: 0,
-    pageNumber: 1,
+    page: 1,
     pageSize: 20,
     totalPages: 0,
+    hasNextPage: false,
+    hasPreviousPage: false,
   });
 
   readonly lowStockItems = signal<InventoryItem[]>([]);
@@ -24,9 +26,11 @@ export class InventoryService {
   readonly movements = signal<PagedResult<StockMovement>>({
     items: [],
     totalCount: 0,
-    pageNumber: 1,
+    page: 1,
     pageSize: 20,
     totalPages: 0,
+    hasNextPage: false,
+    hasPreviousPage: false,
   });
 
   readonly loading = signal(false);
@@ -34,10 +38,10 @@ export class InventoryService {
 
   readonly lowStockCount = computed(() => this.lowStockItems().length);
 
-  loadStock(pageNumber = 1, pageSize = 20, search?: string): void {
+  loadStock(page = 1, pageSize = 20, search?: string): void {
     this.loading.set(true);
     let params = new HttpParams()
-      .set('pageNumber', pageNumber.toString())
+      .set('page', page.toString())
       .set('pageSize', pageSize.toString());
 
     if (search) params = params.set('search', search);
@@ -62,10 +66,10 @@ export class InventoryService {
     });
   }
 
-  loadMovements(productId: string, pageNumber = 1, pageSize = 20): void {
+  loadMovements(productId: string, page = 1, pageSize = 20): void {
     this.movementsLoading.set(true);
     const params = new HttpParams()
-      .set('pageNumber', pageNumber.toString())
+      .set('page', page.toString())
       .set('pageSize', pageSize.toString());
 
     this.http
