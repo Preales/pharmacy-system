@@ -9,10 +9,10 @@ export const AppStatus = {
   Inactive: 'Inactive',
 } as const;
 
-export const Pagination = {
+export const Pagination: { DefaultPageSize: number; PageSizeOptions: number[] } = {
   DefaultPageSize: 20,
   PageSizeOptions: [10, 25, 50],
-} as const;
+};
 
 export const AppCurrency = {
   COP: 'COP',
