@@ -1,5 +1,5 @@
 <p-dialog
-  [header]="editTarget ? 'Edit Product' : 'New Product'"
+  [header]="editTarget ? ('catalog.products.edit' | translate) : ('catalog.products.add' | translate)"
   [(visible)]="visible"
   [modal]="true"
   [style]="{ width: '580px' }"
@@ -9,40 +9,40 @@
   <form [formGroup]="form" (ngSubmit)="submit()" class="form-body">
     <div class="form-row">
       <div class="field">
-        <label for="pName">Name *</label>
-        <input id="pName" pInputText formControlName="name" placeholder="Product name" class="w-full" [class.ng-invalid]="isInvalid('name')" />
-        @if (isInvalid('name')) { <small class="p-error">Name is required.</small> }
+        <label for="pName">{{ 'catalog.products.name' | translate }} *</label>
+        <input id="pName" pInputText formControlName="name" [placeholder]="'catalog.products.name' | translate" class="w-full" [class.ng-invalid]="isInvalid('name')" />
+        @if (isInvalid('name')) { <small class="p-error">{{ 'catalog.products.name' | translate }}</small> }
       </div>
       <div class="field">
-        <label for="pSku">SKU *</label>
+        <label for="pSku">{{ 'catalog.products.sku' | translate }} *</label>
         <input id="pSku" pInputText formControlName="sku" placeholder="MED-001" class="w-full" [class.ng-invalid]="isInvalid('sku')" [readonly]="!!editTarget" />
-        @if (isInvalid('sku')) { <small class="p-error">SKU is required.</small> }
+        @if (isInvalid('sku')) { <small class="p-error">{{ 'catalog.products.sku' | translate }}</small> }
       </div>
     </div>
 
     <div class="field">
-      <label for="pDesc">Description</label>
-      <textarea id="pDesc" pTextarea formControlName="description" rows="2" class="w-full" placeholder="Optional description"></textarea>
+      <label for="pDesc">{{ 'catalog.products.description' | translate }}</label>
+      <textarea id="pDesc" pTextarea formControlName="description" rows="2" class="w-full" [placeholder]="'catalog.products.description' | translate"></textarea>
     </div>
 
     <div class="form-row">
       <div class="field">
-        <label for="pUnitPrice">Unit Price *</label>
+        <label for="pUnitPrice">{{ 'catalog.products.unitPrice' | translate }} *</label>
         <p-inputNumber inputId="pUnitPrice" formControlName="unitPrice" [minFractionDigits]="2" [maxFractionDigits]="2" mode="currency" currency="COP" styleClass="w-full" />
-        @if (isInvalid('unitPrice')) { <small class="p-error">Unit price is required.</small> }
+        @if (isInvalid('unitPrice')) { <small class="p-error">{{ 'catalog.products.unitPrice' | translate }}</small> }
       </div>
       <div class="field">
-        <label for="pCostPrice">Cost Price *</label>
+        <label for="pCostPrice">{{ 'catalog.products.costPrice' | translate }} *</label>
         <p-inputNumber inputId="pCostPrice" formControlName="costPrice" [minFractionDigits]="2" [maxFractionDigits]="2" mode="currency" currency="COP" styleClass="w-full" />
-        @if (isInvalid('costPrice')) { <small class="p-error">Cost price is required.</small> }
+        @if (isInvalid('costPrice')) { <small class="p-error">{{ 'catalog.products.costPrice' | translate }}</small> }
       </div>
     </div>
 
     <div class="form-row">
       <div class="field">
-        <label for="pUnit">Unit *</label>
-        <p-select inputId="pUnit" formControlName="unit" [options]="unitOptions" optionLabel="label" optionValue="value" placeholder="Select unit" styleClass="w-full" appendTo="body" />
-        @if (isInvalid('unit')) { <small class="p-error">Unit is required.</small> }
+        <label for="pUnit">{{ 'catalog.products.unit' | translate }} *</label>
+        <p-select inputId="pUnit" formControlName="unit" [options]="unitOptions" optionLabel="label" optionValue="value" [placeholder]="'catalog.products.unit' | translate" styleClass="w-full" appendTo="body" />
+        @if (isInvalid('unit')) { <small class="p-error">{{ 'catalog.products.unit' | translate }}</small> }
       </div>
       <div class="field">
         <label for="pBarcode">Barcode</label>
@@ -52,28 +52,28 @@
 
     <div class="form-row">
       <div class="field">
-        <label for="pCategory">Category *</label>
-        <p-select inputId="pCategory" formControlName="categoryId" [options]="categoryOptions()" optionLabel="label" optionValue="value" placeholder="Select category" styleClass="w-full" [filter]="true" appendTo="body" />
-        @if (isInvalid('categoryId')) { <small class="p-error">Category is required.</small> }
+        <label for="pCategory">{{ 'catalog.products.category' | translate }} *</label>
+        <p-select inputId="pCategory" formControlName="categoryId" [options]="categoryOptions()" optionLabel="label" optionValue="value" [placeholder]="'catalog.products.category' | translate" styleClass="w-full" [filter]="true" appendTo="body" />
+        @if (isInvalid('categoryId')) { <small class="p-error">{{ 'catalog.products.category' | translate }}</small> }
       </div>
       <div class="field">
-        <label for="pSupplier">Supplier</label>
-        <p-select inputId="pSupplier" formControlName="supplierId" [options]="supplierOptions()" optionLabel="label" optionValue="value" placeholder="None" styleClass="w-full" [showClear]="true" [filter]="true" appendTo="body" />
+        <label for="pSupplier">{{ 'catalog.products.supplier' | translate }}</label>
+        <p-select inputId="pSupplier" formControlName="supplierId" [options]="supplierOptions()" optionLabel="label" optionValue="value" [placeholder]="'catalog.products.supplier' | translate" styleClass="w-full" [showClear]="true" [filter]="true" appendTo="body" />
       </div>
     </div>
 
     @if (editTarget) {
       <div class="field-checkbox">
         <p-checkbox formControlName="isActive" [binary]="true" inputId="pActive" />
-        <label for="pActive">Active</label>
+        <label for="pActive">{{ 'common.active' | translate }}</label>
       </div>
     }
   </form>
 
   <ng-template pTemplate="footer">
-    <p-button label="Cancel" severity="secondary" (onClick)="onCancel()" />
+    <p-button [label]="'common.cancel' | translate" severity="secondary" (onClick)="onCancel()" />
     <p-button
-      [label]="editTarget ? 'Update' : 'Create'"
+      [label]="editTarget ? ('common.save' | translate) : ('common.add' | translate)"
       icon="pi pi-check"
       [loading]="saving()"
       [disabled]="form.invalid || saving()"

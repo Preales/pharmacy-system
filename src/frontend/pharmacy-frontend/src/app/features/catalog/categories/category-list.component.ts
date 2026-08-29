@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { Category } from '../models/category.model';
 import { CategoryService } from '../services/category.service';
 import { CategoryFormComponent } from './category-form.component';
@@ -25,6 +26,7 @@ import { CategoryFormComponent } from './category-form.component';
     ConfirmDialogModule,
     ToastModule,
     CategoryFormComponent,
+    TranslatePipe,
   ],
   providers: [ConfirmationService, MessageService],
   template: `
@@ -32,8 +34,8 @@ import { CategoryFormComponent } from './category-form.component';
     <p-confirmDialog />
 
     <div class="page-header">
-      <h2>Categories</h2>
-      <p-button label="New Category" icon="pi pi-plus" (onClick)="openCreate()" />
+      <h2>{{ 'catalog.categories.title' | translate }}</h2>
+      <p-button [label]="'catalog.categories.add' | translate" icon="pi pi-plus" (onClick)="openCreate()" />
     </div>
 
     <div class="search-bar">
@@ -42,7 +44,7 @@ import { CategoryFormComponent } from './category-form.component';
         <input
           pInputText
           [(ngModel)]="searchTerm"
-          placeholder="Search categories..."
+          [placeholder]="'common.search' | translate"
           class="w-full"
         />
       </span>
@@ -60,10 +62,10 @@ import { CategoryFormComponent } from './category-form.component';
     >
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
-          <th>Description</th>
-          <th pSortableColumn="isActive">Status <p-sortIcon field="isActive" /></th>
-          <th style="width: 120px">Actions</th>
+          <th pSortableColumn="name">{{ 'catalog.categories.name' | translate }} <p-sortIcon field="name" /></th>
+          <th>{{ 'catalog.categories.description' | translate }}</th>
+          <th pSortableColumn="isActive">{{ 'common.status' | translate }} <p-sortIcon field="isActive" /></th>
+          <th style="width: 120px">{{ 'common.actions' | translate }}</th>
         </tr>
       </ng-template>
 
@@ -73,7 +75,7 @@ import { CategoryFormComponent } from './category-form.component';
           <td>{{ cat.description ?? '—' }}</td>
           <td>
             <p-tag
-              [value]="cat.isActive ? 'Active' : 'Inactive'"
+              [value]="cat.isActive ? ('common.active' | translate) : ('common.inactive' | translate)"
               [severity]="cat.isActive ? 'success' : 'danger'"
             />
           </td>
@@ -85,7 +87,7 @@ import { CategoryFormComponent } from './category-form.component';
       </ng-template>
 
       <ng-template pTemplate="empty">
-        <tr><td colspan="4" class="text-center p-4">No categories found.</td></tr>
+        <tr><td colspan="4" class="text-center p-4">{{ 'common.noResults' | translate }}</td></tr>
       </ng-template>
     </p-table>
 
@@ -103,6 +105,7 @@ export class CategoryListComponent implements OnInit {
   readonly categoryService = inject(CategoryService);
   private readonly confirmService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
 
   formVisible = false;
   searchTerm = '';
@@ -130,23 +133,23 @@ export class CategoryListComponent implements OnInit {
   }
 
   onSaved(): void {
-    this.messageService.add({ severity: 'success', summary: 'Saved', detail: 'Category saved successfully.' });
+    this.messageService.add({ severity: 'success', summary: this.translate.instant('catalog.categories.saved'), detail: this.translate.instant('catalog.categories.saved') });
   }
 
   confirmDelete(cat: Category): void {
     this.confirmService.confirm({
-      message: `Delete category "${cat.name}"?`,
-      header: 'Confirm Delete',
+      message: this.translate.instant('catalog.categories.deleteConfirm'),
+      header: this.translate.instant('common.confirm'),
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.categoryService.delete(cat.id).subscribe({
           next: () =>
-            this.messageService.add({ severity: 'success', summary: 'Deleted', detail: 'Category deleted.' }),
+            this.messageService.add({ severity: 'success', summary: this.translate.instant('catalog.categories.deleted'), detail: this.translate.instant('catalog.categories.deleted') }),
           error: (err: { userMessage?: string }) =>
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: err.userMessage ?? 'Could not delete category.',
+              detail: err.userMessage ?? this.translate.instant('catalog.categories.deleted'),
             }),
         });
       },

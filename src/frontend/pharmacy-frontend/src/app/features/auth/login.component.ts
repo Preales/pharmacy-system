@@ -9,6 +9,7 @@ import { CardModule } from 'primeng/card';
 import { MessageModule } from 'primeng/message';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../core/services/auth.service';
 import { TenantSummaryDto } from '../../core/models/auth.model';
 
@@ -27,11 +28,12 @@ type LoginState = 'idle' | 'resolvingTenant' | 'tenantPicker' | 'awaitingPasswor
     CardModule,
     MessageModule,
     RadioButtonModule,
+    TranslatePipe,
   ],
   template: `
     <div class="login-wrapper">
       <p-card header="Pharmacy System" class="login-card">
-        <p class="login-subtitle">Sign in to your account</p>
+        <p class="login-subtitle">{{ 'auth.login' | translate }}</p>
 
         @if (errorMessage()) {
           <p-message severity="error" [text]="errorMessage()!" styleClass="w-full mb-3" />
@@ -41,24 +43,24 @@ type LoginState = 'idle' | 'resolvingTenant' | 'tenantPicker' | 'awaitingPasswor
         @if (state() === 'idle' || state() === 'resolvingTenant') {
           <form [formGroup]="emailForm" (ngSubmit)="resolveEmail()" class="login-form">
             <div class="field">
-              <label for="email">Email</label>
+              <label for="email">{{ 'auth.email' | translate }}</label>
               <input
                 id="email"
                 type="email"
                 pInputText
                 formControlName="email"
-                placeholder="admin@pharmacy.com"
+                [placeholder]="'auth.email' | translate"
                 class="w-full"
                 [class.ng-invalid]="isEmailInvalid()"
               />
               @if (isEmailInvalid()) {
-                <small class="p-error">Valid email is required.</small>
+                <small class="p-error">{{ 'auth.email' | translate }}</small>
               }
             </div>
 
             <p-button
               type="submit"
-              label="Continue"
+              [label]="'auth.loginBtn' | translate"
               icon="pi pi-arrow-right"
               [loading]="state() === 'resolvingTenant'"
               [disabled]="emailForm.invalid || state() === 'resolvingTenant'"
@@ -70,7 +72,7 @@ type LoginState = 'idle' | 'resolvingTenant' | 'tenantPicker' | 'awaitingPasswor
         <!-- Step 2a: Tenant picker (2+ tenants) -->
         @if (state() === 'tenantPicker') {
           <div class="login-form">
-            <p class="picker-label">Select your organization:</p>
+            <p class="picker-label">{{ 'auth.tenant' | translate }}:</p>
             <div class="tenant-list">
               @for (tenant of tenants(); track tenant.id) {
                 <div class="tenant-option" (click)="selectTenant(tenant)">
@@ -90,7 +92,7 @@ type LoginState = 'idle' | 'resolvingTenant' | 'tenantPicker' | 'awaitingPasswor
 
             <p-button
               type="button"
-              label="Continue"
+              [label]="'auth.loginBtn' | translate"
               icon="pi pi-arrow-right"
               [disabled]="!selectedTenantId"
               (onClick)="confirmTenant()"
@@ -99,7 +101,7 @@ type LoginState = 'idle' | 'resolvingTenant' | 'tenantPicker' | 'awaitingPasswor
 
             <p-button
               type="button"
-              label="Back"
+              [label]="'common.cancel' | translate"
               icon="pi pi-arrow-left"
               severity="secondary"
               [text]="true"
@@ -115,15 +117,15 @@ type LoginState = 'idle' | 'resolvingTenant' | 'tenantPicker' | 'awaitingPasswor
             <div class="resolved-email">
               <span class="pi pi-user" style="margin-right: 0.5rem;"></span>
               {{ emailForm.value.email }}
-              <button type="button" class="change-email-btn" (click)="goBack()">Change</button>
+              <button type="button" class="change-email-btn" (click)="goBack()">{{ 'common.edit' | translate }}</button>
             </div>
 
             <div class="field">
-              <label for="password">Password</label>
+              <label for="password">{{ 'auth.password' | translate }}</label>
               <p-password
                 inputId="password"
                 formControlName="password"
-                placeholder="Password"
+                [placeholder]="'auth.password' | translate"
                 [feedback]="false"
                 [toggleMask]="true"
                 styleClass="w-full"
@@ -131,13 +133,13 @@ type LoginState = 'idle' | 'resolvingTenant' | 'tenantPicker' | 'awaitingPasswor
                 [class.ng-invalid]="isPasswordInvalid()"
               />
               @if (isPasswordInvalid()) {
-                <small class="p-error">Password is required.</small>
+                <small class="p-error">{{ 'auth.password' | translate }}</small>
               }
             </div>
 
             <p-button
               type="submit"
-              label="Sign In"
+              [label]="state() === 'submitting' ? ('auth.loggingIn' | translate) : ('auth.loginBtn' | translate)"
               icon="pi pi-sign-in"
               [loading]="state() === 'submitting'"
               [disabled]="passwordForm.invalid || state() === 'submitting'"
@@ -146,7 +148,7 @@ type LoginState = 'idle' | 'resolvingTenant' | 'tenantPicker' | 'awaitingPasswor
 
             <p-button
               type="button"
-              label="Back"
+              [label]="'common.cancel' | translate"
               icon="pi pi-arrow-left"
               severity="secondary"
               [text]="true"
@@ -256,6 +258,7 @@ export class LoginComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly translate = inject(TranslateService);
 
   readonly state = signal<LoginState>('idle');
   readonly errorMessage = signal<string | null>(null);
@@ -294,7 +297,7 @@ export class LoginComponent {
     this.authService.getTenantsByEmail(email).subscribe({
       next: (found) => {
         if (found.length === 0) {
-          this.errorMessage.set('No account found for this email address.');
+          this.errorMessage.set(this.translate.instant('auth.noTenants'));
           this.state.set('idle');
         } else if (found.length === 1) {
           this.authService.setPendingTenantId(found[0].id);
@@ -306,7 +309,7 @@ export class LoginComponent {
         }
       },
       error: () => {
-        this.errorMessage.set('Unable to resolve tenant. Please try again.');
+        this.errorMessage.set(this.translate.instant('auth.login'));
         this.state.set('idle');
       },
     });
@@ -361,7 +364,7 @@ export class LoginComponent {
       },
       error: (err: { userMessage?: string }) => {
         this.state.set('awaitingPassword');
-        this.errorMessage.set(err.userMessage ?? 'Login failed. Please check your credentials.');
+        this.errorMessage.set(err.userMessage ?? this.translate.instant('auth.login'));
       },
     });
   }

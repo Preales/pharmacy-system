@@ -43,10 +43,10 @@ Chain strategy: feature-branch-chain
 
 ## Phase 2: Shared + Auth + Catalog (→ PR 2)
 
-- [ ] 2.1 Migrate `shared/` components (e.g., `confirm-dialog`, `page-header`, `status-badge`) — add `TranslatePipe` to imports; replace hardcoded strings with `| translate` keys from `en.json`.
-- [ ] 2.2 Migrate `auth/` components (`login`, `unauthorized`) — pipe all labels and error messages; replace `TranslateService.instant()` calls where needed.
-- [ ] 2.3 Migrate `catalog/` components (e.g., `product-list`, `product-form`, `category-form`) — pipe template strings; convert `typeOptions` arrays to getter methods returning translated labels via `TranslateService.instant()`.
-- [ ] 2.4 Verify `[attr.label]` binding pattern is used for all PrimeNG attribute inputs in this slice (not `[label]`).
+- [x] 2.1 Migrate `shared/` components (e.g., `confirm-dialog`, `page-header`, `status-badge`) — add `TranslatePipe` to imports; replace hardcoded strings with `| translate` keys from `en.json`.
+- [x] 2.2 Migrate `auth/` components (`login`, `unauthorized`) — pipe all labels and error messages; replace `TranslateService.instant()` calls where needed.
+- [x] 2.3 Migrate `catalog/` components (e.g., `product-list`, `product-form`, `category-form`) — pipe template strings; convert `typeOptions` arrays to getter methods returning translated labels via `TranslateService.instant()`.
+- [x] 2.4 Verify `[attr.label]` binding pattern is used for all PrimeNG attribute inputs in this slice (not `[label]`).
 
 ---
 
