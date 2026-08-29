@@ -49,6 +49,13 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./features/reports/reports.routes').then((m) => m.REPORTS_ROUTES),
       },
+      {
+        path: 'users',
+        canActivate: [roleGuard],
+        data: { roles: [AppRoles.Admin] },
+        loadChildren: () =>
+          import('./features/users/users.routes').then((m) => m.USERS_ROUTES),
+      },
       { path: '', redirectTo: 'catalog', pathMatch: 'full' },
     ],
   },
