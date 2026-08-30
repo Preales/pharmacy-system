@@ -72,10 +72,15 @@ export class AuthService {
   private persistSession(response: AuthResponse): void {
     localStorage.setItem(ACCESS_TOKEN_KEY, response.accessToken);
     localStorage.setItem(REFRESH_TOKEN_KEY, response.refreshToken);
-    localStorage.setItem(TENANT_ID_KEY, response.user.tenantId);
-    localStorage.setItem(USER_KEY, JSON.stringify(response.user));
+    // Backend returns role (string), frontend expects roles (string[])
+    const user: AuthUser = {
+      ...response.user,
+      roles: response.user.roles ?? (response.user.role ? [response.user.role] : []),
+    };
+    localStorage.setItem(TENANT_ID_KEY, user.tenantId);
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
     this._token.set(response.accessToken);
-    this._currentUser.set(response.user);
+    this._currentUser.set(user);
   }
 
   private loadUser(): AuthUser | null {

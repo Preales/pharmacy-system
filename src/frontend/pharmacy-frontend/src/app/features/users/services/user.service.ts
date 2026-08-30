@@ -1,15 +1,15 @@
-import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable, inject, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
+import { environment } from '../../../../environments/environment';
+import { Pagination } from '../../../core/constants/app.constants';
+import { PagedResult } from '../../../core/models/shared.models';
 import {
-  UserModel,
+  ChangeRoleRequest,
   CreateUserRequest,
   UpdateUserRequest,
-  ChangeRoleRequest,
+  UserModel,
 } from '../models/user.model';
-import { PagedResult } from '../../../core/models/shared.models';
-import { Pagination } from '../../../core/constants/app.constants';
-import { environment } from '../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -23,9 +23,7 @@ export class UserService {
     pageSize: Pagination.DefaultPageSize,
     totalPages: 0,
     hasNextPage: false,
-    hasPreviousPage: false,
-    hasNextPage: false,
-    hasPreviousPage: false,
+    hasPreviousPage: false
   });
   readonly loading = signal(false);
 

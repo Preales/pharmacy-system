@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -8,6 +8,7 @@ import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { DatePickerModule } from 'primeng/datepicker';
 import { SelectModule } from 'primeng/select';
+import { Subscription } from 'rxjs';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
@@ -57,11 +58,12 @@ import { AppRoles, AppCurrency } from '../../../core/constants/app.constants';
     .text-secondary { color: var(--text-color-secondary); }
   `,
 })
-export class SalesHistoryComponent implements OnInit {
+export class SalesHistoryComponent implements OnInit, OnDestroy {
   readonly salesService = inject(SalesService);
   private readonly authService = inject(AuthService);
   private readonly messageService = inject(MessageService);
   private readonly translate = inject(TranslateService);
+  private langSub?: Subscription;
 
   /** Exposed constants for template binding */
   readonly currencyCode = AppCurrency.COP;
@@ -76,20 +78,27 @@ export class SalesHistoryComponent implements OnInit {
   voidDialogVisible = false;
   selectedSale: Sale | null = null;
   voidReason = '';
+  statusOptions: { label: string; value: string }[] = [];
 
   readonly isAdmin = this.authService.currentUser
     ? () => (this.authService.currentUser()?.roles ?? []).includes(AppRoles.Admin)
     : () => false;
 
-  get statusOptions() {
-    return [
+  private buildStatusOptions(): void {
+    this.statusOptions = [
       { label: this.translate.instant('sales.history.completed'), value: 'Completed' },
       { label: this.translate.instant('sales.history.voided'), value: 'Voided' },
     ];
   }
 
   ngOnInit(): void {
+    this.buildStatusOptions();
+    this.langSub = this.translate.onLangChange.subscribe(() => this.buildStatusOptions());
     this.loadSales();
+  }
+
+  ngOnDestroy(): void {
+    this.langSub?.unsubscribe();
   }
 
   loadSales(): void {

@@ -16,6 +16,7 @@ export interface AuthUser {
   firstName: string;
   lastName: string;
   roles: string[];
+  role?: string;      // backend sends singular 'role'; normalized to roles[] on persist
   tenantId: string;
 }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +8,7 @@ import { TagModule } from 'primeng/tag';
 import { SelectModule } from 'primeng/select';
 import { CalendarModule } from 'primeng/calendar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import { InventoryService } from '../services/inventory.service';
 import { MovementType } from '../models/inventory-item.model';
 import { Pagination } from '../../../core/constants/app.constants';
@@ -121,10 +122,11 @@ interface SelectOption { label: string; value: string | null; }
     .empty-state a { color: var(--primary-color); }
   `,
 })
-export class MovementHistoryComponent implements OnInit {
+export class MovementHistoryComponent implements OnInit, OnDestroy {
   readonly inventoryService = inject(InventoryService);
   private readonly route = inject(ActivatedRoute);
   private readonly translate = inject(TranslateService);
+  private langSub?: Subscription;
 
   /** Exposed constants for template binding */
   readonly pageSizeOptions = Pagination.PageSizeOptions;
@@ -134,9 +136,10 @@ export class MovementHistoryComponent implements OnInit {
   selectedType: string | null = null;
   pageSize = 20;
   currentPage = 1;
+  typeOptions: SelectOption[] = [];
 
-  get typeOptions(): SelectOption[] {
-    return [
+  private buildTypeOptions(): void {
+    this.typeOptions = [
       { label: this.translate.instant('inventory.movements.ingress'), value: 'Ingress' },
       { label: this.translate.instant('inventory.movements.sale'), value: 'Sale' },
       { label: this.translate.instant('inventory.movements.adjustment'), value: 'Adjustment' },
@@ -145,6 +148,8 @@ export class MovementHistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.buildTypeOptions();
+    this.langSub = this.translate.onLangChange.subscribe(() => this.buildTypeOptions());
     this.route.queryParamMap.subscribe((params) => {
       this.productId = params.get('productId');
       this.productName = params.get('productName');
@@ -180,5 +185,9 @@ export class MovementHistoryComponent implements OnInit {
       case 'Loss': return 'danger';
       default: return 'secondary';
     }
+  }
+
+  ngOnDestroy(): void {
+    this.langSub?.unsubscribe();
   }
 }
