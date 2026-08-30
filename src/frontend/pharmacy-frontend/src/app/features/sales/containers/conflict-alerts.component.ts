@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
@@ -136,8 +136,21 @@ export class ConflictAlertsComponent implements OnInit {
 
   readonly isAdmin = () => (this.authService.currentUser()?.roles ?? []).includes(AppRoles.Admin);
 
+  constructor() {
+    // Load alerts reactively once tenantId is available (guards against cold start / page refresh)
+    effect(() => {
+      const tenantId = this.authService.currentTenantId();
+      if (tenantId) {
+        this.loadAlerts();
+      }
+    });
+  }
+
   ngOnInit(): void {
-    this.loadAlerts();
+    // Initial load only if tenantId is already available; otherwise the effect above handles it
+    if (this.authService.currentTenantId()) {
+      this.loadAlerts();
+    }
   }
 
   loadAlerts(): void {

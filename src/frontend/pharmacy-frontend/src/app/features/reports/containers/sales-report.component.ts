@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, computed, signal } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
@@ -9,12 +9,13 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ReportsService } from '../services/reports.service';
+import { AppCurrency } from '../../../core/constants/app.constants';
 
 @Component({
   selector: 'app-sales-report',
   standalone: true,
   imports: [
-    DecimalPipe,
+    CurrencyPipe,
     FormsModule,
     TranslateModule,
     CardModule,
@@ -26,44 +27,57 @@ import { ReportsService } from '../services/reports.service';
   ],
   template: `
     <div class="p-4 flex flex-col gap-4">
-      <!-- Date range filter -->
-      <p-card [header]="'reports.salesReport.title' | translate">
-        <div class="flex gap-3 align-items-end flex-wrap">
-          <div class="flex flex-col gap-1">
-            <label class="text-sm text-surface-600">{{ 'reports.salesReport.from' | translate }}</label>
-            <p-datepicker [(ngModel)]="dateFrom" dateFormat="yy-mm-dd" [showIcon]="true" />
+      <!-- Date range filter bar -->
+      <div class="filter-bar">
+        <p-card>
+          <div class="flex gap-3 align-items-end flex-wrap">
+            <div class="flex flex-col gap-1">
+              <label class="text-sm text-surface-600">{{ 'reports.salesReport.from' | translate }}</label>
+              <p-datepicker [(ngModel)]="dateFrom" dateFormat="yy-mm-dd" [showIcon]="true" />
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="text-sm text-surface-600">{{ 'reports.salesReport.to' | translate }}</label>
+              <p-datepicker [(ngModel)]="dateTo" dateFormat="yy-mm-dd" [showIcon]="true" />
+            </div>
+            <p-button [label]="'reports.salesReport.loadReport' | translate" icon="pi pi-chart-bar" (onClick)="load()" />
           </div>
-          <div class="flex flex-col gap-1">
-            <label class="text-sm text-surface-600">{{ 'reports.salesReport.to' | translate }}</label>
-            <p-datepicker [(ngModel)]="dateTo" dateFormat="yy-mm-dd" [showIcon]="true" />
-          </div>
-          <p-button [label]="'reports.salesReport.loadReport' | translate" icon="pi pi-chart-bar" (onClick)="load()" />
-        </div>
-      </p-card>
+        </p-card>
+      </div>
 
       @if (service.loading()) {
         <div class="flex justify-center p-8">
           <p-progress-spinner />
         </div>
       } @else if (report()) {
-        <!-- Summary totals -->
+        <!-- KPI cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <p-card>
-            <div class="text-center">
-              <p class="text-surface-500 text-sm m-0">{{ 'reports.salesReport.totalSales' | translate }}</p>
-              <p class="text-3xl font-bold text-primary m-0">{{ report()!.totalSales }}</p>
+          <p-card styleClass="kpi-card">
+            <div class="kpi-content">
+              <i class="pi pi-shopping-cart kpi-icon text-primary"></i>
+              <div>
+                <p class="kpi-label">{{ 'reports.salesReport.totalSales' | translate }}</p>
+                <p class="kpi-value text-primary">{{ report()!.totalSales }}</p>
+              </div>
             </div>
           </p-card>
-          <p-card>
-            <div class="text-center">
-              <p class="text-surface-500 text-sm m-0">{{ 'reports.salesReport.totalRevenue' | translate }}</p>
-              <p class="text-3xl font-bold text-green-500 m-0">{{ report()!.totalRevenue | number:'1.2-2' }}</p>
+          <p-card styleClass="kpi-card">
+            <div class="kpi-content">
+              <i class="pi pi-dollar kpi-icon text-green-500"></i>
+              <div>
+                <p class="kpi-label">{{ 'reports.salesReport.totalRevenue' | translate }}</p>
+                <p class="kpi-value text-green-500">{{ report()!.totalRevenue | currency:cop:'symbol':'1.0-0' }}</p>
+                <p class="kpi-subtitle">COP</p>
+              </div>
             </div>
           </p-card>
-          <p-card>
-            <div class="text-center">
-              <p class="text-surface-500 text-sm m-0">{{ 'reports.salesReport.averageTicket' | translate }}</p>
-              <p class="text-3xl font-bold text-blue-500 m-0">{{ report()!.averageTicket | number:'1.2-2' }}</p>
+          <p-card styleClass="kpi-card">
+            <div class="kpi-content">
+              <i class="pi pi-ticket kpi-icon text-blue-500"></i>
+              <div>
+                <p class="kpi-label">{{ 'reports.salesReport.averageTicket' | translate }}</p>
+                <p class="kpi-value text-blue-500">{{ report()!.averageTicket | currency:cop:'symbol':'1.0-0' }}</p>
+                <p class="kpi-subtitle">COP</p>
+              </div>
             </div>
           </p-card>
         </div>
@@ -75,9 +89,9 @@ import { ReportsService } from '../services/reports.service';
           }
         </p-card>
 
-        <!-- Top products -->
+        <!-- Top products table -->
         <p-card [header]="'reports.salesReport.topProducts' | translate">
-          <p-table [value]="report()!.topProducts" styleClass="p-datatable-sm">
+          <p-table [value]="report()!.topProducts" styleClass="p-datatable-sm p-datatable-striped">
             <ng-template pTemplate="header">
               <tr>
                 <th>{{ 'reports.salesReport.product' | translate }}</th>
@@ -89,7 +103,7 @@ import { ReportsService } from '../services/reports.service';
               <tr>
                 <td>{{ p.productName }}</td>
                 <td class="text-right">{{ p.totalQuantity }}</td>
-                <td class="text-right">{{ p.totalRevenue | number:'1.2-2' }}</td>
+                <td class="text-right">{{ p.totalRevenue | currency:cop:'symbol':'1.0-0' }}</td>
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
@@ -100,10 +114,20 @@ import { ReportsService } from '../services/reports.service';
       }
     </div>
   `,
+  styles: `
+    .filter-bar { background: var(--color-card, var(--surface-card)); border-radius: 8px; }
+    :host ::ng-deep .kpi-card .p-card-body { padding: 1rem; }
+    .kpi-content { display: flex; align-items: center; gap: 1rem; }
+    .kpi-icon { font-size: 2rem; opacity: 0.85; }
+    .kpi-label { font-size: 0.8rem; color: var(--text-color-secondary); margin: 0; }
+    .kpi-value { font-size: 1.75rem; font-weight: 700; margin: 0.1rem 0; }
+    .kpi-subtitle { font-size: 0.75rem; color: var(--text-color-secondary); margin: 0; }
+  `,
 })
 export class SalesReportComponent implements OnInit {
   protected readonly service = inject(ReportsService);
   protected readonly report = computed(() => this.service.salesReport());
+  protected readonly cop = AppCurrency.COP;
 
   dateFrom: Date = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
   dateTo: Date = new Date();
@@ -123,8 +147,8 @@ export class SalesReportComponent implements OnInit {
         {
           label: 'Revenue',
           data: r.dailySales.map((d) => d.revenue),
-          backgroundColor: 'rgba(59, 130, 246, 0.6)',
-          borderColor: 'rgb(59, 130, 246)',
+          backgroundColor: 'rgba(var(--primary-color-rgb, 30, 64, 175), 0.6)',
+          borderColor: 'rgb(var(--primary-color-rgb, 30, 64, 175))',
           borderWidth: 1,
         },
       ],

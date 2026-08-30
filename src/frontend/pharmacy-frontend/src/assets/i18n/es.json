@@ -413,7 +413,8 @@
       "deactivate": "Desactivar",
       "deactivateConfirm": "¿Está seguro de desactivar este usuario?",
       "deactivated": "Usuario desactivado",
-      "saved": "Usuario guardado"
+      "saved": "Usuario guardado",
+      "noUsers": "No se encontraron usuarios."
     },
     "form": {
       "createTitle": "Crear usuario",

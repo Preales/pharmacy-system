@@ -8,7 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TooltipModule } from 'primeng/tooltip';
 import { UserModel } from '../models/user.model';
 import { UserService } from '../services/user.service';
@@ -38,9 +38,9 @@ import { AppRoles, Pagination } from '../../../core/constants/app.constants';
     <p-confirmDialog />
 
     <div class="page-header">
-      <h2>Users</h2>
+      <h2>{{ 'users.list.title' | translate }}</h2>
       @if (isAdmin()) {
-        <p-button label="Add User" icon="pi pi-plus" (onClick)="openCreate()" />
+        <p-button [label]="'users.list.add' | translate" icon="pi pi-plus" (onClick)="openCreate()" />
       }
     </div>
 
@@ -59,22 +59,22 @@ import { AppRoles, Pagination } from '../../../core/constants/app.constants';
     >
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="firstName">Name <p-sortIcon field="firstName" /></th>
-          <th>Email</th>
-          <th>Role</th>
-          <th pSortableColumn="isActive">Status <p-sortIcon field="isActive" /></th>
-          <th style="width: 140px">Actions</th>
+          <th pSortableColumn="firstName">{{ 'users.list.name' | translate }} <p-sortIcon field="firstName" /></th>
+          <th>{{ 'users.list.email' | translate }}</th>
+          <th>{{ 'users.list.role' | translate }}</th>
+          <th pSortableColumn="isActive">{{ 'users.list.status' | translate }} <p-sortIcon field="isActive" /></th>
+          <th style="width: 140px">{{ 'users.list.actions' | translate }}</th>
         </tr>
       </ng-template>
 
       <ng-template pTemplate="body" let-user>
         <tr>
-          <td>{{ user.fullName }}</td>
+          <td>{{ user.firstName }} {{ user.lastName }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.role }}</td>
           <td>
             <p-tag
-              [value]="user.isActive ? 'Active' : 'Inactive'"
+              [value]="user.isActive ? ('common.active' | translate) : ('common.inactive' | translate)"
               [severity]="user.isActive ? 'success' : 'danger'"
             />
           </td>
@@ -85,7 +85,7 @@ import { AppRoles, Pagination } from '../../../core/constants/app.constants';
                 [rounded]="true"
                 [text]="true"
                 severity="info"
-                pTooltip="Edit"
+                [pTooltip]="'users.list.edit' | translate"
                 (onClick)="openEdit(user)"
               />
               <p-button
@@ -93,7 +93,7 @@ import { AppRoles, Pagination } from '../../../core/constants/app.constants';
                 [rounded]="true"
                 [text]="true"
                 severity="warn"
-                pTooltip="Change Role"
+                [pTooltip]="'users.list.changeRole' | translate"
                 (onClick)="openChangeRole(user)"
               />
               @if (user.isActive) {
@@ -102,7 +102,7 @@ import { AppRoles, Pagination } from '../../../core/constants/app.constants';
                   [rounded]="true"
                   [text]="true"
                   severity="danger"
-                  pTooltip="Deactivate"
+                  [pTooltip]="'users.list.deactivate' | translate"
                   (onClick)="confirmDeactivate(user)"
                 />
               }
@@ -112,7 +112,7 @@ import { AppRoles, Pagination } from '../../../core/constants/app.constants';
       </ng-template>
 
       <ng-template pTemplate="empty">
-        <tr><td colspan="5" class="text-center p-4">No users found.</td></tr>
+        <tr><td colspan="5" class="text-center p-4">{{ 'users.list.noUsers' | translate }}</td></tr>
       </ng-template>
     </p-table>
 
@@ -132,6 +132,7 @@ export class UserListComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly confirmService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
 
   readonly pageSizeOptions = Pagination.PageSizeOptions;
 
@@ -180,24 +181,24 @@ export class UserListComponent implements OnInit {
 
   onSaved(): void {
     this.loadUsers();
-    this.messageService.add({ severity: 'success', summary: 'Saved', detail: 'User saved successfully.' });
+    this.messageService.add({ severity: 'success', summary: this.translate.instant('common.save'), detail: this.translate.instant('users.list.saved') });
   }
 
   confirmDeactivate(user: UserModel): void {
     this.confirmService.confirm({
-      message: `Deactivate user "${user.fullName}" (${user.email})?`,
-      header: 'Confirm Deactivate',
+      message: this.translate.instant('users.list.deactivateConfirm'),
+      header: this.translate.instant('users.list.deactivate'),
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.userService.deactivate(user.id).subscribe({
           next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Deactivated', detail: `${user.fullName} has been deactivated.` });
+            this.messageService.add({ severity: 'success', summary: this.translate.instant('users.list.deactivated'), detail: `${user.firstName} ${user.lastName}` });
           },
           error: (err: { userMessage?: string }) =>
             this.messageService.add({
               severity: 'error',
-              summary: 'Error',
-              detail: err.userMessage ?? 'Could not deactivate user.',
+              summary: this.translate.instant('common.confirm'),
+              detail: err.userMessage ?? this.translate.instant('users.list.deactivateConfirm'),
             }),
         });
       },

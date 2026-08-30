@@ -413,7 +413,8 @@
       "deactivate": "Deactivate",
       "deactivateConfirm": "Are you sure you want to deactivate this user?",
       "deactivated": "User deactivated",
-      "saved": "User saved"
+      "saved": "User saved",
+      "noUsers": "No users found."
     },
     "form": {
       "createTitle": "Create User",

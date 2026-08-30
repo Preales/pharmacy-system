@@ -3,6 +3,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   inject,
@@ -18,6 +19,7 @@ import { SelectModule } from 'primeng/select';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TextareaModule } from 'primeng/textarea';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import { Product, CreateProductRequest, UpdateProductRequest, ProductUnit } from '../models/product.model';
 import { Category } from '../models/category.model';
 import { Supplier } from '../models/supplier.model';
@@ -54,7 +56,7 @@ const UNIT_VALUES: ProductUnit[] = ['Unit', 'Box', 'Blister', 'Bottle'];
     .field-checkbox { display: flex; align-items: center; gap: 0.5rem; }
   `,
 })
-export class ProductFormComponent implements OnInit, OnChanges {
+export class ProductFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() visible = false;
   @Input() editTarget: Product | null = null;
   @Output() visibleChange = new EventEmitter<boolean>();
@@ -68,9 +70,15 @@ export class ProductFormComponent implements OnInit, OnChanges {
 
   readonly saving = signal(false);
 
-  /** Unit options with labels resolved at runtime via TranslateService */
-  get unitOptions(): SelectOption[] {
-    return UNIT_VALUES.map((v) => ({ label: this.translate.instant(`catalog.products.unit`), value: v }));
+  /** Unit options built once on init and rebuilt on language change */
+  unitOptions: SelectOption[] = [];
+  private langSub?: Subscription;
+
+  private buildUnitOptions(): SelectOption[] {
+    return UNIT_VALUES.map((v) => ({
+      label: this.translate.instant(`catalog.products.units.${v.toLowerCase()}`),
+      value: v,
+    }));
   }
 
   categoryOptions(): SelectOption[] {
@@ -101,6 +109,14 @@ export class ProductFormComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     if (this.categoryService.categories().length === 0) this.categoryService.loadAll();
     if (this.supplierService.suppliers().length === 0) this.supplierService.loadAll();
+    this.unitOptions = this.buildUnitOptions();
+    this.langSub = this.translate.onLangChange.subscribe(() => {
+      this.unitOptions = this.buildUnitOptions();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.langSub?.unsubscribe();
   }
 
   ngOnChanges(): void {
