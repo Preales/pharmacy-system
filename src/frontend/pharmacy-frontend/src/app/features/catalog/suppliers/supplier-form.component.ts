@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Supplier, CreateSupplierRequest, UpdateSupplierRequest } from '../models/supplier.model';
 import { SupplierService } from '../services/supplier.service';
 
@@ -18,10 +19,11 @@ import { SupplierService } from '../services/supplier.service';
     ButtonModule,
     InputTextModule,
     CheckboxModule,
+    TranslatePipe,
   ],
   template: `
     <p-dialog
-      [header]="editTarget ? 'Edit Supplier' : 'New Supplier'"
+      [header]="editTarget ? ('catalog.suppliers.edit' | translate) : ('catalog.suppliers.add' | translate)"
       [(visible)]="visible"
       [modal]="true"
       [style]="{ width: '480px' }"
@@ -30,9 +32,9 @@ import { SupplierService } from '../services/supplier.service';
     >
       <form [formGroup]="form" (ngSubmit)="submit()" class="form-body">
         <div class="field">
-          <label for="supName">Name *</label>
-          <input id="supName" pInputText formControlName="name" placeholder="Supplier name" class="w-full" [class.ng-invalid]="isInvalid('name')" />
-          @if (isInvalid('name')) { <small class="p-error">Name is required.</small> }
+          <label for="supName">{{ 'catalog.suppliers.name' | translate }} *</label>
+          <input id="supName" pInputText formControlName="name" [placeholder]="'catalog.suppliers.name' | translate" class="w-full" [class.ng-invalid]="isInvalid('name')" />
+          @if (isInvalid('name')) { <small class="p-error">{{ 'catalog.suppliers.name' | translate }}</small> }
         </div>
 
         <div class="field">
@@ -41,28 +43,28 @@ import { SupplierService } from '../services/supplier.service';
         </div>
 
         <div class="field">
-          <label for="supEmail">Contact Email</label>
-          <input id="supEmail" type="email" pInputText formControlName="contactEmail" placeholder="email@supplier.com" class="w-full" [class.ng-invalid]="isInvalid('contactEmail')" />
-          @if (isInvalid('contactEmail')) { <small class="p-error">Enter a valid email.</small> }
+          <label for="supEmail">{{ 'catalog.suppliers.email' | translate }}</label>
+          <input id="supEmail" type="email" pInputText formControlName="contactEmail" [placeholder]="'catalog.suppliers.email' | translate" class="w-full" [class.ng-invalid]="isInvalid('contactEmail')" />
+          @if (isInvalid('contactEmail')) { <small class="p-error">{{ 'catalog.suppliers.email' | translate }}</small> }
         </div>
 
         <div class="field">
-          <label for="supPhone">Phone</label>
+          <label for="supPhone">{{ 'catalog.suppliers.phone' | translate }}</label>
           <input id="supPhone" pInputText formControlName="phone" placeholder="+1 555 0100" class="w-full" />
         </div>
 
         @if (editTarget) {
           <div class="field-checkbox">
             <p-checkbox formControlName="isActive" [binary]="true" inputId="supActive" />
-            <label for="supActive">Active</label>
+            <label for="supActive">{{ 'common.active' | translate }}</label>
           </div>
         }
       </form>
 
       <ng-template pTemplate="footer">
-        <p-button label="Cancel" severity="secondary" (onClick)="onCancel()" />
+        <p-button [label]="'common.cancel' | translate" severity="secondary" (onClick)="onCancel()" />
         <p-button
-          [label]="editTarget ? 'Update' : 'Create'"
+          [label]="editTarget ? ('common.save' | translate) : ('common.add' | translate)"
           icon="pi pi-check"
           [loading]="saving()"
           [disabled]="form.invalid || saving()"

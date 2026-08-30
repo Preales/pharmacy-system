@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { Supplier } from '../models/supplier.model';
 import { SupplierService } from '../services/supplier.service';
 import { SupplierFormComponent } from './supplier-form.component';
@@ -25,6 +26,7 @@ import { SupplierFormComponent } from './supplier-form.component';
     ConfirmDialogModule,
     ToastModule,
     SupplierFormComponent,
+    TranslatePipe,
   ],
   providers: [ConfirmationService, MessageService],
   template: `
@@ -32,14 +34,14 @@ import { SupplierFormComponent } from './supplier-form.component';
     <p-confirmDialog />
 
     <div class="page-header">
-      <h2>Suppliers</h2>
-      <p-button label="New Supplier" icon="pi pi-plus" (onClick)="openCreate()" />
+      <h2>{{ 'catalog.suppliers.title' | translate }}</h2>
+      <p-button [label]="'catalog.suppliers.add' | translate" icon="pi pi-plus" (onClick)="openCreate()" />
     </div>
 
     <div class="search-bar">
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input pInputText [(ngModel)]="searchTerm" placeholder="Search suppliers..." class="w-full" />
+        <input pInputText [(ngModel)]="searchTerm" [placeholder]="'common.search' | translate" class="w-full" />
       </span>
     </div>
 
@@ -55,12 +57,12 @@ import { SupplierFormComponent } from './supplier-form.component';
     >
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+          <th pSortableColumn="name">{{ 'catalog.suppliers.name' | translate }} <p-sortIcon field="name" /></th>
           <th>Contact</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th pSortableColumn="isActive">Status <p-sortIcon field="isActive" /></th>
-          <th style="width: 120px">Actions</th>
+          <th>{{ 'catalog.suppliers.email' | translate }}</th>
+          <th>{{ 'catalog.suppliers.phone' | translate }}</th>
+          <th pSortableColumn="isActive">{{ 'common.status' | translate }} <p-sortIcon field="isActive" /></th>
+          <th style="width: 120px">{{ 'common.actions' | translate }}</th>
         </tr>
       </ng-template>
 
@@ -71,7 +73,10 @@ import { SupplierFormComponent } from './supplier-form.component';
           <td>{{ sup.contactEmail ?? '—' }}</td>
           <td>{{ sup.phone ?? '—' }}</td>
           <td>
-            <p-tag [value]="sup.isActive ? 'Active' : 'Inactive'" [severity]="sup.isActive ? 'success' : 'danger'" />
+            <p-tag
+              [value]="sup.isActive ? ('common.active' | translate) : ('common.inactive' | translate)"
+              [severity]="sup.isActive ? 'success' : 'danger'"
+            />
           </td>
           <td>
             <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" severity="info" (onClick)="openEdit(sup)" />
@@ -81,7 +86,7 @@ import { SupplierFormComponent } from './supplier-form.component';
       </ng-template>
 
       <ng-template pTemplate="empty">
-        <tr><td colspan="6" class="text-center p-4">No suppliers found.</td></tr>
+        <tr><td colspan="6" class="text-center p-4">{{ 'common.noResults' | translate }}</td></tr>
       </ng-template>
     </p-table>
 
@@ -99,6 +104,7 @@ export class SupplierListComponent implements OnInit {
   readonly supplierService = inject(SupplierService);
   private readonly confirmService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
 
   formVisible = false;
   searchTerm = '';
@@ -130,23 +136,23 @@ export class SupplierListComponent implements OnInit {
   }
 
   onSaved(): void {
-    this.messageService.add({ severity: 'success', summary: 'Saved', detail: 'Supplier saved successfully.' });
+    this.messageService.add({ severity: 'success', summary: this.translate.instant('catalog.suppliers.saved'), detail: this.translate.instant('catalog.suppliers.saved') });
   }
 
   confirmDelete(sup: Supplier): void {
     this.confirmService.confirm({
-      message: `Delete supplier "${sup.name}"?`,
-      header: 'Confirm Delete',
+      message: this.translate.instant('catalog.suppliers.deleteConfirm'),
+      header: this.translate.instant('common.confirm'),
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.supplierService.delete(sup.id).subscribe({
           next: () =>
-            this.messageService.add({ severity: 'success', summary: 'Deleted', detail: 'Supplier deleted.' }),
+            this.messageService.add({ severity: 'success', summary: this.translate.instant('catalog.suppliers.deleted'), detail: this.translate.instant('catalog.suppliers.deleted') }),
           error: (err: { userMessage?: string }) =>
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: err.userMessage ?? 'Could not delete supplier.',
+              detail: err.userMessage ?? this.translate.instant('catalog.suppliers.deleted'),
             }),
         });
       },

@@ -9,6 +9,7 @@ import { SelectModule } from 'primeng/select';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { Product, ProductFilter } from '../models/product.model';
 import { Category } from '../models/category.model';
 import { ProductService } from '../services/product.service';
@@ -33,6 +34,7 @@ interface SelectOption { label: string; value: string; }
     ConfirmDialogModule,
     ToastModule,
     ProductFormComponent,
+    TranslatePipe,
   ],
   providers: [ConfirmationService, MessageService],
   template: `
@@ -40,23 +42,23 @@ interface SelectOption { label: string; value: string; }
     <p-confirmDialog />
 
     <div class="page-header">
-      <h2>Products</h2>
-      <p-button label="New Product" icon="pi pi-plus" (onClick)="openCreate()" />
+      <h2>{{ 'catalog.products.title' | translate }}</h2>
+      <p-button [label]="'catalog.products.add' | translate" icon="pi pi-plus" (onClick)="openCreate()" />
     </div>
 
     <div class="filter-bar">
-      <input pInputText [(ngModel)]="searchTerm" placeholder="Search by name, SKU..." (ngModelChange)="onSearchChange()" class="filter-input" />
+      <input pInputText [(ngModel)]="searchTerm" [placeholder]="'common.search' | translate" (ngModelChange)="onSearchChange()" class="filter-input" />
       <p-select
         [(ngModel)]="selectedCategory"
         [options]="categoryOptions()"
         optionLabel="label"
         optionValue="value"
-        placeholder="All Categories"
+        [placeholder]="'catalog.products.category' | translate"
         [showClear]="true"
         (ngModelChange)="applyFilter()"
         styleClass="filter-select"
       />
-      <p-button icon="pi pi-refresh" severity="secondary" [text]="true" (onClick)="resetFilters()" pTooltip="Clear filters" />
+      <p-button icon="pi pi-refresh" severity="secondary" [text]="true" (onClick)="resetFilters()" [pTooltip]="'common.search' | translate" />
     </div>
 
     <p-table
@@ -74,15 +76,15 @@ interface SelectOption { label: string; value: string; }
     >
       <ng-template pTemplate="header">
         <tr>
-          <th>SKU</th>
-          <th>Name</th>
-          <th>Category</th>
-          <th>Unit Price</th>
-          <th>Cost Price</th>
-          <th>Unit</th>
-          <th>Stock</th>
-          <th pSortableColumn="isActive">Status <p-sortIcon field="isActive" /></th>
-          <th style="width: 120px">Actions</th>
+          <th>{{ 'catalog.products.sku' | translate }}</th>
+          <th>{{ 'catalog.products.name' | translate }}</th>
+          <th>{{ 'catalog.products.category' | translate }}</th>
+          <th>{{ 'catalog.products.unitPrice' | translate }}</th>
+          <th>{{ 'catalog.products.costPrice' | translate }}</th>
+          <th>{{ 'catalog.products.unit' | translate }}</th>
+          <th>{{ 'catalog.products.stock' | translate }}</th>
+          <th pSortableColumn="isActive">{{ 'common.status' | translate }} <p-sortIcon field="isActive" /></th>
+          <th style="width: 120px">{{ 'common.actions' | translate }}</th>
         </tr>
       </ng-template>
 
@@ -100,7 +102,10 @@ interface SelectOption { label: string; value: string; }
             </span>
           </td>
           <td>
-            <p-tag [value]="product.isActive ? 'Active' : 'Inactive'" [severity]="product.isActive ? 'success' : 'danger'" />
+            <p-tag
+              [value]="product.isActive ? ('common.active' | translate) : ('common.inactive' | translate)"
+              [severity]="product.isActive ? 'success' : 'danger'"
+            />
           </td>
           <td>
             <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" severity="info" (onClick)="openEdit(product)" />
@@ -110,7 +115,7 @@ interface SelectOption { label: string; value: string; }
       </ng-template>
 
       <ng-template pTemplate="empty">
-        <tr><td colspan="9" class="text-center p-4">No products found.</td></tr>
+        <tr><td colspan="9" class="text-center p-4">{{ 'common.noResults' | translate }}</td></tr>
       </ng-template>
     </p-table>
 
@@ -135,6 +140,7 @@ export class ProductListComponent implements OnInit {
   private readonly supplierService = inject(SupplierService);
   private readonly confirmService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
 
   /** Exposed constants for template binding */
   readonly pageSizeOptions = Pagination.PageSizeOptions;
@@ -210,25 +216,25 @@ export class ProductListComponent implements OnInit {
 
   onSaved(): void {
     this.loadProducts();
-    this.messageService.add({ severity: 'success', summary: 'Saved', detail: 'Product saved successfully.' });
+    this.messageService.add({ severity: 'success', summary: this.translate.instant('catalog.products.saved'), detail: this.translate.instant('catalog.products.saved') });
   }
 
   confirmDelete(product: Product): void {
     this.confirmService.confirm({
-      message: `Delete product "${product.name}" (${product.sku})?`,
-      header: 'Confirm Delete',
+      message: this.translate.instant('catalog.products.deleteConfirm'),
+      header: this.translate.instant('common.confirm'),
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.productService.delete(product.id).subscribe({
           next: () => {
             this.loadProducts();
-            this.messageService.add({ severity: 'success', summary: 'Deleted', detail: 'Product deleted.' });
+            this.messageService.add({ severity: 'success', summary: this.translate.instant('catalog.products.deleted'), detail: this.translate.instant('catalog.products.deleted') });
           },
           error: (err: { userMessage?: string }) =>
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: err.userMessage ?? 'Could not delete product.',
+              detail: err.userMessage ?? this.translate.instant('catalog.products.deleted'),
             }),
         });
       },

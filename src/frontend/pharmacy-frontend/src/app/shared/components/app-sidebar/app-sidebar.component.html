@@ -4,8 +4,8 @@
     class="collapse-toggle"
     type="button"
     (click)="toggleCollapse()"
-    [attr.aria-label]="isCollapsed() ? 'Expand sidebar' : 'Collapse sidebar'"
-    [attr.title]="isCollapsed() ? 'Expand' : 'Collapse'"
+    [attr.aria-label]="isCollapsed() ? ('nav.expand' | translate) : ('nav.collapse' | translate)"
+    [attr.title]="isCollapsed() ? ('nav.expand' | translate) : ('nav.collapse' | translate)"
   >
     <i class="pi pi-bars"></i>
   </button>
@@ -13,33 +13,33 @@
   <!-- Brand / Logo -->
   <div class="sidebar-header">
     <span class="pi pi-heart sidebar-icon"></span>
-    <span class="sidebar-title" *ngIf="!isCollapsed()">Pharmacy</span>
+    <span class="sidebar-title" *ngIf="!isCollapsed()">{{ 'nav.pharmacy' | translate }}</span>
   </div>
 
   <ul class="sidebar-nav">
     <li>
-      <a routerLink="/catalog" routerLinkActive="active" class="nav-item" title="Catalog">
+      <a routerLink="/catalog" routerLinkActive="active" class="nav-item" [title]="'nav.catalog' | translate">
         <i class="pi pi-tag"></i>
-        <span class="nav-label" *ngIf="!isCollapsed()">Catalog</span>
+        <span class="nav-label" *ngIf="!isCollapsed()">{{ 'nav.catalog' | translate }}</span>
       </a>
     </li>
     <li>
-      <a routerLink="/inventory" routerLinkActive="active" class="nav-item" title="Inventory">
+      <a routerLink="/inventory" routerLinkActive="active" class="nav-item" [title]="'nav.inventory' | translate">
         <i class="pi pi-warehouse"></i>
-        <span class="nav-label" *ngIf="!isCollapsed()">Inventory</span>
+        <span class="nav-label" *ngIf="!isCollapsed()">{{ 'nav.inventory' | translate }}</span>
       </a>
     </li>
     <li>
-      <a routerLink="/sales" routerLinkActive="active" class="nav-item" title="Sales">
+      <a routerLink="/sales" routerLinkActive="active" class="nav-item" [title]="'nav.sales' | translate">
         <i class="pi pi-shopping-cart"></i>
-        <span class="nav-label" *ngIf="!isCollapsed()">Sales</span>
+        <span class="nav-label" *ngIf="!isCollapsed()">{{ 'nav.sales' | translate }}</span>
       </a>
     </li>
     @if(hasRole('Admin') || hasRole('Pharmacist')) {
     <li>
-      <a routerLink="/reports" routerLinkActive="active" class="nav-item" title="Reports">
+      <a routerLink="/reports" routerLinkActive="active" class="nav-item" [title]="'nav.reports' | translate">
         <i class="pi pi-chart-bar"></i>
-        <span class="nav-label" *ngIf="!isCollapsed()">Reports</span>
+        <span class="nav-label" *ngIf="!isCollapsed()">{{ 'nav.reports' | translate }}</span>
       </a>
     </li>
     }
@@ -54,9 +54,9 @@
   </ul>
 
   <div class="sidebar-footer">
-    <button class="nav-item logout-btn" (click)="logout()" title="Logout">
+    <button class="nav-item logout-btn" (click)="logout()" [title]="'nav.logout' | translate">
       <i class="pi pi-sign-out"></i>
-      <span class="nav-label" *ngIf="!isCollapsed()">Logout</span>
+      <span class="nav-label" *ngIf="!isCollapsed()">{{ 'nav.logout' | translate }}</span>
     </button>
     <small class="user-email" *ngIf="!isCollapsed()">{{ currentUser()?.email }}</small>
   </div>

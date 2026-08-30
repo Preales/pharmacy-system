@@ -1,6 +1,7 @@
 import { Component, inject, signal, effect, HostListener } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../../core/services/auth.service';
 
 const SIDEBAR_KEY = 'pharmacy-sidebar';
@@ -9,7 +10,7 @@ const COLLAPSE_BREAKPOINT = 768;
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, TranslatePipe],
   templateUrl: './app-sidebar.component.html',
   styleUrl: './app-sidebar.component.scss',
 })

@@ -17,6 +17,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectModule } from 'primeng/select';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TextareaModule } from 'primeng/textarea';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { Product, CreateProductRequest, UpdateProductRequest, ProductUnit } from '../models/product.model';
 import { Category } from '../models/category.model';
 import { Supplier } from '../models/supplier.model';
@@ -29,12 +30,8 @@ interface SelectOption {
   value: string;
 }
 
-const UNIT_OPTIONS: SelectOption[] = [
-  { label: 'Unit', value: 'Unit' },
-  { label: 'Box', value: 'Box' },
-  { label: 'Blister', value: 'Blister' },
-  { label: 'Bottle', value: 'Bottle' },
-];
+/** Raw unit values — labels resolved at runtime via TranslateService */
+const UNIT_VALUES: ProductUnit[] = ['Unit', 'Box', 'Blister', 'Bottle'];
 
 @Component({
   selector: 'app-product-form',
@@ -49,6 +46,7 @@ const UNIT_OPTIONS: SelectOption[] = [
     SelectModule,
     CheckboxModule,
     TextareaModule,
+    TranslatePipe,
   ],
   templateUrl: './product-form.component.html',
   styles: `
@@ -66,9 +64,14 @@ export class ProductFormComponent implements OnInit, OnChanges {
   private readonly productService: ProductService = inject(ProductService);
   private readonly categoryService: CategoryService = inject(CategoryService);
   private readonly supplierService: SupplierService = inject(SupplierService);
+  private readonly translate: TranslateService = inject(TranslateService);
 
   readonly saving = signal(false);
-  readonly unitOptions = UNIT_OPTIONS;
+
+  /** Unit options with labels resolved at runtime via TranslateService */
+  get unitOptions(): SelectOption[] {
+    return UNIT_VALUES.map((v) => ({ label: this.translate.instant(`catalog.products.unit`), value: v }));
+  }
 
   categoryOptions(): SelectOption[] {
     return this.categoryService.categories()

@@ -6,6 +6,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { CheckboxModule } from 'primeng/checkbox';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Category, CreateCategoryRequest, UpdateCategoryRequest } from '../models/category.model';
 import { CategoryService } from '../services/category.service';
 
@@ -20,10 +21,11 @@ import { CategoryService } from '../services/category.service';
     InputTextModule,
     TextareaModule,
     CheckboxModule,
+    TranslatePipe,
   ],
   template: `
     <p-dialog
-      [header]="editTarget ? 'Edit Category' : 'New Category'"
+      [header]="editTarget ? ('catalog.categories.edit' | translate) : ('catalog.categories.add' | translate)"
       [(visible)]="visible"
       [modal]="true"
       [style]="{ width: '480px' }"
@@ -32,27 +34,27 @@ import { CategoryService } from '../services/category.service';
     >
       <form [formGroup]="form" (ngSubmit)="submit()" class="form-body">
         <div class="field">
-          <label for="catName">Name *</label>
+          <label for="catName">{{ 'catalog.categories.name' | translate }} *</label>
           <input
             id="catName"
             pInputText
             formControlName="name"
-            placeholder="e.g. Analgesics"
+            [placeholder]="'catalog.categories.name' | translate"
             class="w-full"
             [class.ng-invalid]="isInvalid('name')"
           />
           @if (isInvalid('name')) {
-            <small class="p-error">Name is required.</small>
+            <small class="p-error">{{ 'catalog.categories.name' | translate }}</small>
           }
         </div>
 
         <div class="field">
-          <label for="catDesc">Description</label>
+          <label for="catDesc">{{ 'catalog.categories.description' | translate }}</label>
           <textarea
             id="catDesc"
             pTextarea
             formControlName="description"
-            placeholder="Optional description"
+            [placeholder]="'catalog.categories.description' | translate"
             class="w-full"
             rows="3"
           ></textarea>
@@ -61,15 +63,15 @@ import { CategoryService } from '../services/category.service';
         @if (editTarget) {
           <div class="field-checkbox">
             <p-checkbox formControlName="isActive" [binary]="true" inputId="catActive" />
-            <label for="catActive">Active</label>
+            <label for="catActive">{{ 'common.active' | translate }}</label>
           </div>
         }
       </form>
 
       <ng-template pTemplate="footer">
-        <p-button label="Cancel" severity="secondary" (onClick)="onCancel()" />
+        <p-button [label]="'common.cancel' | translate" severity="secondary" (onClick)="onCancel()" />
         <p-button
-          [label]="editTarget ? 'Update' : 'Create'"
+          [label]="editTarget ? ('common.save' | translate) : ('common.add' | translate)"
           icon="pi pi-check"
           [loading]="saving()"
           [disabled]="form.invalid || saving()"
