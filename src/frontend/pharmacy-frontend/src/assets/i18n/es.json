@@ -1,0 +1,266 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "confirm": "Confirmar",
+    "search": "Buscar...",
+    "loading": "Cargando...",
+    "noResults": "Sin resultados",
+    "actions": "Acciones",
+    "status": "Estado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "yes": "Sí",
+    "no": "No",
+    "close": "Cerrar",
+    "add": "Agregar",
+    "name": "Nombre",
+    "email": "Correo",
+    "role": "Rol",
+    "createdAt": "Creado",
+    "total": "Total",
+    "page": "Página",
+    "of": "de"
+  },
+  "nav": {
+    "catalog": "Catálogo",
+    "inventory": "Inventario",
+    "sales": "Ventas",
+    "reports": "Reportes",
+    "users": "Usuarios",
+    "logout": "Cerrar sesión",
+    "pharmacy": "Farmacia",
+    "expand": "Expandir menú",
+    "collapse": "Colapsar menú"
+  },
+  "theme": {
+    "toggleDark": "Cambiar a modo oscuro",
+    "toggleLight": "Cambiar a modo claro"
+  },
+  "lang": {
+    "toggle": "EN",
+    "current": "ES"
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "tenant": "Seleccione su farmacia",
+    "loginBtn": "Ingresar",
+    "loggingIn": "Ingresando...",
+    "selectTenant": "Seleccionar",
+    "noTenants": "No se encontraron farmacias para este correo"
+  },
+  "catalog": {
+    "products": {
+      "title": "Productos",
+      "add": "Agregar producto",
+      "name": "Nombre",
+      "sku": "SKU",
+      "category": "Categoría",
+      "supplier": "Proveedor",
+      "unit": "Unidad",
+      "unitPrice": "Precio unitario",
+      "costPrice": "Costo",
+      "stock": "Stock",
+      "lowStockThreshold": "Mínimo de stock",
+      "description": "Descripción",
+      "edit": "Editar producto",
+      "deleteConfirm": "¿Está seguro de eliminar este producto?",
+      "deleted": "Producto eliminado",
+      "saved": "Producto guardado"
+    },
+    "categories": {
+      "title": "Categorías",
+      "add": "Agregar categoría",
+      "name": "Nombre",
+      "description": "Descripción",
+      "edit": "Editar categoría",
+      "deleteConfirm": "¿Está seguro de eliminar esta categoría?",
+      "deleted": "Categoría eliminada",
+      "saved": "Categoría guardada"
+    },
+    "suppliers": {
+      "title": "Proveedores",
+      "add": "Agregar proveedor",
+      "name": "Nombre",
+      "email": "Correo",
+      "phone": "Teléfono",
+      "address": "Dirección",
+      "edit": "Editar proveedor",
+      "deleteConfirm": "¿Está seguro de eliminar este proveedor?",
+      "deleted": "Proveedor eliminado",
+      "saved": "Proveedor guardado"
+    }
+  },
+  "inventory": {
+    "stock": {
+      "title": "Stock de Inventario",
+      "search": "Buscar productos...",
+      "product": "Producto",
+      "sku": "SKU",
+      "stock": "Stock actual",
+      "status": "Estado",
+      "lastMovement": "Último movimiento",
+      "actions": "Acciones",
+      "recordIngress": "Registrar ingreso",
+      "adjust": "Ajustar",
+      "history": "Historial",
+      "critical": "Crítico",
+      "low": "Bajo",
+      "normal": "Normal"
+    },
+    "lowStock": {
+      "title": "Alerta de Stock Bajo",
+      "noItems": "Todos los productos tienen stock suficiente"
+    },
+    "movements": {
+      "title": "Movimientos de Stock",
+      "type": "Tipo",
+      "quantity": "Cantidad",
+      "date": "Fecha",
+      "reference": "Referencia",
+      "notes": "Notas",
+      "ingress": "Ingreso",
+      "adjustment": "Ajuste",
+      "sale": "Venta",
+      "return": "Devolución"
+    },
+    "ingress": {
+      "title": "Registrar Ingreso",
+      "product": "Producto",
+      "quantity": "Cantidad",
+      "unitCost": "Costo unitario",
+      "supplier": "Proveedor",
+      "reference": "Referencia",
+      "notes": "Notas",
+      "save": "Registrar ingreso"
+    },
+    "adjustment": {
+      "title": "Ajuste de Stock",
+      "product": "Producto",
+      "quantity": "Cantidad",
+      "type": "Tipo de ajuste",
+      "reason": "Motivo",
+      "increase": "Incremento",
+      "decrease": "Disminución",
+      "save": "Guardar ajuste"
+    }
+  },
+  "sales": {
+    "pos": {
+      "title": "Punto de Venta",
+      "search": "Buscar productos...",
+      "cart": "Carrito",
+      "empty": "El carrito está vacío",
+      "total": "Total",
+      "checkout": "Pagar",
+      "clear": "Limpiar carrito",
+      "quantity": "Cant.",
+      "unitPrice": "Precio",
+      "subtotal": "Subtotal",
+      "customer": "Cliente (opcional)",
+      "completeSale": "Completar venta",
+      "saleCompleted": "Venta completada con éxito"
+    },
+    "history": {
+      "title": "Historial de Ventas",
+      "number": "Venta #",
+      "date": "Fecha",
+      "customer": "Cliente",
+      "total": "Total",
+      "status": "Estado",
+      "view": "Ver",
+      "void": "Anular",
+      "completed": "Completada",
+      "voided": "Anulada"
+    },
+    "conflicts": {
+      "title": "Alertas de Conflicto",
+      "product": "Producto",
+      "saleNumber": "Venta #",
+      "detectedAt": "Detectado",
+      "resolved": "Resuelto",
+      "pending": "Pendiente",
+      "resolve": "Resolver",
+      "resolvedBy": "Resuelto por",
+      "noAlerts": "Sin alertas de conflicto"
+    },
+    "detail": {
+      "title": "Detalle de Venta",
+      "lines": "Artículos",
+      "product": "Producto",
+      "quantity": "Cantidad",
+      "unitPrice": "Precio unitario",
+      "subtotal": "Subtotal",
+      "voidSale": "Anular venta",
+      "voidReason": "Motivo de anulación",
+      "confirmVoid": "Confirmar anulación"
+    }
+  },
+  "reports": {
+    "dashboard": {
+      "title": "Panel de Reportes",
+      "sales": "Reporte de Ventas",
+      "inventory": "Reporte de Inventario",
+      "viewSales": "Ver reporte de ventas",
+      "viewInventory": "Ver reporte de inventario",
+      "conflicts": "Alertas de conflicto",
+      "viewConflicts": "Ver →"
+    },
+    "salesReport": {
+      "title": "Reporte de Ventas",
+      "period": "Período",
+      "from": "Desde",
+      "to": "Hasta",
+      "apply": "Aplicar",
+      "totalSales": "Total de ventas",
+      "totalRevenue": "Ingresos totales",
+      "averageSale": "Venta promedio",
+      "topProducts": "Productos más vendidos",
+      "product": "Producto",
+      "quantity": "Unidades vendidas",
+      "revenue": "Ingresos"
+    },
+    "inventoryReport": {
+      "title": "Reporte de Inventario",
+      "totalProducts": "Total de productos",
+      "lowStockCount": "Productos con stock bajo",
+      "totalValue": "Valor total",
+      "byCategory": "Por categoría",
+      "category": "Categoría",
+      "products": "Productos",
+      "value": "Valor"
+    }
+  },
+  "users": {
+    "list": {
+      "title": "Gestión de Usuarios",
+      "add": "Agregar usuario",
+      "name": "Nombre",
+      "email": "Correo",
+      "role": "Rol",
+      "status": "Estado",
+      "actions": "Acciones",
+      "edit": "Editar",
+      "changeRole": "Cambiar rol",
+      "deactivate": "Desactivar",
+      "deactivateConfirm": "¿Está seguro de desactivar este usuario?",
+      "deactivated": "Usuario desactivado",
+      "saved": "Usuario guardado"
+    },
+    "form": {
+      "createTitle": "Crear usuario",
+      "editTitle": "Editar usuario",
+      "changeRoleTitle": "Cambiar rol",
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "role": "Rol",
+      "save": "Guardar",
+      "cancel": "Cancelar"
+    }
+  }
+}

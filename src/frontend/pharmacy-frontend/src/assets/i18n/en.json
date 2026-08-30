@@ -1,0 +1,266 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "search": "Search...",
+    "loading": "Loading...",
+    "noResults": "No results found",
+    "actions": "Actions",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "add": "Add",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "createdAt": "Created At",
+    "total": "Total",
+    "page": "Page",
+    "of": "of"
+  },
+  "nav": {
+    "catalog": "Catalog",
+    "inventory": "Inventory",
+    "sales": "Sales",
+    "reports": "Reports",
+    "users": "Users",
+    "logout": "Logout",
+    "pharmacy": "Pharmacy",
+    "expand": "Expand sidebar",
+    "collapse": "Collapse sidebar"
+  },
+  "theme": {
+    "toggleDark": "Switch to dark mode",
+    "toggleLight": "Switch to light mode"
+  },
+  "lang": {
+    "toggle": "ES",
+    "current": "EN"
+  },
+  "auth": {
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "tenant": "Select your pharmacy",
+    "loginBtn": "Sign In",
+    "loggingIn": "Signing in...",
+    "selectTenant": "Select",
+    "noTenants": "No pharmacies found for this email"
+  },
+  "catalog": {
+    "products": {
+      "title": "Products",
+      "add": "Add Product",
+      "name": "Name",
+      "sku": "SKU",
+      "category": "Category",
+      "supplier": "Supplier",
+      "unit": "Unit",
+      "unitPrice": "Unit Price",
+      "costPrice": "Cost Price",
+      "stock": "Stock",
+      "lowStockThreshold": "Low Stock Threshold",
+      "description": "Description",
+      "edit": "Edit Product",
+      "deleteConfirm": "Are you sure you want to delete this product?",
+      "deleted": "Product deleted",
+      "saved": "Product saved"
+    },
+    "categories": {
+      "title": "Categories",
+      "add": "Add Category",
+      "name": "Name",
+      "description": "Description",
+      "edit": "Edit Category",
+      "deleteConfirm": "Are you sure you want to delete this category?",
+      "deleted": "Category deleted",
+      "saved": "Category saved"
+    },
+    "suppliers": {
+      "title": "Suppliers",
+      "add": "Add Supplier",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "edit": "Edit Supplier",
+      "deleteConfirm": "Are you sure you want to delete this supplier?",
+      "deleted": "Supplier deleted",
+      "saved": "Supplier saved"
+    }
+  },
+  "inventory": {
+    "stock": {
+      "title": "Inventory Stock",
+      "search": "Search products...",
+      "product": "Product",
+      "sku": "SKU",
+      "stock": "Current Stock",
+      "status": "Status",
+      "lastMovement": "Last Movement",
+      "actions": "Actions",
+      "recordIngress": "Record Ingress",
+      "adjust": "Adjust",
+      "history": "History",
+      "critical": "Critical",
+      "low": "Low",
+      "normal": "Normal"
+    },
+    "lowStock": {
+      "title": "Low Stock Alert",
+      "noItems": "All products are well stocked"
+    },
+    "movements": {
+      "title": "Stock Movements",
+      "type": "Type",
+      "quantity": "Quantity",
+      "date": "Date",
+      "reference": "Reference",
+      "notes": "Notes",
+      "ingress": "Ingress",
+      "adjustment": "Adjustment",
+      "sale": "Sale",
+      "return": "Return"
+    },
+    "ingress": {
+      "title": "Record Ingress",
+      "product": "Product",
+      "quantity": "Quantity",
+      "unitCost": "Unit Cost",
+      "supplier": "Supplier",
+      "reference": "Reference",
+      "notes": "Notes",
+      "save": "Record Ingress"
+    },
+    "adjustment": {
+      "title": "Stock Adjustment",
+      "product": "Product",
+      "quantity": "Quantity",
+      "type": "Adjustment Type",
+      "reason": "Reason",
+      "increase": "Increase",
+      "decrease": "Decrease",
+      "save": "Save Adjustment"
+    }
+  },
+  "sales": {
+    "pos": {
+      "title": "Point of Sale",
+      "search": "Search products...",
+      "cart": "Cart",
+      "empty": "Cart is empty",
+      "total": "Total",
+      "checkout": "Checkout",
+      "clear": "Clear Cart",
+      "quantity": "Qty",
+      "unitPrice": "Price",
+      "subtotal": "Subtotal",
+      "customer": "Customer (optional)",
+      "completeSale": "Complete Sale",
+      "saleCompleted": "Sale completed successfully"
+    },
+    "history": {
+      "title": "Sales History",
+      "number": "Sale #",
+      "date": "Date",
+      "customer": "Customer",
+      "total": "Total",
+      "status": "Status",
+      "view": "View",
+      "void": "Void",
+      "completed": "Completed",
+      "voided": "Voided"
+    },
+    "conflicts": {
+      "title": "Conflict Alerts",
+      "product": "Product",
+      "saleNumber": "Sale #",
+      "detectedAt": "Detected At",
+      "resolved": "Resolved",
+      "pending": "Pending",
+      "resolve": "Resolve",
+      "resolvedBy": "Resolved By",
+      "noAlerts": "No conflict alerts"
+    },
+    "detail": {
+      "title": "Sale Detail",
+      "lines": "Items",
+      "product": "Product",
+      "quantity": "Quantity",
+      "unitPrice": "Unit Price",
+      "subtotal": "Subtotal",
+      "voidSale": "Void Sale",
+      "voidReason": "Void Reason",
+      "confirmVoid": "Confirm void"
+    }
+  },
+  "reports": {
+    "dashboard": {
+      "title": "Reports Dashboard",
+      "sales": "Sales Report",
+      "inventory": "Inventory Report",
+      "viewSales": "View Sales Report",
+      "viewInventory": "View Inventory Report",
+      "conflicts": "Conflict Alerts",
+      "viewConflicts": "View →"
+    },
+    "salesReport": {
+      "title": "Sales Report",
+      "period": "Period",
+      "from": "From",
+      "to": "To",
+      "apply": "Apply",
+      "totalSales": "Total Sales",
+      "totalRevenue": "Total Revenue",
+      "averageSale": "Average Sale",
+      "topProducts": "Top Products",
+      "product": "Product",
+      "quantity": "Units Sold",
+      "revenue": "Revenue"
+    },
+    "inventoryReport": {
+      "title": "Inventory Report",
+      "totalProducts": "Total Products",
+      "lowStockCount": "Low Stock Items",
+      "totalValue": "Total Value",
+      "byCategory": "By Category",
+      "category": "Category",
+      "products": "Products",
+      "value": "Value"
+    }
+  },
+  "users": {
+    "list": {
+      "title": "User Management",
+      "add": "Add User",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "status": "Status",
+      "actions": "Actions",
+      "edit": "Edit",
+      "changeRole": "Change Role",
+      "deactivate": "Deactivate",
+      "deactivateConfirm": "Are you sure you want to deactivate this user?",
+      "deactivated": "User deactivated",
+      "saved": "User saved"
+    },
+    "form": {
+      "createTitle": "Create User",
+      "editTitle": "Edit User",
+      "changeRoleTitle": "Change Role",
+      "name": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "role": "Role",
+      "save": "Save",
+      "cancel": "Cancel"
+    }
+  }
+}

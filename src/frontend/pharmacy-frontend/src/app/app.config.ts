@@ -10,6 +10,7 @@ import { routes } from './app.routes';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { tenantInterceptor } from './core/interceptors/tenant.interceptor';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { provideTranslation } from './core/i18n/translate.provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([authInterceptor, tenantInterceptor, errorInterceptor])
     ),
     provideAnimationsAsync(),
+    provideTranslation(),
     providePrimeNG({
       theme: {
         preset: definePreset(Aura, {
