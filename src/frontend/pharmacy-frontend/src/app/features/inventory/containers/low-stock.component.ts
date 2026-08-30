@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { InventoryService } from '../services/inventory.service';
 import { IngressFormComponent } from '../components/ingress-form.component';
 import { InventoryItem } from '../models/inventory-item.model';
@@ -19,6 +20,7 @@ import { InventoryItem } from '../models/inventory-item.model';
     ButtonModule,
     TagModule,
     ToastModule,
+    TranslatePipe,
     IngressFormComponent,
   ],
   providers: [MessageService],
@@ -27,10 +29,10 @@ import { InventoryItem } from '../models/inventory-item.model';
 
     <div class="page-header">
       <div>
-        <h2>Low Stock Alerts</h2>
-        <small class="text-secondary">{{ inventoryService.lowStockItems().length }} product(s) require attention</small>
+        <h2>{{ 'inventory.lowStock.title' | translate }}</h2>
+        <small class="text-secondary">{{ inventoryService.lowStockItems().length }} {{ 'inventory.lowStock.attention' | translate }}</small>
       </div>
-      <p-button label="Refresh" icon="pi pi-refresh" severity="secondary" [text]="true" (onClick)="refresh()" />
+      <p-button [label]="'inventory.lowStock.refresh' | translate" icon="pi pi-refresh" severity="secondary" [text]="true" (onClick)="refresh()" />
     </div>
 
     <p-table
@@ -40,15 +42,15 @@ import { InventoryItem } from '../models/inventory-item.model';
     >
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="productName">Product <p-sortIcon field="productName" /></th>
-          <th>SKU</th>
-          <th>Category</th>
+          <th pSortableColumn="productName">{{ 'inventory.lowStock.product' | translate }} <p-sortIcon field="productName" /></th>
+          <th>{{ 'inventory.lowStock.sku' | translate }}</th>
+          <th>{{ 'inventory.lowStock.category' | translate }}</th>
           <th style="text-align:right" pSortableColumn="currentStock">
-            Current Stock <p-sortIcon field="currentStock" />
+            {{ 'inventory.lowStock.stock' | translate }} <p-sortIcon field="currentStock" />
           </th>
-          <th style="text-align:right">Threshold</th>
-          <th>Status</th>
-          <th>Actions</th>
+          <th style="text-align:right">{{ 'inventory.lowStock.threshold' | translate }}</th>
+          <th>{{ 'inventory.lowStock.status' | translate }}</th>
+          <th>{{ 'inventory.lowStock.actions' | translate }}</th>
         </tr>
       </ng-template>
 
@@ -63,7 +65,7 @@ import { InventoryItem } from '../models/inventory-item.model';
           <td style="text-align:right" class="text-secondary">{{ item.lowStockThreshold }}</td>
           <td>
             <p-tag
-              [value]="item.currentStock <= 0 ? 'Critical' : 'Low'"
+              [value]="item.currentStock <= 0 ? ('inventory.lowStock.critical' | translate) : ('inventory.lowStock.low' | translate)"
               [severity]="item.currentStock <= 0 ? 'danger' : 'warn'"
             />
           </td>
@@ -73,7 +75,7 @@ import { InventoryItem } from '../models/inventory-item.model';
               [rounded]="true"
               [text]="true"
               severity="success"
-              pTooltip="Record Ingress"
+              [pTooltip]="'inventory.lowStock.recordIngress' | translate"
               (onClick)="openIngress(item)"
             />
             <p-button
@@ -81,7 +83,7 @@ import { InventoryItem } from '../models/inventory-item.model';
               [rounded]="true"
               [text]="true"
               severity="info"
-              pTooltip="View Movements"
+              [pTooltip]="'inventory.lowStock.viewMovements' | translate"
               (onClick)="viewMovements(item)"
             />
           </td>
@@ -92,7 +94,7 @@ import { InventoryItem } from '../models/inventory-item.model';
         <tr>
           <td colspan="7" class="text-center p-4">
             <i class="pi pi-check-circle text-green-500" style="font-size: 1.5rem"></i>
-            <p>All products are adequately stocked.</p>
+            <p>{{ 'inventory.lowStock.allStocked' | translate }}</p>
           </td>
         </tr>
       </ng-template>
@@ -114,6 +116,7 @@ export class LowStockComponent implements OnInit {
   readonly inventoryService = inject(InventoryService);
   private readonly router = inject(Router);
   private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
 
   ingressVisible = false;
   preselectedProductId: string | null = null;
@@ -140,6 +143,10 @@ export class LowStockComponent implements OnInit {
   onSaved(): void {
     this.preselectedProductId = null;
     this.inventoryService.loadLowStock();
-    this.messageService.add({ severity: 'success', summary: 'Ingress Recorded', detail: 'Stock updated successfully.' });
+    this.messageService.add({
+      severity: 'success',
+      summary: this.translate.instant('inventory.lowStock.ingressRecorded'),
+      detail: this.translate.instant('inventory.lowStock.stockUpdated'),
+    });
   }
 }

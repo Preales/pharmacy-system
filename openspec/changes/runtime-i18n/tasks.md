@@ -52,10 +52,10 @@ Chain strategy: feature-branch-chain
 
 ## Phase 3: Inventory + Sales (→ PR 3)
 
-- [ ] 3.1 Migrate `inventory/` components (e.g., `stock-list`, `stock-adjustment`, `movement-history`) — pipe all template strings; add `movement-history.component.ts` TranslateService injection for dynamic strings.
-- [ ] 3.2 Migrate `sales/` components (e.g., `sales-pos`, `cart`, `sales-history`) — pipe template strings; `sales-history.component.ts` uses `instant()` for dynamic column headers.
-- [ ] 3.3 For each static option array in this slice, convert to a getter method returning `{ label: this.translate.instant('key'), value: ... }[]`.
-- [ ] 3.4 Verify no `navigator.language` or raw `LOCALE_ID` references remain in inventory/sales modules.
+- [x] 3.1 Migrate `inventory/` components (e.g., `stock-list`, `stock-adjustment`, `movement-history`) — pipe all template strings; add `movement-history.component.ts` TranslateService injection for dynamic strings.
+- [x] 3.2 Migrate `sales/` components (e.g., `sales-pos`, `cart`, `sales-history`) — pipe template strings; `sales-history.component.ts` uses `instant()` for dynamic column headers.
+- [x] 3.3 For each static option array in this slice, convert to a getter method returning `{ label: this.translate.instant('key'), value: ... }[]`.
+- [x] 3.4 Verify no `navigator.language` or raw `LOCALE_ID` references remain in inventory/sales modules.
 
 ---
 

@@ -4,7 +4,7 @@
 @if (!offlineService.isOnline()) {
   <div class="offline-banner">
     <i class="pi pi-exclamation-triangle"></i>
-    <span>Offline mode — sale will be queued and synced when connection restores.</span>
+    <span>{{ 'sales.pos.offlineBanner' | translate }}</span>
   </div>
 }
 
@@ -17,7 +17,7 @@
         <input
           pInputText
           type="text"
-          placeholder="Search products by name or SKU..."
+          [placeholder]="'sales.pos.search' | translate"
           [(ngModel)]="searchTerm"
           (input)="onSearch()"
           class="w-full"
@@ -41,7 +41,7 @@
               [class.low]="product.stockQuantity <= 5 && product.stockQuantity > 0"
               [class.empty]="product.stockQuantity <= 0"
             >
-              {{ product.stockQuantity <= 0 ? 'Out of stock' : 'Stock: ' + product.stockQuantity }}
+              {{ product.stockQuantity <= 0 ? ('sales.pos.outOfStock' | translate) : (('sales.pos.stockLabel' | translate) + product.stockQuantity) }}
             </span>
           </div>
         </div>
@@ -49,7 +49,7 @@
       @empty {
         <div class="empty-products">
           <i class="pi pi-search"></i>
-          <p>No products found</p>
+          <p>{{ 'sales.pos.noProducts' | translate }}</p>
         </div>
       }
     </div>
@@ -58,16 +58,16 @@
   <!-- Right: Cart -->
   <div class="cart-panel">
     <div class="cart-header">
-      <h3>Cart</h3>
-      <span class="item-count">{{ cartService.itemCount() }} items</span>
+      <h3>{{ 'sales.pos.cart' | translate }}</h3>
+      <span class="item-count">{{ cartService.itemCount() }} {{ 'sales.pos.items' | translate }}</span>
     </div>
 
     <div class="customer-field">
-      <label>Customer (optional)</label>
+      <label>{{ 'sales.pos.customer' | translate }}</label>
       <input
         pInputText
         type="text"
-        placeholder="Customer name"
+        [placeholder]="'sales.pos.customerPlaceholder' | translate"
         [(ngModel)]="customerName"
         (ngModelChange)="cartService.setCustomerName($event)"
         class="w-full"
@@ -79,7 +79,7 @@
         <div class="cart-item">
           <div class="cart-item-info">
             <div class="cart-item-name">{{ item.product.name }}</div>
-            <div class="cart-item-price">{{ item.unitPrice | currency:currencyCode:'symbol':'1.0-0' }} each</div>
+            <div class="cart-item-price">{{ item.unitPrice | currency:currencyCode:'symbol':'1.0-0' }} {{ 'sales.pos.each' | translate }}</div>
           </div>
           <div class="cart-item-controls">
             <p-button
@@ -112,18 +112,18 @@
       @empty {
         <div class="empty-cart">
           <i class="pi pi-shopping-cart"></i>
-          <p>Cart is empty — click a product to add it.</p>
+          <p>{{ 'sales.pos.empty' | translate }}</p>
         </div>
       }
     </div>
 
     <div class="cart-footer">
       <div class="cart-total">
-        <span>Total</span>
+        <span>{{ 'sales.pos.total' | translate }}</span>
         <span class="total-amount">{{ cartService.total() | currency:currencyCode:'symbol':'1.0-0' }}</span>
       </div>
       <p-button
-        label="Complete Sale"
+        [label]="'sales.pos.completeSale' | translate"
         icon="pi pi-check"
         class="w-full"
         [disabled]="cartService.items().length === 0 || submitting()"
@@ -131,7 +131,7 @@
         (onClick)="completeSale()"
       />
       <p-button
-        label="Clear Cart"
+        [label]="'sales.pos.clear' | translate"
         icon="pi pi-times"
         severity="secondary"
         [outlined]="true"

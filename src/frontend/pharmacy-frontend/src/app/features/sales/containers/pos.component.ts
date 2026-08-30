@@ -8,6 +8,7 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Product } from '../../catalog/models/product.model';
 import { PagedResult } from '../../../core/models/shared.models';
 import { CartService } from '../services/cart.service';
@@ -28,6 +29,7 @@ import { AppCurrency } from '../../../core/constants/app.constants';
     CardModule,
     TableModule,
     ToastModule,
+    TranslatePipe,
   ],
   providers: [MessageService],
   templateUrl: './pos.component.html',
@@ -149,6 +151,7 @@ export class PosComponent implements OnInit {
   readonly offlineService = inject(OfflineService);
   private readonly salesService = inject(SalesService);
   private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
   private readonly http = inject(HttpClient);
   private readonly productsUrl = `${environment.apiBaseUrl}/products`;
 
@@ -195,8 +198,8 @@ export class PosComponent implements OnInit {
     if (product.stockQuantity <= 0) {
       this.messageService.add({
         severity: 'warn',
-        summary: 'Out of Stock',
-        detail: `${product.name} is out of stock.`,
+        summary: this.translate.instant('sales.pos.outOfStock'),
+        detail: `${product.name} ${this.translate.instant('sales.pos.outOfStockDetail')}`,
       });
       return;
     }
@@ -240,8 +243,8 @@ export class PosComponent implements OnInit {
           next: () => {
             this.messageService.add({
               severity: 'success',
-              summary: 'Sale Completed',
-              detail: 'Sale processed successfully.',
+              summary: this.translate.instant('sales.pos.saleCompleted'),
+              detail: this.translate.instant('sales.pos.saleSuccess'),
             });
             this.cartService.clear();
             this.customerName = '';
@@ -250,8 +253,8 @@ export class PosComponent implements OnInit {
           error: () => {
             this.messageService.add({
               severity: 'error',
-              summary: 'Sale Failed',
-              detail: 'Could not process sale. Please try again.',
+              summary: this.translate.instant('sales.pos.saleFailed'),
+              detail: this.translate.instant('sales.pos.saleError'),
             });
             this._submitting.set(false);
           },
@@ -260,8 +263,8 @@ export class PosComponent implements OnInit {
         // Offline: queued
         this.messageService.add({
           severity: 'info',
-          summary: 'Sale Queued',
-          detail: 'You are offline. Sale will sync when connection restores.',
+          summary: this.translate.instant('sales.pos.saleQueued'),
+          detail: this.translate.instant('sales.pos.saleQueuedDetail'),
           life: 6000,
         });
         this.cartService.clear();

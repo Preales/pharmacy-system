@@ -11,6 +11,7 @@ import { SelectModule } from 'primeng/select';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SalesService } from '../services/sales.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Sale, SaleStatus, SaleFilter, VoidSaleRequest } from '../models/sale.model';
@@ -31,6 +32,7 @@ import { AppRoles, AppCurrency } from '../../../core/constants/app.constants';
     SelectModule,
     DialogModule,
     InputTextModule,
+    TranslatePipe,
   ],
   providers: [MessageService],
   templateUrl: './sales-history.component.html',
@@ -57,6 +59,7 @@ export class SalesHistoryComponent implements OnInit {
   readonly salesService = inject(SalesService);
   private readonly authService = inject(AuthService);
   private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
 
   /** Exposed constants for template binding */
   readonly currencyCode = AppCurrency.COP;
@@ -76,10 +79,12 @@ export class SalesHistoryComponent implements OnInit {
     ? () => (this.authService.currentUser()?.roles ?? []).includes(AppRoles.Admin)
     : () => false;
 
-  readonly statusOptions = [
-    { label: 'Completed', value: 'Completed' },
-    { label: 'Voided', value: 'Voided' },
-  ];
+  get statusOptions() {
+    return [
+      { label: this.translate.instant('sales.history.completed'), value: 'Completed' },
+      { label: this.translate.instant('sales.history.voided'), value: 'Voided' },
+    ];
+  }
 
   ngOnInit(): void {
     this.loadSales();
@@ -128,11 +133,19 @@ export class SalesHistoryComponent implements OnInit {
     const request: VoidSaleRequest = { reason: this.voidReason.trim() };
     this.salesService.voidSale(this.selectedSale.id, request).subscribe({
       next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Sale Voided', detail: 'Sale has been voided and stock restored.' });
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translate.instant('sales.history.voidSuccess'),
+          detail: this.translate.instant('sales.history.voidSuccessDetail'),
+        });
         this.voidDialogVisible = false;
       },
       error: () => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Could not void sale.' });
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translate.instant('sales.history.voidError'),
+          detail: this.translate.instant('sales.history.voidErrorDetail'),
+        });
       },
     });
   }
