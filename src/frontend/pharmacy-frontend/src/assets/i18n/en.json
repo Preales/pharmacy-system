@@ -70,7 +70,13 @@
       "edit": "Edit Product",
       "deleteConfirm": "Are you sure you want to delete this product?",
       "deleted": "Product deleted",
-      "saved": "Product saved"
+      "saved": "Product saved",
+      "units": {
+        "unit": "Unit",
+        "box": "Box",
+        "blister": "Blister",
+        "bottle": "Bottle"
+      }
     },
     "categories": {
       "title": "Categories",
@@ -92,7 +98,9 @@
       "edit": "Edit Supplier",
       "deleteConfirm": "Are you sure you want to delete this supplier?",
       "deleted": "Supplier deleted",
-      "saved": "Supplier saved"
+      "saved": "Supplier saved",
+      "contactName": "Contact Name",
+      "contactNamePlaceholder": "Contact person"
     }
   },
   "inventory": {
@@ -121,6 +129,25 @@
       "stockUpdated": "Stock updated successfully.",
       "adjustmentApplied": "Adjustment Applied",
       "stockAdjusted": "Stock adjusted successfully."
+    },
+    "dashboard": {
+      "totalProducts": "Total Products",
+      "lowStockAlerts": "Low Stock Alerts",
+      "todayMovements": "Today's Movements",
+      "recordIngress": "Record Ingress",
+      "recordAdjustment": "Record Adjustment",
+      "viewAllStock": "View All Stock",
+      "lowStockSection": "Low Stock Alerts",
+      "lowStockSubtitle": "Products at or below their threshold",
+      "product": "Product",
+      "sku": "SKU",
+      "category": "Category",
+      "currentStock": "Current Stock",
+      "threshold": "Threshold",
+      "status": "Status",
+      "actions": "Actions",
+      "tooltipIngress": "Record Ingress",
+      "allStocked": "No low-stock items — all products are adequately stocked."
     },
     "lowStock": {
       "title": "Low Stock Alerts",
@@ -324,36 +351,52 @@
   "reports": {
     "dashboard": {
       "title": "Reports Dashboard",
-      "sales": "Sales Report",
-      "inventory": "Inventory Report",
-      "viewSales": "View Sales Report",
-      "viewInventory": "View Inventory Report",
-      "conflicts": "Conflict Alerts",
-      "viewConflicts": "View →"
+      "salesToday": "Sales Today",
+      "revenueToday": "Revenue Today",
+      "salesThisMonth": "Sales This Month",
+      "avgTicket": "Avg Ticket (Month)",
+      "lowStockProducts": "Low Stock Products",
+      "pendingConflicts": "Pending Conflict Alerts",
+      "viewConflicts": "View →",
+      "top5Title": "Top 5 Products This Month",
+      "product": "Product",
+      "qtySold": "Qty Sold",
+      "revenue": "Revenue",
+      "noSales": "No sales this month",
+      "noData": "No data available"
     },
     "salesReport": {
       "title": "Sales Report",
-      "period": "Period",
       "from": "From",
       "to": "To",
-      "apply": "Apply",
+      "loadReport": "Load Report",
       "totalSales": "Total Sales",
       "totalRevenue": "Total Revenue",
-      "averageSale": "Average Sale",
+      "averageTicket": "Average Ticket",
+      "dailySales": "Daily Sales",
       "topProducts": "Top Products",
       "product": "Product",
-      "quantity": "Units Sold",
-      "revenue": "Revenue"
+      "qtySold": "Qty Sold",
+      "revenue": "Revenue",
+      "noData": "No data"
     },
     "inventoryReport": {
       "title": "Inventory Report",
       "totalProducts": "Total Products",
-      "lowStockCount": "Low Stock Items",
-      "totalValue": "Total Value",
-      "byCategory": "By Category",
-      "category": "Category",
-      "products": "Products",
-      "value": "Value"
+      "lowStock": "Low Stock",
+      "zeroStock": "Zero Stock",
+      "totalStockValue": "Total Stock Value",
+      "tableTitle": "Low Stock & Zero Stock Products",
+      "product": "Product",
+      "sku": "SKU",
+      "currentStock": "Current Stock",
+      "threshold": "Threshold",
+      "costPrice": "Cost Price",
+      "status": "Status",
+      "tagZeroStock": "Zero Stock",
+      "tagLowStock": "Low Stock",
+      "allHealthy": "All products have healthy stock levels",
+      "noData": "No data available"
     }
   },
   "users": {
@@ -382,6 +425,20 @@
       "role": "Role",
       "save": "Save",
       "cancel": "Cancel"
+    }
+  },
+  "core": {
+    "sync": {
+      "online": "Online",
+      "offline": "Offline",
+      "pending": "pending",
+      "syncNow": "Sync Now"
+    },
+    "unauthorized": {
+      "title": "Access Denied",
+      "message": "You do not have permission to access this page. Please contact your administrator if you believe this is an error.",
+      "goToCatalog": "Go to Catalog",
+      "goToPos": "Go to POS"
     }
   }
 }

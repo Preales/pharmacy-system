@@ -1,11 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
 import { MessageService } from 'primeng/api';
 import { InventoryService } from '../services/inventory.service';
 import { IngressFormComponent } from '../components/ingress-form.component';
@@ -18,11 +20,13 @@ import { StockStatus } from '../models/inventory-item.model';
   imports: [
     CommonModule,
     RouterLink,
+    TranslatePipe,
     CardModule,
     TableModule,
     ButtonModule,
     TagModule,
     ToastModule,
+    TooltipModule,
     IngressFormComponent,
     AdjustmentFormComponent,
   ],
@@ -36,7 +40,7 @@ import { StockStatus } from '../models/inventory-item.model';
         <div class="summary-content">
           <i class="pi pi-box summary-icon"></i>
           <div>
-            <div class="summary-label">Total Products</div>
+            <div class="summary-label">{{ 'inventory.dashboard.totalProducts' | translate }}</div>
             <div class="summary-value">{{ inventoryService.items().totalCount }}</div>
           </div>
         </div>
@@ -46,7 +50,7 @@ import { StockStatus } from '../models/inventory-item.model';
         <div class="summary-content">
           <i class="pi pi-exclamation-triangle summary-icon"></i>
           <div>
-            <div class="summary-label">Low Stock Alerts</div>
+            <div class="summary-label">{{ 'inventory.dashboard.lowStockAlerts' | translate }}</div>
             <div class="summary-value text-orange-500">{{ inventoryService.lowStockCount() }}</div>
           </div>
         </div>
@@ -56,7 +60,7 @@ import { StockStatus } from '../models/inventory-item.model';
         <div class="summary-content">
           <i class="pi pi-history summary-icon"></i>
           <div>
-            <div class="summary-label">Today's Movements</div>
+            <div class="summary-label">{{ 'inventory.dashboard.todayMovements' | translate }}</div>
             <div class="summary-value">{{ todayMovements }}</div>
           </div>
         </div>
@@ -66,18 +70,18 @@ import { StockStatus } from '../models/inventory-item.model';
     <!-- Quick actions -->
     <div class="actions-bar">
       <p-button
-        label="Record Ingress"
+        [label]="'inventory.dashboard.recordIngress' | translate"
         icon="pi pi-arrow-down"
         (onClick)="ingressVisible = true"
       />
       <p-button
-        label="Record Adjustment"
+        [label]="'inventory.dashboard.recordAdjustment' | translate"
         icon="pi pi-pencil"
         severity="secondary"
         (onClick)="adjustmentVisible = true"
       />
       <p-button
-        label="View All Stock"
+        [label]="'inventory.dashboard.viewAllStock' | translate"
         icon="pi pi-list"
         severity="info"
         [text]="true"
@@ -87,8 +91,8 @@ import { StockStatus } from '../models/inventory-item.model';
 
     <!-- Low stock alerts table -->
     <div class="section-header">
-      <h3>Low Stock Alerts</h3>
-      <small class="text-secondary">Products at or below their threshold</small>
+      <h3>{{ 'inventory.dashboard.lowStockSection' | translate }}</h3>
+      <small class="text-secondary">{{ 'inventory.dashboard.lowStockSubtitle' | translate }}</small>
     </div>
 
     <p-table
@@ -98,13 +102,13 @@ import { StockStatus } from '../models/inventory-item.model';
     >
       <ng-template pTemplate="header">
         <tr>
-          <th>Product</th>
-          <th>SKU</th>
-          <th>Category</th>
-          <th style="text-align:right">Current Stock</th>
-          <th style="text-align:right">Threshold</th>
-          <th>Status</th>
-          <th>Actions</th>
+          <th>{{ 'inventory.dashboard.product' | translate }}</th>
+          <th>{{ 'inventory.dashboard.sku' | translate }}</th>
+          <th>{{ 'inventory.dashboard.category' | translate }}</th>
+          <th style="text-align:right">{{ 'inventory.dashboard.currentStock' | translate }}</th>
+          <th style="text-align:right">{{ 'inventory.dashboard.threshold' | translate }}</th>
+          <th>{{ 'inventory.dashboard.status' | translate }}</th>
+          <th>{{ 'inventory.dashboard.actions' | translate }}</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-item>
@@ -128,7 +132,7 @@ import { StockStatus } from '../models/inventory-item.model';
               [rounded]="true"
               [text]="true"
               severity="success"
-              pTooltip="Record Ingress"
+              [pTooltip]="'inventory.dashboard.tooltipIngress' | translate"
               (onClick)="openIngressFor(item.productId)"
             />
           </td>
@@ -138,7 +142,7 @@ import { StockStatus } from '../models/inventory-item.model';
         <tr>
           <td colspan="7" class="text-center p-4">
             <i class="pi pi-check-circle text-green-500"></i>
-            No low-stock items — all products are adequately stocked.
+            {{ 'inventory.dashboard.allStocked' | translate }}
           </td>
         </tr>
       </ng-template>
@@ -175,6 +179,7 @@ import { StockStatus } from '../models/inventory-item.model';
 export class InventoryDashboardComponent implements OnInit {
   readonly inventoryService = inject(InventoryService);
   private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
 
   ingressVisible = false;
   adjustmentVisible = false;
@@ -209,11 +214,19 @@ export class InventoryDashboardComponent implements OnInit {
   onIngressSaved(): void {
     this.preselectedProductId = null;
     this.inventoryService.loadLowStock();
-    this.messageService.add({ severity: 'success', summary: 'Ingress Recorded', detail: 'Stock updated successfully.' });
+    this.messageService.add({
+      severity: 'success',
+      summary: this.translate.instant('inventory.stock.ingressRecorded'),
+      detail: this.translate.instant('inventory.stock.stockUpdated'),
+    });
   }
 
   onAdjustmentSaved(): void {
     this.inventoryService.loadLowStock();
-    this.messageService.add({ severity: 'success', summary: 'Adjustment Applied', detail: 'Stock adjusted successfully.' });
+    this.messageService.add({
+      severity: 'success',
+      summary: this.translate.instant('inventory.stock.adjustmentApplied'),
+      detail: this.translate.instant('inventory.stock.stockAdjusted'),
+    });
   }
 }

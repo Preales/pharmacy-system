@@ -38,8 +38,8 @@ import { SupplierService } from '../services/supplier.service';
         </div>
 
         <div class="field">
-          <label for="supContact">Contact Name</label>
-          <input id="supContact" pInputText formControlName="contactName" placeholder="Contact person" class="w-full" />
+          <label for="supContact">{{ 'catalog.suppliers.contactName' | translate }}</label>
+          <input id="supContact" pInputText formControlName="contactName" [placeholder]="'catalog.suppliers.contactNamePlaceholder' | translate" class="w-full" />
         </div>
 
         <div class="field">

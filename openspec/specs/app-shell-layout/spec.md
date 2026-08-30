@@ -24,7 +24,7 @@ The system MUST include `AppHeaderComponent` as a distinct header slot inside `A
 
 ### Requirement: Sidebar Active Pill Style
 
-The system MUST style the active sidebar navigation item as a pill with a left-border accent in the brand primary color (`#15803D`). No blue fallback MUST be visible.
+The system MUST style the active sidebar navigation item as a pill with a left-border accent in the brand primary color (`#15803D`). No blue fallback MUST be visible. Role-gated nav items MUST be conditionally rendered via `hasRole()` — NOT CSS-hidden. Reports nav item MUST be visible to Admin and Pharmacist only. Users nav item MUST be visible to Admin only.
 
 | Property | Value |
 |----------|-------|
@@ -50,3 +50,39 @@ The system MUST style the active sidebar navigation item as a pill with a left-b
 - GIVEN prior CSS used `var(--primary-50, #e3f2fd)` for active state
 - WHEN the new sidebar SCSS is applied
 - THEN no blue color appears in active or hover states
+
+#### Scenario: Reports item hidden from Cashier
+
+- GIVEN a user with role Cashier
+- WHEN `AppSidebarComponent` renders
+- THEN the Reports nav item is absent from the DOM
+
+#### Scenario: Admin sees Reports and Users nav items
+
+- GIVEN a user with role Admin
+- WHEN `AppSidebarComponent` renders
+- THEN both Reports and Users nav items are present in the DOM
+
+### Requirement: Language Toggle in AppHeaderComponent
+
+`AppHeaderComponent` MUST include a language toggle control that displays the current language as a flag or short code (`EN` / `ES`). Clicking the control MUST call `TranslateService.use()` with the alternate language and persist the selection to `localStorage` under key `pharmacy-lang`. The toggle MUST appear alongside the existing dark-mode toggle in the header.
+
+#### Scenario: Toggle visible in header
+
+- GIVEN the user is authenticated and `AppShellComponent` renders
+- WHEN `AppHeaderComponent` is displayed
+- THEN a language toggle button showing the current language code (EN or ES) is visible
+
+#### Scenario: Toggle switches language
+
+- GIVEN the app is in English
+- WHEN the user clicks the language toggle
+- THEN `TranslateService.use('es')` is called
+- AND `localStorage.setItem('pharmacy-lang', 'es')` is set
+- AND the toggle label updates to reflect the new language
+
+#### Scenario: Toggle reflects persisted language on load
+
+- GIVEN `localStorage` has `pharmacy-lang = 'es'`
+- WHEN the header renders
+- THEN the language toggle shows `ES` as the active language

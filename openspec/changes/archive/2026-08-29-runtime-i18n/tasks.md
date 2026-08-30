@@ -61,11 +61,11 @@ Chain strategy: feature-branch-chain
 
 ## Phase 4: Reports + Users + Cleanup (→ PR 4)
 
-- [ ] 4.1 Migrate `reports/` components — pipe all template strings; use `instant()` for chart labels and export column headers.
-- [ ] 4.2 Migrate `users/` components (`user-list`, `user-form`, `profile`) — pipe all template strings.
-- [ ] 4.3 Remove any remaining hardcoded Spanish strings across all 23 components (global search for literal `'Guardar'`, `'Cancelar'`, etc.).
-- [ ] 4.4 Remove `LOCALE_ID` provider from any module-level or lazy-loaded providers if still present.
-- [ ] 4.5 Verify `assets/i18n/en.json` and `es.json` have 1:1 key parity (no missing keys in either file).
+- [x] 4.1 Migrate `reports/` components — pipe all template strings; use `instant()` for chart labels and export column headers.
+- [x] 4.2 Migrate `users/` components (`user-list`, `user-form`, `profile`) — NOTE: users feature does not exist in codebase; JSON keys are pre-populated for future implementation; task marked complete as no components to migrate.
+- [x] 4.3 Remove any remaining hardcoded Spanish strings across all 23 components (global search for literal `'Guardar'`, `'Cancelar'`, etc.). Also migrated: `sync-status-bar`, `unauthorized`, `supplier-form` (Contact Name), `inventory-dashboard` (full template + toast strings).
+- [x] 4.4 Remove `LOCALE_ID` provider from any module-level or lazy-loaded providers if still present. Verified: no `LOCALE_ID` references found.
+- [x] 4.5 Verify `assets/i18n/en.json` and `es.json` have 1:1 key parity (no missing keys in either file). Added: `catalog.products.units.*`, `catalog.suppliers.contactName/contactNamePlaceholder`, `inventory.dashboard.*`, `core.sync.*`, `core.unauthorized.*`, expanded `reports.*`.
 - [ ] 4.6 Update `README.md` or inline developer docs with the `pharmacy-lang` localStorage key and resolution order.
 
 ---
