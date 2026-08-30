@@ -10,6 +10,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TooltipModule } from 'primeng/tooltip';
 import { Product, ProductFilter } from '../models/product.model';
 import { Category } from '../models/category.model';
 import { ProductService } from '../services/product.service';
@@ -35,6 +36,7 @@ interface SelectOption { label: string; value: string; }
     ToastModule,
     ProductFormComponent,
     TranslateModule,
+    TooltipModule,
   ],
   providers: [ConfirmationService, MessageService],
   template: `

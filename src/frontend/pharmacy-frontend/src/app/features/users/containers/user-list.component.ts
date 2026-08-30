@@ -8,6 +8,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { TranslateModule } from '@ngx-translate/core';
+import { TooltipModule } from 'primeng/tooltip';
 import { UserModel } from '../models/user.model';
 import { UserService } from '../services/user.service';
 import { UserFormComponent } from '../components/user-form.component';
@@ -27,6 +29,8 @@ import { AppRoles, Pagination } from '../../../core/constants/app.constants';
     ConfirmDialogModule,
     ToastModule,
     UserFormComponent,
+    TranslateModule,
+    TooltipModule,
   ],
   providers: [ConfirmationService, MessageService],
   template: `

@@ -7,6 +7,7 @@ import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TooltipModule } from 'primeng/tooltip';
 import { InventoryService } from '../services/inventory.service';
 import { IngressFormComponent } from '../components/ingress-form.component';
 import { InventoryItem } from '../models/inventory-item.model';
@@ -21,6 +22,7 @@ import { InventoryItem } from '../models/inventory-item.model';
     TagModule,
     ToastModule,
     TranslateModule,
+    TooltipModule,
     IngressFormComponent,
   ],
   providers: [MessageService],

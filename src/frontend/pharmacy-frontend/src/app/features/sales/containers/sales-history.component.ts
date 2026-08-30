@@ -12,6 +12,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TooltipModule } from 'primeng/tooltip';
 import { SalesService } from '../services/sales.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Sale, SaleStatus, SaleFilter, VoidSaleRequest } from '../models/sale.model';
@@ -33,6 +34,7 @@ import { AppRoles, AppCurrency } from '../../../core/constants/app.constants';
     DialogModule,
     InputTextModule,
     TranslateModule,
+    TooltipModule,
   ],
   providers: [MessageService],
   templateUrl: './sales-history.component.html',
