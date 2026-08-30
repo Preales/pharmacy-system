@@ -7,7 +7,7 @@ import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { MessageService } from 'primeng/api';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ConflictAlertsService } from '../services/conflict-alerts.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { ConflictAlert, ConflictAlertFilter } from '../models/conflict-alert.model';
@@ -24,7 +24,7 @@ import { AppRoles } from '../../../core/constants/app.constants';
     TagModule,
     ToastModule,
     ToggleSwitchModule,
-    TranslatePipe,
+    TranslateModule,
   ],
   providers: [MessageService],
   template: `

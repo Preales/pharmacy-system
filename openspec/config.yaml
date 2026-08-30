@@ -7,6 +7,7 @@ context: |
     MediatR, EF Core 10, SQL Server). Frontend uses Angular 19 standalone
     components, signals, PrimeNG Material theme, Dexie.js for offline IndexedDB.
     Deployment: Docker Compose (SQL Server + API + nginx-served frontend).
+  Testing: xUnit (backend, unit + integration), Karma/Jest (frontend, planned). Strict TDD active.
   Architecture: modular-monolith with Clean Architecture (4 projects: Domain /
     Application / Infrastructure / API). Bounded contexts: Identity/Auth,
     Catalog, Inventory, Sales (+ Reports, Cross-cutting). Multi-tenancy via
@@ -32,8 +33,8 @@ rules:
     - No AutoMapper or Mapster — use manual extension method mapping only
     - Single source of truth for stock is InventoryItem.CurrentStock
     - EF owned entities must be excluded from global query filter (IsOwned() guard)
-    tdd: false
-    test_command: ""
+    tdd: true
+    test_command: "dotnet test src/backend/PharmacySystem.sln"
   verify:
     test_command: ""
     build_command: "dotnet build src/backend/PharmacySystem.sln"

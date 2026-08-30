@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { BadgeModule } from 'primeng/badge';
 import { TagModule } from 'primeng/tag';
@@ -9,7 +9,7 @@ import { OfflineService } from '../offline/offline.service';
 @Component({
   selector: 'app-sync-status-bar',
   standalone: true,
-  imports: [CommonModule, TranslatePipe, ButtonModule, BadgeModule, TagModule],
+  imports: [CommonModule, TranslateModule, ButtonModule, BadgeModule, TagModule],
   template: `
     <div class="sync-status-bar" [class.offline]="!offlineService.isOnline()">
       <div class="status-indicator">

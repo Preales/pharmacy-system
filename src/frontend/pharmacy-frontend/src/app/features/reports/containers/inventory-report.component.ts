@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, computed } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
@@ -13,7 +13,7 @@ import { LowStockProduct } from '../models/report.model';
 @Component({
   selector: 'app-inventory-report',
   standalone: true,
-  imports: [DecimalPipe, TranslatePipe, CardModule, TableModule, TagModule, ButtonModule, ProgressSpinnerModule, RouterLink],
+  imports: [DecimalPipe, TranslateModule, CardModule, TableModule, TagModule, ButtonModule, ProgressSpinnerModule, RouterLink],
   template: `
     @if (service.loading()) {
       <div class="flex justify-center p-8">

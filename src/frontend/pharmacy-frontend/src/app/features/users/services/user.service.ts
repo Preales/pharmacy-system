@@ -19,9 +19,13 @@ export class UserService {
   readonly users = signal<PagedResult<UserModel>>({
     items: [],
     totalCount: 0,
-    pageNumber: 1,
+    page: 1,
     pageSize: Pagination.DefaultPageSize,
     totalPages: 0,
+    hasNextPage: false,
+    hasPreviousPage: false,
+    hasNextPage: false,
+    hasPreviousPage: false,
   });
   readonly loading = signal(false);
 

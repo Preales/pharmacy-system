@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { SelectModule } from 'primeng/select';
 import { CalendarModule } from 'primeng/calendar';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { InventoryService } from '../services/inventory.service';
 import { MovementType } from '../models/inventory-item.model';
 import { Pagination } from '../../../core/constants/app.constants';
@@ -26,7 +26,7 @@ interface SelectOption { label: string; value: string | null; }
     TagModule,
     SelectModule,
     CalendarModule,
-    TranslatePipe,
+    TranslateModule,
   ],
   template: `
     <div class="page-header">

@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
@@ -20,7 +20,7 @@ import { StockStatus } from '../models/inventory-item.model';
   imports: [
     CommonModule,
     RouterLink,
-    TranslatePipe,
+    TranslateModule,
     CardModule,
     TableModule,
     ButtonModule,

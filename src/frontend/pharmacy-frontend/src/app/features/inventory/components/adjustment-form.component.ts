@@ -16,7 +16,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import { TagModule } from 'primeng/tag';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { InventoryService } from '../services/inventory.service';
 import { ProductService } from '../../catalog/services/product.service';
 import { Product } from '../../catalog/models/product.model';
@@ -43,7 +43,7 @@ function minLength(min: number) {
     SelectModule,
     TextareaModule,
     TagModule,
-    TranslatePipe,
+    TranslateModule,
   ],
   template: `
     <p-dialog

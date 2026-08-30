@@ -6,7 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { InventoryService } from '../services/inventory.service';
 import { IngressFormComponent } from '../components/ingress-form.component';
 import { InventoryItem } from '../models/inventory-item.model';
@@ -20,7 +20,7 @@ import { InventoryItem } from '../models/inventory-item.model';
     ButtonModule,
     TagModule,
     ToastModule,
-    TranslatePipe,
+    TranslateModule,
     IngressFormComponent,
   ],
   providers: [MessageService],

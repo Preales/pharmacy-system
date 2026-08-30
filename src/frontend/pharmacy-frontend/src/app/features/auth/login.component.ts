@@ -9,7 +9,7 @@ import { CardModule } from 'primeng/card';
 import { MessageModule } from 'primeng/message';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/services/auth.service';
 import { TenantSummaryDto } from '../../core/models/auth.model';
 
@@ -28,7 +28,7 @@ type LoginState = 'idle' | 'resolvingTenant' | 'tenantPicker' | 'awaitingPasswor
     CardModule,
     MessageModule,
     RadioButtonModule,
-    TranslatePipe,
+    TranslateModule,
   ],
   template: `
     <div class="login-wrapper">

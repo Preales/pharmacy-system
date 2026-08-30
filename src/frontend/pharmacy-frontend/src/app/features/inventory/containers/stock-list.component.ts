@@ -8,7 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { InventoryService } from '../services/inventory.service';
 import { IngressFormComponent } from '../components/ingress-form.component';
 import { AdjustmentFormComponent } from '../components/adjustment-form.component';
@@ -26,7 +26,7 @@ import { Pagination } from '../../../core/constants/app.constants';
     InputTextModule,
     TagModule,
     ToastModule,
-    TranslatePipe,
+    TranslateModule,
     IngressFormComponent,
     AdjustmentFormComponent,
   ],

@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Supplier, CreateSupplierRequest, UpdateSupplierRequest } from '../models/supplier.model';
 import { SupplierService } from '../services/supplier.service';
 
@@ -19,7 +19,7 @@ import { SupplierService } from '../services/supplier.service';
     ButtonModule,
     InputTextModule,
     CheckboxModule,
-    TranslatePipe,
+    TranslateModule,
   ],
   template: `
     <p-dialog

@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, computed } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
@@ -11,7 +11,7 @@ import { ReportsService } from '../services/reports.service';
 @Component({
   selector: 'app-reports-dashboard',
   standalone: true,
-  imports: [DecimalPipe, TranslatePipe, CardModule, ChartModule, TableModule, ProgressSpinnerModule, RouterLink],
+  imports: [DecimalPipe, TranslateModule, CardModule, ChartModule, TableModule, ProgressSpinnerModule, RouterLink],
   template: `
     @if (service.loading()) {
       <div class="flex justify-center p-8">

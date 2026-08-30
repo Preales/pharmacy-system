@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-unauthorized',
   standalone: true,
-  imports: [CardModule, ButtonModule, RouterLink, TranslatePipe],
+  imports: [CardModule, ButtonModule, RouterLink, TranslateModule],
   template: `
     <div class="flex justify-center items-center min-h-screen bg-surface-100">
       <p-card styleClass="w-full max-w-md text-center p-6">

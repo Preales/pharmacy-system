@@ -6,7 +6,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { CheckboxModule } from 'primeng/checkbox';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Category, CreateCategoryRequest, UpdateCategoryRequest } from '../models/category.model';
 import { CategoryService } from '../services/category.service';
 
@@ -21,7 +21,7 @@ import { CategoryService } from '../services/category.service';
     InputTextModule,
     TextareaModule,
     CheckboxModule,
-    TranslatePipe,
+    TranslateModule,
   ],
   template: `
     <p-dialog

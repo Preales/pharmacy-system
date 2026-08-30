@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, computed, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
@@ -16,7 +16,7 @@ import { ReportsService } from '../services/reports.service';
   imports: [
     DecimalPipe,
     FormsModule,
-    TranslatePipe,
+    TranslateModule,
     CardModule,
     ChartModule,
     TableModule,

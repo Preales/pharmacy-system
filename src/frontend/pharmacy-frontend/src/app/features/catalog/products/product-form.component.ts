@@ -17,7 +17,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectModule } from 'primeng/select';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TextareaModule } from 'primeng/textarea';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Product, CreateProductRequest, UpdateProductRequest, ProductUnit } from '../models/product.model';
 import { Category } from '../models/category.model';
 import { Supplier } from '../models/supplier.model';
@@ -46,7 +46,7 @@ const UNIT_VALUES: ProductUnit[] = ['Unit', 'Box', 'Blister', 'Bottle'];
     SelectModule,
     CheckboxModule,
     TextareaModule,
-    TranslatePipe,
+    TranslateModule,
   ],
   templateUrl: './product-form.component.html',
   styles: `

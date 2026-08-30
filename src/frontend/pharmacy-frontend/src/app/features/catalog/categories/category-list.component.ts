@@ -8,7 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Category } from '../models/category.model';
 import { CategoryService } from '../services/category.service';
 import { CategoryFormComponent } from './category-form.component';
@@ -26,7 +26,7 @@ import { CategoryFormComponent } from './category-form.component';
     ConfirmDialogModule,
     ToastModule,
     CategoryFormComponent,
-    TranslatePipe,
+    TranslateModule,
   ],
   providers: [ConfirmationService, MessageService],
   template: `

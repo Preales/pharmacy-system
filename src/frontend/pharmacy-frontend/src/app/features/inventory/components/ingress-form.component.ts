@@ -16,7 +16,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { InventoryService } from '../services/inventory.service';
 import { ProductService } from '../../catalog/services/product.service';
 import { SupplierService } from '../../catalog/services/supplier.service';
@@ -38,7 +38,7 @@ interface SelectOption { label: string; value: string; }
     InputTextModule,
     SelectModule,
     TextareaModule,
-    TranslatePipe,
+    TranslateModule,
   ],
   template: `
     <p-dialog

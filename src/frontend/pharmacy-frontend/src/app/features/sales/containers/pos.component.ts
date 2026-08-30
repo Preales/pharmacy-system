@@ -8,7 +8,7 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Product } from '../../catalog/models/product.model';
 import { PagedResult } from '../../../core/models/shared.models';
 import { CartService } from '../services/cart.service';
@@ -29,7 +29,7 @@ import { AppCurrency } from '../../../core/constants/app.constants';
     CardModule,
     TableModule,
     ToastModule,
-    TranslatePipe,
+    TranslateModule,
   ],
   providers: [MessageService],
   templateUrl: './pos.component.html',
