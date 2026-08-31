@@ -45,14 +45,12 @@ import { AppRoles, Pagination } from '../../../core/constants/app.constants';
     </div>
 
     <p-table
-      [value]="userService.users().items"
+      [value]="userService.users()"
       [loading]="userService.loading()"
-      [lazy]="true"
       [paginator]="true"
       [rows]="pageSize"
-      [totalRecords]="userService.users().totalCount"
-      (onPage)="onPage($event)"
-      [showCurrentPageReport]="userService.users().totalCount > 0"
+      [totalRecords]="userService.users().length"
+      [showCurrentPageReport]="userService.users().length > 0"
       currentPageReportTemplate="{first}–{last} of {totalRecords}"
       [rowsPerPageOptions]="pageSizeOptions"
       styleClass="p-datatable-striped"
@@ -138,7 +136,6 @@ export class UserListComponent implements OnInit {
 
   formVisible = false;
   pageSize = Pagination.DefaultPageSize;
-  currentPage = 1;
 
   readonly editTarget = signal<UserModel | null>(null);
   readonly changeRoleTarget = signal<UserModel | null>(null);
@@ -148,17 +145,7 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadUsers();
-  }
-
-  private loadUsers(): void {
-    this.userService.loadAll(this.currentPage, this.pageSize);
-  }
-
-  onPage(event: { first: number; rows: number }): void {
-    this.pageSize = event.rows;
-    this.currentPage = Math.floor(event.first / event.rows) + 1;
-    this.loadUsers();
+    this.userService.loadAll();
   }
 
   openCreate(): void {
@@ -180,7 +167,7 @@ export class UserListComponent implements OnInit {
   }
 
   onSaved(): void {
-    this.loadUsers();
+    this.userService.loadAll();
     this.messageService.add({ severity: 'success', summary: this.translate.instant('common.save'), detail: this.translate.instant('users.list.saved') });
   }
 
