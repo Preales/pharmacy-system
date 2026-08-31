@@ -13,6 +13,11 @@
     "active": "Active",
     "inactive": "Inactive",
     "yes": "Yes",
+    "roles": {
+      "Admin": "Admin",
+      "Pharmacist": "Pharmacist",
+      "Clerk": "Cashier"
+    },
     "no": "No",
     "close": "Close",
     "add": "Add",

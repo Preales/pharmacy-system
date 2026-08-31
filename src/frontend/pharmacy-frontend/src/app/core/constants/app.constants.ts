@@ -1,7 +1,7 @@
 export const AppRoles = {
   Admin: 'Admin',
   Pharmacist: 'Pharmacist',
-  Cashier: 'Cashier',
+  Cashier: 'Clerk',   // backend stores as 'Clerk' — display label handled in i18n
 } as const;
 
 export const AppStatus = {

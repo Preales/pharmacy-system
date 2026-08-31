@@ -21,7 +21,13 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         userMessage = 'Unable to connect to the server. Please check your connection.';
       } else if (error.error && typeof error.error === 'object') {
         const problem = error.error as ProblemDetails;
-        userMessage = problem.detail ?? problem.title ?? userMessage;
+        // FluentValidation returns errors as { "Field": ["msg1", "msg2"] }
+        if (problem.errors && Object.keys(problem.errors).length > 0) {
+          const messages = Object.values(problem.errors).flat();
+          userMessage = messages.join(' ');
+        } else {
+          userMessage = problem.detail ?? problem.title ?? userMessage;
+        }
       } else {
         switch (error.status) {
           case 400:

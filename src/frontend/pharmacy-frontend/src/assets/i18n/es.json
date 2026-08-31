@@ -16,6 +16,11 @@
     "no": "No",
     "close": "Cerrar",
     "add": "Agregar",
+    "roles": {
+      "Admin": "Administrador",
+      "Pharmacist": "Farmacéutico",
+      "Clerk": "Cajero"
+    },
     "name": "Nombre",
     "email": "Correo",
     "role": "Rol",

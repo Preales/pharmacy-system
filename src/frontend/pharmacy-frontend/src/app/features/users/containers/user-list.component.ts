@@ -69,7 +69,7 @@ import { AppRoles, Pagination } from '../../../core/constants/app.constants';
         <tr>
           <td>{{ user.firstName }} {{ user.lastName }}</td>
           <td>{{ user.email }}</td>
-          <td>{{ user.role }}</td>
+          <td>{{ ('common.roles.' + user.role) | translate }}</td>
           <td>
             <p-tag
               [value]="user.isActive ? ('common.active' | translate) : ('common.inactive' | translate)"

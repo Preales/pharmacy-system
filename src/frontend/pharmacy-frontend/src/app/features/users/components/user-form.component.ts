@@ -186,7 +186,7 @@ export class UserFormComponent implements OnChanges {
   readonly roleOptions: RoleOption[] = [
     { label: 'Admin', value: AppRoles.Admin },
     { label: 'Pharmacist', value: AppRoles.Pharmacist },
-    { label: 'Cashier', value: AppRoles.Cashier },
+    { label: 'Cashier', value: AppRoles.Cashier },  // value = 'Clerk' (backend name)
   ];
 
   readonly userForm = this.fb.group({
