@@ -21,19 +21,19 @@ export const SALES_ROUTES: Routes = [
           ),
       },
       {
-        path: ':id',
-        loadComponent: () =>
-          import('./containers/sale-detail.component').then(
-            (m) => m.SaleDetailComponent
-          ),
-      },
-      {
         path: 'conflict-alerts',
         canActivate: [roleGuard],
         data: { roles: [AppRoles.Admin, AppRoles.Pharmacist] },
         loadComponent: () =>
           import('./containers/conflict-alerts.component').then(
             (m) => m.ConflictAlertsComponent
+          ),
+      },
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('./containers/sale-detail.component').then(
+            (m) => m.SaleDetailComponent
           ),
       },
       {
