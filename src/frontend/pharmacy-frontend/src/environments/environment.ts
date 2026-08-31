@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
-  apiBaseUrl: '/api/v1',
+  production: false,
+  apiBaseUrl: 'http://localhost:5000/api/v1',
   appName: 'Pharmacy Management System',
 };

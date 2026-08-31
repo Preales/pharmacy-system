@@ -1,5 +1,7 @@
 import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 interface ProblemDetails {
   type?: string;
@@ -10,6 +12,7 @@ interface ProblemDetails {
 }
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+  const authService = inject(AuthService);
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       let userMessage = 'An unexpected error occurred';
@@ -26,7 +29,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             break;
           case 401:
             userMessage = 'Your session has expired. Please log in again.';
-            localStorage.removeItem('access_token');
+            authService.logout();
             break;
           case 403:
             userMessage = 'You do not have permission to perform this action.';

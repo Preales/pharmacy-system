@@ -115,6 +115,7 @@ interface RoleOption {
               optionValue="value"
               placeholder="Select role"
               styleClass="w-full"
+              [appendTo]="'body'"
               [class.ng-invalid]="isInvalid('role')"
             />
             @if (isInvalid('role')) {
@@ -141,6 +142,7 @@ interface RoleOption {
               optionValue="value"
               placeholder="Select new role"
               styleClass="w-full"
+              [appendTo]="'body'"
               [class.ng-invalid]="isRoleFormInvalid('newRole')"
             />
             @if (isRoleFormInvalid('newRole')) {

@@ -60,8 +60,8 @@ export class InventoryService {
   }
 
   loadLowStock(): void {
-    this.http.get<InventoryItem[]>(`${this.baseUrl}/low-stock`).subscribe({
-      next: (data) => this.lowStockItems.set(data),
+    this.http.get<PagedResult<InventoryItem>>(`${this.baseUrl}/low-stock`).subscribe({
+      next: (data) => this.lowStockItems.set(data.items),
       error: () => {},
     });
   }
